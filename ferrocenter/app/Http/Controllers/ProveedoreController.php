@@ -92,9 +92,14 @@ class ProveedoreController extends Controller
      */
     public function update(Request $request, Proveedore $proveedore)
     {
-        request()->validate(Proveedore::$rules);
+        // request()->validate(Proveedore::$rules);
+        // $proveedore->update($request->all());
 
-        $proveedore->update($request->all());
+        $proveedore->nombre_proveedor = $request->nombre_proveedor;
+        $proveedore->direccion_proveedor  = $request->direccion_proveedor;
+        $proveedore->telefono_proveedor = $request->telefono_proveedor;
+        $proveedore->email_proveedor  = $request->email_proveedor;
+        $proveedore->save();
 
         return redirect()->route('proveedores.index')
             ->with('success', 'Proveedore updated successfully');

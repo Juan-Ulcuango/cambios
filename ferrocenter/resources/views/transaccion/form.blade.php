@@ -11,7 +11,7 @@
 <div class="form-group mb-3">
     <label class="form-label">   {{ Form::label('fecha_transaccion') }}</label>
     <div>
-        {{ Form::text('fecha_transaccion', $transaccion->fecha_transaccion, ['class' => 'form-control' .
+        {{ Form::date('fecha_transaccion', $transaccion->fecha_transaccion, ['class' => 'form-control' .
         ($errors->has('fecha_transaccion') ? ' is-invalid' : ''), 'placeholder' => 'Fecha Transaccion']) }}
         {!! $errors->first('fecha_transaccion', '<div class="invalid-feedback">:message</div>') !!}
         <small class="form-hint">transaccion <b>fecha_transaccion</b> instruction.</small>

@@ -152,67 +152,67 @@ return [
 
         [
             'text' => 'Categorias',
-            'icon' => 'ti ti-home',
+            'icon' => 'ti ti-category',
             'url' => 'categorias'
         ],
 
         [
             'text' => 'Clientes',
-            'icon' => 'ti ti-home',
+            'icon' => 'ti ti-users',
             'url' => 'clientes'
         ],
 
         [
             'text' => 'Compras',
-            'icon' => 'ti ti-home',
+            'icon' => 'ti ti-shopping-cart',
             'url' => 'compras'
         ],
 
         [
             'text' => 'Detalle Compra',
-            'icon' => 'ti ti-home',
+            'icon' => 'ti ti-file-description',
             'url' => 'detallecompras'
         ],
 
         [
             'text' => 'Detalle Venta',
-            'icon' => 'ti ti-home',
+            'icon' => 'ti ti-file-description',
             'url' => 'detalleventas'
         ],
 
         [
             'text' => 'Empleado',
-            'icon' => 'ti ti-home',
+            'icon' => 'ti ti-users',
             'url' => 'empleados'
         ],
 
         [
             'text' => 'Inventario',
-            'icon' => 'ti ti-home',
+            'icon' => 'ti ti-brand-databricks',
             'url' => 'inventarios'
         ],
 
         [
             'text' => 'Modulos',
-            'icon' => 'ti ti-home',
+            'icon' => 'ti ti-hexagons',
             'url' => 'modulos'
         ],
 
         [
             'text' => 'Productos',
-            'icon' => 'ti ti-home',
+            'icon' => 'ti ti-packages',
             'url' => 'productos'
         ],
 
         [
             'text' => 'Proveedores',
-            'icon' => 'ti ti-home',
+            'icon' => 'ti ti-building-store',
             'url' => 'proveedores'
         ],
 
         [
             'text' => 'Transaccion',
-            'icon' => 'ti ti-home',
+            'icon' => 'ti ti-coin',
             'url' => 'transaccions'
         ],
 

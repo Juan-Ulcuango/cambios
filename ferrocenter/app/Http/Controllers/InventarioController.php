@@ -92,9 +92,13 @@ class InventarioController extends Controller
      */
     public function update(Request $request, Inventario $inventario)
     {
-        request()->validate(Inventario::$rules);
+        // request()->validate(Inventario::$rules);
+        // $inventario->update($request->all());
 
-        $inventario->update($request->all());
+        $inventario->stock = $request->stock;
+        $inventario->fecha_movimiento  = $request->fecha_movimiento;
+        $inventario->tipo_movimiento = $request->tipo_movimiento;
+        $inventario->save();
 
         return redirect()->route('inventarios.index')
             ->with('success', 'Inventario updated successfully');

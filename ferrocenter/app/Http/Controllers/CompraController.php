@@ -91,10 +91,13 @@ class CompraController extends Controller
      */
     public function update(Request $request, Compra $compra)
     {
-        request()->validate(Compra::$rules);
+        // request()->validate(Compra::$rules);
+        // $compra->update($request->all());
 
-        $compra->update($request->all());
-
+        $compra->fecha_compra = $request->fecha_compra;
+        $compra->total_compra  = $request->total_compra;
+        $compra->metodo_pago = $request->metodo_pago;
+        $compra->save();
         return redirect()->route('compras.index')
             ->with('success', 'Compra updated successfully');
     }

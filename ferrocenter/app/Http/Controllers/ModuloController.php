@@ -90,9 +90,12 @@ class ModuloController extends Controller
      */
     public function update(Request $request, Modulo $modulo)
     {
-        request()->validate(Modulo::$rules);
+        // request()->validate(Modulo::$rules);
+        // $modulo->update($request->all());
 
-        $modulo->update($request->all());
+        $modulo->nombre_modulo = $request->nombre_modulo;
+        $modulo->descripcion_modulo  = $request->descripcion_modulo;
+        $modulo->save();
 
         return redirect()->route('modulos.index')
             ->with('success', 'Modulo updated successfully');

@@ -90,10 +90,12 @@ class DetallecompraController extends Controller
      */
     public function update(Request $request, Detallecompra $detallecompra)
     {
-        request()->validate(Detallecompra::$rules);
+        // request()->validate(Detallecompra::$rules);
+        // $detallecompra->update($request->all());
 
-        $detallecompra->update($request->all());
-
+        $detallecompra->precio_unitario = $request->precio_unitario;
+        $detallecompra->cantidad  = $request->cantidad;
+        $detallecompra->save();
         return redirect()->route('detallecompras.index')
             ->with('success', 'Detallecompra updated successfully');
     }

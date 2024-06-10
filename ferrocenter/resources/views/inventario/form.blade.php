@@ -20,7 +20,7 @@
 <div class="form-group mb-3">
     <label class="form-label">   {{ Form::label('fecha_movimiento') }}</label>
     <div>
-        {{ Form::text('fecha_movimiento', $inventario->fecha_movimiento, ['class' => 'form-control' .
+        {{ Form::date('fecha_movimiento', $inventario->fecha_movimiento, ['class' => 'form-control' .
         ($errors->has('fecha_movimiento') ? ' is-invalid' : ''), 'placeholder' => 'Fecha Movimiento']) }}
         {!! $errors->first('fecha_movimiento', '<div class="invalid-feedback">:message</div>') !!}
         <small class="form-hint">inventario <b>fecha_movimiento</b> instruction.</small>

@@ -94,10 +94,16 @@ class EmpleadoController extends Controller
      */
     public function update(Request $request, Empleado $empleado)
     {
-        request()->validate(Empleado::$rules);
+        // request()->validate(Empleado::$rules);
+        // $empleado->update($request->all());
 
-        $empleado->update($request->all());
-
+        $empleado->nombre_empleado = $request->nombre_empleado;
+        $empleado->apellido_empleado  = $request->apellido_empleado;
+        $empleado->email_empleado = $request->email_empleado;
+        $empleado->direccion_empleado  = $request->direccion_empleado;
+        $empleado->telefono_empleado  = $request->telefono_empleado;
+        $empleado->rol  = $request->rol;
+        $empleado->save();
         return redirect()->route('empleados.index')
             ->with('success', 'Empleado updated successfully');
     }

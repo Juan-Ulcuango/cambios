@@ -92,9 +92,14 @@ class TransaccionController extends Controller
      */
     public function update(Request $request, Transaccion $transaccion)
     {
-        request()->validate(Transaccion::$rules);
+        // request()->validate(Transaccion::$rules);
+        // $transaccion->update($request->all());
 
-        $transaccion->update($request->all());
+        $transaccion->fecha_transaccion = $request->fecha_transaccion;
+        $transaccion->total_transaccion  = $request->total_transaccion;
+        $transaccion->metodo_pago = $request->metodo_pago;
+        $transaccion->tipo_transaccion  = $request->tipo_transaccion;
+        $transaccion->save();
 
         return redirect()->route('transaccions.index')
             ->with('success', 'Transaccion updated successfully');

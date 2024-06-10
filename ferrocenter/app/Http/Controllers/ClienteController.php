@@ -91,10 +91,14 @@ class ClienteController extends Controller
      */
     public function update(Request $request, Cliente $cliente)
     {
-        request()->validate(Cliente::$rules);
-
-        $cliente->update($request->all());
-
+        // request()->validate(Cliente::$rules);
+        // $cliente->update($request->all());
+        $cliente->nombre_cliente = $request->nombre_cliente;
+        $cliente->apellido_cliente  = $request->apellido_cliente;
+        $cliente->direccion_cliente = $request->direccion_cliente;
+        $cliente->telefono_cliente  = $request->telefono_cliente;
+        $cliente->email_cliente  = $request->email_cliente;
+        $cliente->save();
         return redirect()->route('clientes.index')
             ->with('success', 'Cliente updated successfully');
     }

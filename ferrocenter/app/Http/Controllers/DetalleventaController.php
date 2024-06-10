@@ -91,10 +91,12 @@ class DetalleventaController extends Controller
      */
     public function update(Request $request, Detalleventa $detalleventa)
     {
-        request()->validate(Detalleventa::$rules);
-
-        $detalleventa->update($request->all());
-
+        // request()->validate(Detalleventa::$rules);
+        // $detalleventa->update($request->all());
+        $detalleventa->precio_venta_unidad = $request->precio_venta_unidad;
+        $detalleventa->descuento  = $request->descuento;
+        $detalleventa->impuesto = $request->impuesto;
+        $detalleventa->save();
         return redirect()->route('detalleventas.index')
             ->with('success', 'Detalleventa updated successfully');
     }

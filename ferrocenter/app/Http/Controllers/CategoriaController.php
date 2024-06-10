@@ -90,9 +90,12 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, Categoria $categoria)
     {
-        request()->validate(Categoria::$rules);
-
-        $categoria->update($request->all());
+        // request()->validate(Categoria::$rules);
+        // $categoria->update($request->all());
+        
+        $categoria->nombre_categoria = $request->nombre_categoria;
+        $categoria->descripcion_categoria  = $request->descripcion_categoria;
+        $categoria->save();
 
         return redirect()->route('categorias.index')
             ->with('success', 'Categoria updated successfully');
