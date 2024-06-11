@@ -48,20 +48,18 @@
                             <h3 class="card-title">Detallecompra Details</h3>
                         </div>
                         <div class="card-body">
-                            
-<div class="form-group">
-<strong>Detallecompra Id:</strong>
-{{ $detallecompra->detallecompra_id }}
-</div>
-<div class="form-group">
-<strong>Precio Unitario:</strong>
-{{ $detallecompra->precio_unitario }}
-</div>
-<div class="form-group">
-<strong>Cantidad:</strong>
-{{ $detallecompra->cantidad }}
-</div>
-
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Detallecompra Id:</strong></label>
+                                <div class="form-control">{{ $detallecompra->detallecompra_id }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Precio Unitario:</strong></label>
+                                <div class="form-control">{{ $detallecompra->precio_unitario }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Cantidad:</strong></label>
+                                <div class="form-control">{{ $detallecompra->cantidad }}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -69,5 +67,3 @@
         </div>
     </div>
 @endsection
-
-

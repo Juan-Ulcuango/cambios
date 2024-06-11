@@ -48,28 +48,26 @@
                             <h3 class="card-title">Transaccion Details</h3>
                         </div>
                         <div class="card-body">
-                            
-<div class="form-group">
-<strong>Transaccion Id:</strong>
-{{ $transaccion->transaccion_id }}
-</div>
-<div class="form-group">
-<strong>Fecha Transaccion:</strong>
-{{ $transaccion->fecha_transaccion }}
-</div>
-<div class="form-group">
-<strong>Total Transaccion:</strong>
-{{ $transaccion->total_transaccion }}
-</div>
-<div class="form-group">
-<strong>Metodo Pago:</strong>
-{{ $transaccion->metodo_pago }}
-</div>
-<div class="form-group">
-<strong>Tipo Transaccion:</strong>
-{{ $transaccion->tipo_transaccion }}
-</div>
-
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Transaccion Id:</strong></label>
+                                <div class="form-control">{{ $transaccion->transaccion_id }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Fecha Transaccion:</strong></label>
+                                <div class="form-control">{{ $transaccion->fecha_transaccion }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Total Transaccion:</strong></label>
+                                <div class="form-control">{{ $transaccion->total_transaccion }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Metodo Pago:</strong></label>
+                                <div class="form-control">{{ $transaccion->metodo_pago }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Tipo Transaccion:</strong></label>
+                                <div class="form-control">{{ $transaccion->tipo_transaccion }}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -77,5 +75,3 @@
         </div>
     </div>
 @endsection
-
-

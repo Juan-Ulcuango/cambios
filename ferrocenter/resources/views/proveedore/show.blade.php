@@ -48,28 +48,26 @@
                             <h3 class="card-title">Proveedore Details</h3>
                         </div>
                         <div class="card-body">
-                            
-<div class="form-group">
-<strong>Proveedor Id:</strong>
-{{ $proveedore->proveedor_id }}
-</div>
-<div class="form-group">
-<strong>Nombre Proveedor:</strong>
-{{ $proveedore->nombre_proveedor }}
-</div>
-<div class="form-group">
-<strong>Direccion Proveedor:</strong>
-{{ $proveedore->direccion_proveedor }}
-</div>
-<div class="form-group">
-<strong>Telefono Proveedor:</strong>
-{{ $proveedore->telefono_proveedor }}
-</div>
-<div class="form-group">
-<strong>Email Proveedor:</strong>
-{{ $proveedore->email_proveedor }}
-</div>
-
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Proveedor Id:</strong></label>
+                                <div class="form-control">{{ $proveedore->proveedor_id }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Nombre Proveedor:</strong></label>
+                                <div class="form-control">{{ $proveedore->nombre_proveedor }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Direccion Proveedor:</strong></label>
+                                <div class="form-control">{{ $proveedore->direccion_proveedor }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Telefono Proveedor:</strong></label>
+                                <div class="form-control">{{ $proveedore->telefono_proveedor }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Email Proveedor:</strong></label>
+                                <div class="form-control">{{ $proveedore->email_proveedor }}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -77,5 +75,3 @@
         </div>
     </div>
 @endsection
-
-

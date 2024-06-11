@@ -22,11 +22,11 @@
                         <a href="{{ route('categorias.index') }}" class="btn btn-primary d-none d-sm-inline-block">
                             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                 stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                <line x1="12" y1="5" x2="12" y2="19"/>
-                                <line x1="5" y1="12" x2="19" y2="12"/>
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <line x1="12" y1="5" x2="12" y2="19" />
+                                <line x1="5" y1="12" x2="19" y2="12" />
                             </svg>
                             Categoria List
                         </a>
@@ -40,7 +40,7 @@
         <div class="container-xl">
             <div class="row row-deck row-cards">
                 <div class="col-12">
-                    @if(config('tablar','display_alert'))
+                    @if (config('tablar', 'display_alert'))
                         @include('tablar::common.alert')
                     @endif
                     <div class="card">
@@ -48,20 +48,18 @@
                             <h3 class="card-title">Categoria Details</h3>
                         </div>
                         <div class="card-body">
-                            
-<div class="form-group">
-<strong>Categoria Id:</strong>
-{{ $categoria->categoria_id }}
-</div>
-<div class="form-group">
-<strong>Nombre Categoria:</strong>
-{{ $categoria->nombre_categoria }}
-</div>
-<div class="form-group">
-<strong>Descripcion Categoria:</strong>
-{{ $categoria->descripcion_categoria }}
-</div>
-
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Categoria Id:</strong></label>
+                                <div class="form-control">{{ $categoria->categoria_id }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Nombre Categoria:</strong></label>
+                                <div class="form-control">{{ $categoria->nombre_categoria }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Descripcion Categoria:</strong></label>
+                                <div class="form-control">{{ $categoria->descripcion_categoria }}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -69,5 +67,3 @@
         </div>
     </div>
 @endsection
-
-

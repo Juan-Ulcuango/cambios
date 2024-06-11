@@ -48,36 +48,34 @@
                             <h3 class="card-title">Empleado Details</h3>
                         </div>
                         <div class="card-body">
-                            
-<div class="form-group">
-<strong>Empleado Id:</strong>
-{{ $empleado->empleado_id }}
-</div>
-<div class="form-group">
-<strong>Nombre Empleado:</strong>
-{{ $empleado->nombre_empleado }}
-</div>
-<div class="form-group">
-<strong>Apellido Empleado:</strong>
-{{ $empleado->apellido_empleado }}
-</div>
-<div class="form-group">
-<strong>Email Empleado:</strong>
-{{ $empleado->email_empleado }}
-</div>
-<div class="form-group">
-<strong>Direccion Empleado:</strong>
-{{ $empleado->direccion_empleado }}
-</div>
-<div class="form-group">
-<strong>Telefono Empleado:</strong>
-{{ $empleado->telefono_empleado }}
-</div>
-<div class="form-group">
-<strong>Rol:</strong>
-{{ $empleado->rol }}
-</div>
-
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Empleado Id:</strong></label>
+                                <div class="form-control">{{ $empleado->empleado_id }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Nombre Empleado:</strong></label>
+                                <div class="form-control">{{ $empleado->nombre_empleado }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Apellido Empleado:</strong></label>
+                                <div class="form-control">{{ $empleado->apellido_empleado }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Email Empleado:</strong></label>
+                                <div class="form-control">{{ $empleado->email_empleado }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Direccion Empleado:</strong></label>
+                                <div class="form-control">{{ $empleado->direccion_empleado }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Telefono Empleado:</strong></label>
+                                <div class="form-control">{{ $empleado->telefono_empleado }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Rol:</strong></label>
+                                <div class="form-control">{{ $empleado->rol }}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -85,5 +83,3 @@
         </div>
     </div>
 @endsection
-
-

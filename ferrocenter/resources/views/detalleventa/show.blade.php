@@ -48,24 +48,22 @@
                             <h3 class="card-title">Detalleventa Details</h3>
                         </div>
                         <div class="card-body">
-                            
-<div class="form-group">
-<strong>Detalleventa Id:</strong>
-{{ $detalleventa->detalleventa_id }}
-</div>
-<div class="form-group">
-<strong>Precio Venta Unidad:</strong>
-{{ $detalleventa->precio_venta_unidad }}
-</div>
-<div class="form-group">
-<strong>Descuento:</strong>
-{{ $detalleventa->descuento }}
-</div>
-<div class="form-group">
-<strong>Impuesto:</strong>
-{{ $detalleventa->impuesto }}
-</div>
-
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Detalleventa Id:</strong></label>
+                                <div class="form-control">{{ $detalleventa->detalleventa_id }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Precio Venta Unidad:</strong></label>
+                                <div class="form-control">{{ $detalleventa->precio_venta_unidad }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Descuento:</strong></label>
+                                <div class="form-control">{{ $detalleventa->descuento }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Impuesto:</strong></label>
+                                <div class="form-control">{{ $detalleventa->impuesto }}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -73,5 +71,3 @@
         </div>
     </div>
 @endsection
-
-

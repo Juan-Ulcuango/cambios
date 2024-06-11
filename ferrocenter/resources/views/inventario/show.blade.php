@@ -48,24 +48,22 @@
                             <h3 class="card-title">Inventario Details</h3>
                         </div>
                         <div class="card-body">
-                            
-<div class="form-group">
-<strong>Inventario Id:</strong>
-{{ $inventario->inventario_id }}
-</div>
-<div class="form-group">
-<strong>Stock:</strong>
-{{ $inventario->stock }}
-</div>
-<div class="form-group">
-<strong>Fecha Movimiento:</strong>
-{{ $inventario->fecha_movimiento }}
-</div>
-<div class="form-group">
-<strong>Tipo Movimiento:</strong>
-{{ $inventario->tipo_movimiento }}
-</div>
-
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Inventario Id:</strong></label>
+                                <div class="form-control">{{ $inventario->inventario_id }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Stock:</strong></label>
+                                <div class="form-control">{{ $inventario->stock }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Fecha Movimiento:</strong></label>
+                                <div class="form-control">{{ $inventario->fecha_movimiento }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Tipo Movimiento:</strong></label>
+                                <div class="form-control">{{ $inventario->tipo_movimiento }}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -73,5 +71,3 @@
         </div>
     </div>
 @endsection
-
-
