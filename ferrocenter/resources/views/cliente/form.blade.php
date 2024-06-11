@@ -64,12 +64,12 @@
         <small class="form-hint">cliente <b>email_cliente</b> instruction.</small>
     </div>
 </div>
-
 <div class="form-footer">
     <div class="text-end">
         <div class="d-flex">
-            <a href="#" class="btn btn-danger">Cancel</a>
+            <a href="{{ route('clientes.index') }}" class="btn btn-danger">Cancel</a>
             <button type="submit" class="btn btn-primary ms-auto ajax-submit">Submit</button>
         </div>
     </div>
+</div>
 </div>
