@@ -22,3 +22,5 @@ Route::resource('/detallecompras', App\Http\Controllers\DetallecompraController:
 Route::resource('/inventarios', App\Http\Controllers\InventarioController::class);
 Route::resource('/productos', App\Http\Controllers\ProductoController::class);
 Route::resource('/categorias', App\Http\Controllers\CategoriaController::class);
+Route::resource('/roles', App\Http\Controllers\RoleController::class);
+Route::resource('/permisos', App\Http\Controllers\PermisoController::class);
