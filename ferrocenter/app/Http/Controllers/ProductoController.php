@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProducto;
 use App\Models\Producto;
 use App\Models\Categoria;
-use App\Models\Inventario;
 use Illuminate\Http\Request;
 
 /**
@@ -52,17 +51,9 @@ class ProductoController extends Controller
             'descripcion_producto' => 'nullable|string',
             'precio_unitario' => 'required|numeric',
             'categoria_id' => 'required|exists:categorias,categoria_id',
-            'stock' => 'required|integer',
         ]);
 
-        $producto = Producto::create($request->only(['nombre_producto', 'descripcion_producto', 'precio_unitario', 'categoria_id']));
-        
-        Inventario::create([
-            'producto_id' => $producto->producto_id,
-            'stock' => $request->input('stock'),
-            'fecha_movimiento' => now(),
-            'tipo_movimiento' => 'inicial',
-        ]);
+        Producto::create($request->all());
 
         return redirect()->route('productos.index')
             ->with('success', 'Producto creado exitosamente.');
@@ -76,7 +67,7 @@ class ProductoController extends Controller
      */
     public function show($id)
     {
-        $producto = Producto::with('inventario')->find($id);
+        $producto = Producto::with('categoria')->find($id);
 
         return view('producto.show', compact('producto'));
     }

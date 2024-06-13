@@ -3,69 +3,41 @@
 @section('title', 'View Inventario')
 
 @section('content')
-    <!-- Page header -->
-    <div class="page-header d-print-none">
-        <div class="container-xl">
-            <div class="row g-2 align-items-center">
-                <div class="col">
-                    <!-- Page pre-title -->
-                    <div class="page-pretitle">
-                        View
-                    </div>
-                    <h2 class="page-title">
-                        {{ __('Inventario ') }}
-                    </h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 margin-tb">
+                <div class="pull-left">
+                    <h2>Ver Inventario</h2>
                 </div>
-                <!-- Page title actions -->
-                <div class="col-12 col-md-auto ms-auto d-print-none">
-                    <div class="btn-list">
-                        <a href="{{ route('inventarios.index') }}" class="btn btn-primary d-none d-sm-inline-block">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                 stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                <line x1="12" y1="5" x2="12" y2="19"/>
-                                <line x1="5" y1="12" x2="19" y2="12"/>
-                            </svg>
-                            Inventario List
-                        </a>
-                    </div>
+                <div class="pull-right">
+                    <a class="btn btn-primary" href="{{ route('inventarios.index') }}"> Back</a>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Page body -->
-    <div class="page-body">
-        <div class="container-xl">
-            <div class="row row-deck row-cards">
-                <div class="col-12">
-                    @if(config('tablar','display_alert'))
-                        @include('tablar::common.alert')
-                    @endif
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Inventario Details</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-group mb-3">
-                                <label class="form-label"><strong>Inventario Id:</strong></label>
-                                <div class="form-control">{{ $inventario->inventario_id }}</div>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label class="form-label"><strong>Stock:</strong></label>
-                                <div class="form-control">{{ $inventario->stock }}</div>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label class="form-label"><strong>Fecha Movimiento:</strong></label>
-                                <div class="form-control">{{ $inventario->fecha_movimiento }}</div>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label class="form-label"><strong>Tipo Movimiento:</strong></label>
-                                <div class="form-control">{{ $inventario->tipo_movimiento }}</div>
-                            </div>
-                        </div>
-                    </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Stock:</strong>
+                    {{ $inventario->stock }}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Fecha Movimiento:</strong>
+                    {{ $inventario->fecha_movimiento }}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Tipo Movimiento:</strong>
+                    {{ $inventario->tipo_movimiento }}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Producto:</strong>
+                    {{ $inventario->producto->nombre_producto }}
                 </div>
             </div>
         </div>
