@@ -51,7 +51,58 @@
                             <form method="POST" action="{{ route('inventarios.store') }}" id="ajaxForm" role="form"
                                   enctype="multipart/form-data">
                                 @csrf
-                                @include('inventario.form')
+                                <div class="form-group mb-3">
+                                    <label class="form-label">Stock</label>
+                                    <div>
+                                        <input type="number" name="stock" class="form-control" placeholder="Stock">
+                                        @if ($errors->has('stock'))
+                                            <div class="invalid-feedback">{{ $errors->first('stock') }}</div>
+                                        @endif
+                                        <small class="form-hint">Enter the stock amount.</small>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="form-label">Fecha Movimiento</label>
+                                    <div>
+                                        <input type="date" name="fecha_movimiento" class="form-control" placeholder="Fecha Movimiento">
+                                        @if ($errors->has('fecha_movimiento'))
+                                            <div class="invalid-feedback">{{ $errors->first('fecha_movimiento') }}</div>
+                                        @endif
+                                        <small class="form-hint">Enter the date of movement.</small>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="form-label">Tipo Movimiento</label>
+                                    <div>
+                                        <input type="text" name="tipo_movimiento" class="form-control" placeholder="Tipo Movimiento">
+                                        @if ($errors->has('tipo_movimiento'))
+                                            <div class="invalid-feedback">{{ $errors->first('tipo_movimiento') }}</div>
+                                        @endif
+                                        <small class="form-hint">Enter the type of movement.</small>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="form-label">Producto</label>
+                                    <div>
+                                        <select name="producto_id" class="form-control">
+                                            @foreach($productos as $producto)
+                                                <option value="{{ $producto->producto_id }}">{{ $producto->nombre_producto }}</option>
+                                            @endforeach
+                                        </select>
+                                        @if ($errors->has('producto_id'))
+                                            <div class="invalid-feedback">{{ $errors->first('producto_id') }}</div>
+                                        @endif
+                                        <small class="form-hint">Select the product.</small>
+                                    </div>
+                                </div>
+                                <div class="form-footer">
+                                    <div class="text-end">
+                                        <div class="d-flex">
+                                            <a href="{{ route('inventarios.index') }}" class="btn btn-danger">Cancel</a>
+                                            <button type="submit" class="btn btn-primary ms-auto ajax-submit">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>

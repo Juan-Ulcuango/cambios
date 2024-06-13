@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreInventario;
 use App\Models\Inventario;
+use App\Models\Producto;
 use Illuminate\Http\Request;
 
 /**
@@ -19,7 +19,7 @@ class InventarioController extends Controller
      */
     public function index()
     {
-        $inventarios = Inventario::paginate(10);
+        $inventarios = Inventario::with('producto')->paginate(10);
 
         return view('inventario.index', compact('inventarios'))
             ->with('i', (request()->input('page', 1) - 1) * $inventarios->perPage());
@@ -33,7 +33,8 @@ class InventarioController extends Controller
     public function create()
     {
         $inventario = new Inventario();
-        return view('inventario.create', compact('inventario'));
+        $productos = Producto::all();
+        return view('inventario.create', compact('inventario', 'productos'));
     }
 
     /**
@@ -42,19 +43,19 @@ class InventarioController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreInventario $request)
+    public function store(Request $request)
     {
-        // request()->validate(Inventario::$rules);
-        // $inventario = Inventario::create($request->all());
+        $request->validate([
+            'stock' => 'required|integer',
+            'fecha_movimiento' => 'required|date',
+            'tipo_movimiento' => 'required|string|max:30',
+            'producto_id' => 'required|exists:productos,producto_id',
+        ]);
 
-        $inventario = new Inventario();
-        $inventario->stock = $request->stock;
-        $inventario->fecha_movimiento  = $request->fecha_movimiento;
-        $inventario->tipo_movimiento = $request->tipo_movimiento;
-        $inventario->save();
+        Inventario::create($request->all());
 
         return redirect()->route('inventarios.index')
-            ->with('success', 'Inventario created successfully.');
+            ->with('success', 'Inventario creado exitosamente.');
     }
 
     /**
@@ -65,7 +66,7 @@ class InventarioController extends Controller
      */
     public function show($id)
     {
-        $inventario = Inventario::find($id);
+        $inventario = Inventario::with('producto')->find($id);
 
         return view('inventario.show', compact('inventario'));
     }
@@ -79,8 +80,9 @@ class InventarioController extends Controller
     public function edit($id)
     {
         $inventario = Inventario::find($id);
+        $productos = Producto::all();
 
-        return view('inventario.edit', compact('inventario'));
+        return view('inventario.edit', compact('inventario', 'productos'));
     }
 
     /**
@@ -92,16 +94,17 @@ class InventarioController extends Controller
      */
     public function update(Request $request, Inventario $inventario)
     {
-        // request()->validate(Inventario::$rules);
-        // $inventario->update($request->all());
+        $request->validate([
+            'stock' => 'required|integer',
+            'fecha_movimiento' => 'required|date',
+            'tipo_movimiento' => 'required|string|max:30',
+            'producto_id' => 'required|exists:productos,producto_id',
+        ]);
 
-        $inventario->stock = $request->stock;
-        $inventario->fecha_movimiento  = $request->fecha_movimiento;
-        $inventario->tipo_movimiento = $request->tipo_movimiento;
-        $inventario->save();
+        $inventario->update($request->all());
 
         return redirect()->route('inventarios.index')
-            ->with('success', 'Inventario updated successfully');
+            ->with('success', 'Inventario actualizado exitosamente.');
     }
 
     /**
@@ -111,9 +114,9 @@ class InventarioController extends Controller
      */
     public function destroy($id)
     {
-        $inventario = Inventario::find($id)->delete();
+        Inventario::find($id)->delete();
 
         return redirect()->route('inventarios.index')
-            ->with('success', 'Inventario deleted successfully');
+            ->with('success', 'Inventario eliminado exitosamente.');
     }
 }
