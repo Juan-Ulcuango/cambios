@@ -84,28 +84,25 @@
                                                 <polyline points="6 15 12 9 18 15" />
                                             </svg>
                                         </th>
-
                                         <th>Producto Id</th>
                                         <th>Nombre Producto</th>
                                         <th>Descripcion Producto</th>
                                         <th>Precio Unitario</th>
-
+                                        <th>Categoría</th>
                                         <th class="w-1"></th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
                                     @forelse ($productos as $producto)
                                         <tr>
                                             <td><input class="form-check-input m-0 align-middle" type="checkbox"
                                                     aria-label="Select producto"></td>
                                             <td>{{ ++$i }}</td>
-
                                             <td>{{ $producto->producto_id }}</td>
                                             <td>{{ $producto->nombre_producto }}</td>
                                             <td>{{ $producto->descripcion_producto }}</td>
                                             <td>{{ $producto->precio_unitario }}</td>
-
+                                            <td>{{ $producto->categoria->nombre_categoria }}</td>
                                             <td>
                                                 <div class="btn-list flex-nowrap">
                                                     <div class="dropdown">
@@ -142,7 +139,6 @@
                                         <td>No Data Found</td>
                                     @endforelse
                                 </tbody>
-
                             </table>
                         </div>
                         <div class="card-footer d-flex align-items-center">

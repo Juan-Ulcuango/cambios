@@ -64,6 +64,7 @@
                                 <label class="form-label"><strong>Precio Unitario:</strong></label>
                                 <div class="form-control">{{ $producto->precio_unitario }}</div>
                             </div>
+                           
                         </div>
                     </div>
                 </div>

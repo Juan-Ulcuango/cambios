@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProducto;
 use App\Models\Producto;
+use App\Models\Categoria;
+use App\Models\Inventario;
 use Illuminate\Http\Request;
 
 /**
@@ -33,7 +35,8 @@ class ProductoController extends Controller
     public function create()
     {
         $producto = new Producto();
-        return view('producto.create', compact('producto'));
+        $categorias = Categoria::all();
+        return view('producto.create', compact('producto', 'categorias'));
     }
 
     /**
@@ -44,17 +47,25 @@ class ProductoController extends Controller
      */
     public function store(StoreProducto $request)
     {
-        // request()->validate(Producto::$rules);
+        $request->validate([
+            'nombre_producto' => 'required|string|max:30',
+            'descripcion_producto' => 'nullable|string',
+            'precio_unitario' => 'required|numeric',
+            'categoria_id' => 'required|exists:categorias,categoria_id',
+            'stock' => 'required|integer',
+        ]);
 
-        // $producto = Producto::create($request->all());
-        $producto = new Producto();
-        $producto->nombre_producto = $request->nombre_producto;
-        $producto->descripcion_producto  = $request->descripcion_producto;
-        $producto->precio_unitario = $request->precio_unitario;
-        $producto->save();
+        $producto = Producto::create($request->only(['nombre_producto', 'descripcion_producto', 'precio_unitario', 'categoria_id']));
+        
+        Inventario::create([
+            'producto_id' => $producto->producto_id,
+            'stock' => $request->input('stock'),
+            'fecha_movimiento' => now(),
+            'tipo_movimiento' => 'inicial',
+        ]);
 
         return redirect()->route('productos.index')
-            ->with('success', 'Producto created successfully.');
+            ->with('success', 'Producto creado exitosamente.');
     }
 
     /**
@@ -65,7 +76,7 @@ class ProductoController extends Controller
      */
     public function show($id)
     {
-        $producto = Producto::find($id);
+        $producto = Producto::with('inventario')->find($id);
 
         return view('producto.show', compact('producto'));
     }
@@ -79,8 +90,9 @@ class ProductoController extends Controller
     public function edit($id)
     {
         $producto = Producto::find($id);
+        $categorias = Categoria::all();
 
-        return view('producto.edit', compact('producto'));
+        return view('producto.edit', compact('producto', 'categorias'));
     }
 
     /**
@@ -92,13 +104,14 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
-        // request()->validate(Producto::$rules);
-        // $producto->update($request->all());
+        $request->validate([
+            'nombre_producto' => 'required|string|max:30',
+            'descripcion_producto' => 'nullable|string',
+            'precio_unitario' => 'required|numeric',
+            'categoria_id' => 'required|exists:categorias,categoria_id',
+        ]);
 
-        $producto->nombre_producto = $request->nombre_producto;
-        $producto->descripcion_producto  = $request->descripcion_producto;
-        $producto->precio_unitario = $request->precio_unitario;
-        $producto->save();
+        $producto->update($request->all());
 
         return redirect()->route('productos.index')
             ->with('success', 'Producto updated successfully');
@@ -111,7 +124,7 @@ class ProductoController extends Controller
      */
     public function destroy($id)
     {
-        $producto = Producto::find($id)->delete();
+        Producto::find($id)->delete();
 
         return redirect()->route('productos.index')
             ->with('success', 'Producto deleted successfully');
