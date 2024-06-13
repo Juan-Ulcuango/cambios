@@ -24,3 +24,4 @@ Route::resource('/productos', App\Http\Controllers\ProductoController::class);
 Route::resource('/categorias', App\Http\Controllers\CategoriaController::class);
 Route::resource('/roles', App\Http\Controllers\RoleController::class);
 Route::resource('/permisos', App\Http\Controllers\PermisoController::class);
+Route::resource('/users', App\Http\Controllers\UserController::class);
