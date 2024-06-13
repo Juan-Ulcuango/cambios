@@ -42,7 +42,7 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => '',
+            'path' => 'assets/tablar-logo.jpg',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
