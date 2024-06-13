@@ -151,6 +151,12 @@ return [
         ],
 
         [
+            'text' => 'Usuarios',
+            'icon' => 'ti ti-home',
+            'url' => 'users'
+        ],
+
+        [
             'text' => 'Categorias',
             'icon' => 'ti ti-category',
             'url' => 'categorias'
@@ -159,13 +165,15 @@ return [
         [
             'text' => 'Clientes',
             'icon' => 'ti ti-users',
-            'url' => 'clientes'
+            'url' => 'clientes',
+            'can'=> 'admin'
         ],
 
         [
             'text' => 'Compras',
             'icon' => 'ti ti-shopping-cart',
-            'url' => 'compras'
+            'url' => 'compras',
+            'can'=> 'admin'
         ],
 
         [

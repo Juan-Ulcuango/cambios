@@ -5,10 +5,10 @@
 @section('body')
     <body>
     <div class="page">
-        <!-- Top Navbar -->
+        <!-- Top Navbar1 -->
         @include('tablar::partials.navbar.topbar')
         <div class="page-wrapper">
-            <!-- Page Content -->
+            <!-- Page Content1 -->
             @hasSection('content')
                 @yield('content')
             @endif
