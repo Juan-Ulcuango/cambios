@@ -148,7 +148,7 @@ return [
             'text' => 'Home',
             'icon' => 'ti ti-home',
             'url' => 'home',
-            'roles' => ['admin']
+            'roles' => ['admin','gerente','vendedor','compras','inventario','cliente']
         ],
 
         [
@@ -162,35 +162,35 @@ return [
             'text' => 'Categorias',
             'icon' => 'ti ti-category',
             'url' => 'categorias',
-            'roles' => ['admin', 'vendedor']
+            'roles' => ['admin','gerente','inventario']
         ],
 
         [
             'text' => 'Clientes',
             'icon' => 'ti ti-users',
             'url' => 'clientes',
-            'roles' => ['admin']
+            'roles' => ['admin','gerente','vendedor']
         ],
 
         [
             'text' => 'Compras',
             'icon' => 'ti ti-shopping-cart',
             'url' => 'compras',
-            'roles' => ['admin']
+            'roles' => ['admin','gerente','compras']
         ],
 
         [
             'text' => 'Detalle Compra',
             'icon' => 'ti ti-file-description',
             'url' => 'detallecompras',
-            'roles' => ['admin']
+            'roles' => ['admin','gerente','compras']
         ],
 
         [
             'text' => 'Detalle Venta',
             'icon' => 'ti ti-file-description',
             'url' => 'detalleventas',
-            'roles' => ['admin']
+            'roles' => ['admin','gerente','vendedor']
         ],
 
         [
@@ -204,35 +204,35 @@ return [
             'text' => 'Inventario',
             'icon' => 'ti ti-brand-databricks',
             'url' => 'inventarios',
-            'roles' => ['admin']
+            'roles' => ['admin','gerente','vendedor','compras','inventario']
         ],
 
         [
             'text' => 'Modulos',
             'icon' => 'ti ti-hexagons',
             'url' => 'modulos',
-            'roles' => ['admin']
+            'roles' => ['admin','gerente']
         ],
 
         [
             'text' => 'Productos',
             'icon' => 'ti ti-packages',
             'url' => 'productos',
-            'roles' => ['admin']
+            'roles' => ['admin','gerente','vendedor','inventario','cliente']
         ],
 
         [
             'text' => 'Proveedores',
             'icon' => 'ti ti-building-store',
             'url' => 'proveedores',
-            'roles' => ['admin']
+            'roles' => ['admin','gerente','vendedor','compras','inventario']
         ],
 
         [
             'text' => 'Transaccion',
             'icon' => 'ti ti-coin',
             'url' => 'transaccions',
-            'roles' => ['admin']
+            'roles' => ['admin','gerente','compras']
         ],
 
         // [
