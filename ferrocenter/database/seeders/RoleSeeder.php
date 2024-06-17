@@ -14,19 +14,26 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $role1=Role::create(['name'=>'admin']);
-        $role2=Role::create(['name'=>'vendedor']);
+        // Elimina roles y permisos existentes para evitar duplicados
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        Permission::create(['name' => 'admin.home'])->syncRoles([$role1,$role2]);
+        // Crear permisos
+        $permissions = [
+            'view products',
+            'view categories',
+            // otros permisos que necesites
+        ];
 
-        Permission::create(['name' => 'admin.categorias.index'])->syncRoles([$role1,$role2]);
-        Permission::create(['name' => 'admin.categorias.create'])->syncRoles([$role1,$role2]);
-        Permission::create(['name' => 'admin.categorias.edit'])->syncRoles([$role1,$role2]);
-        Permission::create(['name' => 'admin.categorias.destroy'])->syncRoles([$role1,$role2]);
+        foreach ($permissions as $permission) {
+            Permission::create(['name' => $permission]);
+        }
 
-        Permission::create(['name' => 'admin.productos.index'])->syncRoles([$role1,$role2]);
-        Permission::create(['name' => 'admin.productos.create'])->syncRoles([$role1,$role2]);
-        Permission::create(['name' => 'admin.productos.edit'])->syncRoles([$role1,$role2]);
-        Permission::create(['name' => 'admin.productos.destroy'])->syncRoles([$role1,$role2]);
+        // Crear rol y asignar permisos
+        $admin = Role::create(['name' => 'admin']);
+        $admin->givePermissionTo(Permission::all());
+        
+        $vendedor = Role::create(['name' => 'vendedor']);
+        $vendedor->givePermissionTo(Permission::all());
+
     }
 }
