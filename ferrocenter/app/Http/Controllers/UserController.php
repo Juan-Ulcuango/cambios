@@ -16,6 +16,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __contruct(){
+        $this->middleware('can:view.users')->only('index');
+        $this->middleware('can:edit.users')->only('edit','update');
+    }
     public function index()
     {
         $users = User::paginate(10);

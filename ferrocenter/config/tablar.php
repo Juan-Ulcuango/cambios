@@ -232,7 +232,7 @@ return [
             'text' => 'Transaccion',
             'icon' => 'ti ti-coin',
             'url' => 'transaccions',
-            'roles' => ['admin','gerente','compras']
+            'roles' => ['admin','gerente','compras','vendedor']
         ],
 
         // [
