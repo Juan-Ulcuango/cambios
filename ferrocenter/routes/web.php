@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -25,3 +26,4 @@ Route::resource('/categorias', App\Http\Controllers\CategoriaController::class);
 Route::resource('/roles', App\Http\Controllers\RoleController::class);
 Route::resource('/permisos', App\Http\Controllers\PermisoController::class);
 Route::resource('/users', App\Http\Controllers\UserController::class);
+Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
