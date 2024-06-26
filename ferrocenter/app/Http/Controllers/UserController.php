@@ -17,9 +17,11 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __contruct(){
-        $this->middleware('can:view.users')->only('index');
+    public function __construct(){
+        $this->middleware('can:view.users')->only('index','show');
+        $this->middleware('can:create.users')->only('create','store');
         $this->middleware('can:edit.users')->only('edit','update');
+        $this->middleware('can:delete.users')->only('destroy');
     }
     public function index()
     {

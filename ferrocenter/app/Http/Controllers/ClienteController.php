@@ -17,6 +17,11 @@ class ClienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __contruct(){
+        $this->middleware('can:view.products')->only('index');
+    }
+
     public function index()
     {
         $clientes = Cliente::paginate(10);
