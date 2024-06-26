@@ -16,22 +16,6 @@
                         {{ __('User ') }}
                     </h2>
                 </div>
-                <!-- Page title actions -->
-                <div class="col-12 col-md-auto ms-auto d-print-none">
-                    <div class="btn-list">
-                        <a href="{{ route('users.index') }}" class="btn btn-primary d-none d-sm-inline-block">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                 stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                <line x1="12" y1="5" x2="12" y2="19"/>
-                                <line x1="5" y1="12" x2="19" y2="12"/>
-                            </svg>
-                            Detalles de usuario
-                        </a>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -48,16 +32,29 @@
                             <h3 class="card-title">Detalles de usuario</h3>
                         </div>
                         <div class="card-body">
-                            
-<div class="form-group">
-<strong>Nombre:</strong>
-{{ $user->name }}
-</div>
-<div class="form-group">
-<strong>Correo electrónico:</strong>
-{{ $user->email }}
-</div>
-
+                            @if($user)
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <th>Nombre:</th>
+                                            <td>{{ $user->name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Correo electrónico:</th>
+                                            <td>{{ $user->email }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            @else
+                                <p>Usuario no encontrado.</p>
+                            @endif
+                        </div>
+                        <div class="card-footer text-end">
+                            <a href="{{ route('home') }}" class="btn btn-secondary">Volver</a>
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-danger">Salir</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -65,5 +62,8 @@
         </div>
     </div>
 @endsection
+
+
+
 
 

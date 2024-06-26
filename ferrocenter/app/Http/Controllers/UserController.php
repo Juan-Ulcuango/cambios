@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -64,13 +65,20 @@ class UserController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
+
+     public function showProfile()
+{
+    $user = Auth::user();  // Obtiene el usuario autenticado
+    return view('user.show', compact('user'));
+}
+/*
     public function show($id)
     {
         $user = User::find($id);
 
         return view('user.show', compact('user'));
     }
-
+*/
     /**
      * Show the form for editing the specified resource.
      *
