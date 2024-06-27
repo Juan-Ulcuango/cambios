@@ -17,6 +17,14 @@ class DetalleventaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct(){
+        $this->middleware('can:view.salesdetails')->only('index','show');
+        $this->middleware('can:create.salesdetails')->only('create','store');
+        $this->middleware('can:edit.salesdetails')->only('edit','update');
+        $this->middleware('can:delete.salesdetails')->only('destroy');
+    }
+    
     public function index()
     {
         $detalleventas = Detalleventa::paginate(10);

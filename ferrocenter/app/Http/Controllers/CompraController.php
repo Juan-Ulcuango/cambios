@@ -17,6 +17,14 @@ class CompraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct(){
+        $this->middleware('can:view.purchases')->only('index','show');
+        $this->middleware('can:create.purchases')->only('create','store');
+        $this->middleware('can:edit.purchases')->only('edit','update');
+        $this->middleware('can:delete.purchases')->only('destroy');
+    }
+    
     public function index()
     {
         $compras = Compra::paginate(10);

@@ -39,10 +39,10 @@ class RoleSeeder extends Seeder
             'edit.purchases',
             'delete.purchases',
 
-            'view.sales',
-            'create.sales',
-            'edit.sales',
-            'delete.sales',
+            'view.salesdetails',
+            'create.salesdetails',
+            'edit.salesdetails',
+            'delete.salesdetails',
 
             'view.inventory',
             'manage.inventory',
@@ -83,9 +83,16 @@ class RoleSeeder extends Seeder
         $vendedor->givePermissionTo([
             'view.products',
             'view.clients',
-            'create.sales',
-            'edit.sales',
-            'view.sales'
+
+            'create.transactions',
+            'edit.transactions',
+            'view.transactions',
+            'delete.transactions',
+
+            'view.salesdetails',
+            'create.salesdetails',
+            'edit.salesdetails',
+            'delete.salesdetails'
         ]);
 
         $gerente = Role::create(['name' => 'gerente']);
@@ -94,12 +101,21 @@ class RoleSeeder extends Seeder
             'view.categories',
             'view.clients',
             'view.purchases',
-            'view.sales',
+            
+            'view.salesdetails',
+            'create.salesdetails',
+            'edit.salesdetails',
+            'delete.salesdetails',
+
             'view.inventory',
             'view.modules',
             'view.employees',
             'view.suppliers',
-            'view.transactions'
+
+            'create.transactions',
+            'edit.transactions',
+            'view.transactions',
+            'delete.transactions'
         ]);
 
         $compras = Role::create(['name' => 'compras']);
@@ -116,7 +132,7 @@ class RoleSeeder extends Seeder
             'view.products',
             'manage.inventory',
             'view.purchases',
-            'view.sales'
+            'view.salesdetails'
         ]);
 
         $cliente = Role::create(['name' => 'cliente']);

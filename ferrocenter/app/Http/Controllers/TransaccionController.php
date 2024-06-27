@@ -17,6 +17,13 @@ class TransaccionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct(){
+        $this->middleware('can:view.transactions')->only('index','show');
+        $this->middleware('can:create.transactions')->only('create','store');
+        $this->middleware('can:edit.transactions')->only('edit','update');
+        $this->middleware('can:delete.transactions')->only('destroy');
+    }
     public function index()
     {
         $transaccions = Transaccion::paginate(10);
