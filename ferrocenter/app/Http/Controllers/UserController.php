@@ -18,10 +18,11 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct(){
-        $this->middleware('can:view.users')->only('index','show');
-        $this->middleware('can:create.users')->only('create','store');
-        $this->middleware('can:edit.users')->only('edit','update');
+    public function __construct()
+    {
+        $this->middleware('can:view.users')->only('index', 'showProfile','show');
+        $this->middleware('can:create.users')->only('create', 'store');
+        $this->middleware('can:edit.users')->only('edit', 'update');
         $this->middleware('can:delete.users')->only('destroy');
     }
     public function index()
@@ -66,19 +67,19 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function showProfile()
-{
-    $user = Auth::user();  // Obtiene el usuario autenticado
-    return view('user.show', compact('user'));
-}
-/*
+    public function showProfile()
+    {
+        $user = Auth::user();  // Obtiene el usuario autenticado
+        return view('user.show', compact('user'));
+    }
+
     public function show($id)
     {
         $user = User::find($id);
 
         return view('user.show', compact('user'));
     }
-*/
+
     /**
      * Show the form for editing the specified resource.
      *
