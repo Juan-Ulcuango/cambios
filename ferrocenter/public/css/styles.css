@@ -1,0 +1,123 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #EDE7F6;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.form-container {
+    background: linear-gradient(145deg,#e7def8,#f7edff,#f1f1f1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 10);
+    position: relative;
+    width: 300px;
+    text-align: center;
+    z-index: 1;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #6A1B9A;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #6A1B9A;
+    text-align: left;
+}
+
+input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #9C27B0;
+    border-radius: 5px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.register-button, .submit-button {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.register-button {
+    background-color: #D32F2F;
+}
+
+.submit-button {
+    background-color: #7B1FA2;
+}
+
+.register-button:hover {
+    background-color: #B71C1C;
+}
+
+.submit-button:hover {
+    background-color: #4A148C;
+}
+
+/* Estilos para los círculos */
+.container::before, .container::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #36076c, #12033b,#000000);
+    z-index: 0;
+}
+
+.container::before {
+    width: 100px;
+    height: 100px;
+    top: -50px;
+    left: -50px;
+    opacity: 10;
+}
+
+.container::after {
+    width: 150px;
+    height: 150px;
+    bottom: -75px;
+    right: -75px;
+    opacity: 10;
+}
+
+/* Ajustes para el header */
+header {
+    width: 100%;
+    background-color: #EDE7F6;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header nav a {
+    text-decoration: none;
+    color: #6A1B9A;
+    margin: 0 10px;
+}

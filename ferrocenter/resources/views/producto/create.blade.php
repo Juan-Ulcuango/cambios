@@ -45,7 +45,6 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Detalles del producto</h3>
                         </div>
                         <div class="card-body">
                             <form method="POST" action="{{ route('productos.store') }}" id="ajaxForm" role="form"
