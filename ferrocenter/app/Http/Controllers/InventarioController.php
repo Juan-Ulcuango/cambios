@@ -17,6 +17,13 @@ class InventarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct(){
+        $this->middleware('can:inventory')->only('index','show');
+        $this->middleware('can:manage.inventory')->only('create','store');
+        $this->middleware('can:manage.inventory')->only('edit','update');
+        $this->middleware('can:manage.inventory')->only('destroy');
+    }
     public function index()
     {
         $inventarios = Inventario::with('producto')->paginate(10);

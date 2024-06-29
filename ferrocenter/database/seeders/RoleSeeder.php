@@ -39,6 +39,11 @@ class RoleSeeder extends Seeder
             'edit.purchases',
             'delete.purchases',
 
+            'view.purchasesdetails',
+            'create.purchasesdetails',
+            'edit.purchasesdetails',
+            'delete.purchasesdetails',
+
             'view.salesdetails',
             'create.salesdetails',
             'edit.salesdetails',
@@ -92,7 +97,8 @@ class RoleSeeder extends Seeder
             'view.salesdetails',
             'create.salesdetails',
             'edit.salesdetails',
-            'delete.salesdetails'
+            'delete.salesdetails',
+            
         ]);
 
         $gerente = Role::create(['name' => 'gerente']);

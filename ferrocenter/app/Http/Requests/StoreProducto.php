@@ -22,9 +22,9 @@ class StoreProducto extends FormRequest
     public function rules(): array
     {
         return [
-            'nombre_producto' => '',
-            'descripcion_producto' => '',
-            'precio_unitario' => '',
+            'nombre_producto' => 'required|string|max:255', // Ejemplo de regla: campo obligatorio, tipo string, máximo 255 caracteres
+            'descripcion_producto' => 'nullable|string',    // Ejemplo de regla: campo opcional, tipo string
+            'precio_unitario' => 'required|numeric|min:0',  // Ejemplo de regla: campo obligatorio, tipo numérico, mínimo 0
         ];
     }
 }

@@ -18,6 +18,12 @@ class DetallecompraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct(){
+        $this->middleware('can:view.purchasesdetails')->only('index','show');
+        $this->middleware('can:create.purchasesdetails')->only('create','store');
+        $this->middleware('can:edit.purchasesdetails')->only('edit','update');
+        $this->middleware('can:delete.purchasesdetails')->only('destroy');
+    }
     public function index()
     {
         $detallecompras = Detallecompra::paginate(10);

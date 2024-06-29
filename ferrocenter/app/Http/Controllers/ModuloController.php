@@ -17,6 +17,12 @@ class ModuloController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct(){
+        $this->middleware('can:view.modules')->only('index','show');
+        $this->middleware('can:manage.modules')->only('create','store');
+        $this->middleware('can:manage.modules')->only('edit','update');
+        $this->middleware('can:manage.modules')->only('destroy');
+    }
     public function index()
     {
         $modulos = Modulo::paginate(10);

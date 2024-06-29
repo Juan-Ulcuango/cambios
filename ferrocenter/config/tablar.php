@@ -204,7 +204,7 @@ return [
             'text' => 'Inventario',
             'icon' => 'ti ti-brand-databricks',
             'url' => 'inventarios',
-            'roles' => ['admin','gerente','vendedor','compras','inventario']
+            'roles' => ['admin','gerente','compras','inventario']
         ],
 
         [

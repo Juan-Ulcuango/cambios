@@ -17,6 +17,12 @@ class ProveedoreController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct(){
+        $this->middleware('can:view.suppliers')->only('index','show');
+        $this->middleware('can:create.suppliers')->only('create','store');
+        $this->middleware('can:edit.suppliers')->only('edit','update');
+        $this->middleware('can:delete.suppliers')->only('destroy');
+    }
     public function index()
     {
         $proveedores = Proveedore::paginate(10);
