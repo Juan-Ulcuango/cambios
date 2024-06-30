@@ -11,10 +11,8 @@ class Producto extends Model
     protected $table = 'productos';
     protected $primaryKey = 'producto_id';
     protected $fillable = ['nombre_producto', 'descripcion_producto', 'precio_unitario', 'categoria_id'];
-    public static $rules = [
-        
-    ];
-  
+    public static $rules = [];
+
     public function categoria()
     {
         return $this->belongsTo(Categoria::class, 'categoria_id', 'categoria_id');
@@ -24,5 +22,4 @@ class Producto extends Model
     {
         return $this->belongsTo(Inventario::class, 'inventario_id', 'inventario_id');
     }
-
 }

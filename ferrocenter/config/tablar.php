@@ -153,7 +153,7 @@ return [
 
         [
             'text' => 'Usuarios',
-            'icon' => 'ti ti-home',
+            'icon' => 'ti ti-users',
             'url' => 'users',
             'roles' => ['admin']
         ],
@@ -193,12 +193,12 @@ return [
             'roles' => ['admin','gerente','vendedor']
         ],
 
-        [
-            'text' => 'Empleado',
-            'icon' => 'ti ti-users',
-            'url' => 'empleados',
-            'roles' => ['admin']
-        ],
+        // [
+        //     'text' => 'Empleado',
+        //     'icon' => 'ti ti-users',
+        //     'url' => 'empleados',
+        //     'roles' => ['admin']
+        // ],
 
         [
             'text' => 'Inventario',

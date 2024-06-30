@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->id('producto_id'); // Primary key
-            $table->string('nombre_producto', 30);
+            $table->string('nombre_producto', 100);
             $table->text('descripcion_producto')->nullable();
             $table->decimal('precio_unitario', 8, 2);
             $table->unsignedBigInteger('categoria_id'); // Foreign key

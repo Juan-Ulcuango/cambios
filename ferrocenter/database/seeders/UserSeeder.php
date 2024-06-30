@@ -50,6 +50,12 @@ class UserSeeder extends Seeder
             'password' => bcrypt('123456789')
         ]);
 
+        $user7 = User::create([
+            'name' => 'juan',
+            'email' => 'ulcuangoulcuango@gmail.com',
+            'password' => bcrypt('123456789')
+        ]);
+
         // Asigna el rol 'admin' al usuario recién creado
         $user1->syncRoles(['admin']);
 
@@ -67,5 +73,8 @@ class UserSeeder extends Seeder
 
         // Asigna el rol 'cliente' al usuario recién creado
         $user6->syncRoles(['cliente']);
+
+        // Asigna el rol 'admin' al usuario recién creado
+        $user7->syncRoles(['admin']);
     }
 }

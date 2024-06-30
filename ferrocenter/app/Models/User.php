@@ -13,6 +13,11 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
     use HasRoles;
 
+    //Relacion muchos a muchos con modulos
+    public function modulos()
+    {
+        return $this->belongsToMany('App\Models\Modulo');
+    }
 
     /**
      * The attributes that are mass assignable.
