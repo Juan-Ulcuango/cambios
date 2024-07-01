@@ -81,10 +81,12 @@ class RoleSeeder extends Seeder
         }
 
         // Crear roles y asignar permisos
-        $admin = Role::create(['name' => 'admin']);
+        $admin = Role::create(['name' => 'admin',
+        'description' => 'Encargado de administrar todo']);
         $admin->givePermissionTo(Permission::all());
 
-        $vendedor = Role::create(['name' => 'vendedor']);
+        $vendedor = Role::create(['name' => 'vendedor',
+        'description' => 'Encargado de ventas']);
         $vendedor->givePermissionTo([
             'view.products',
             'view.clients',
@@ -101,7 +103,8 @@ class RoleSeeder extends Seeder
             
         ]);
 
-        $gerente = Role::create(['name' => 'gerente']);
+        $gerente = Role::create(['name' => 'gerente',
+        'description' => 'Encargado de ventas, compras, empleados']);
         $gerente->givePermissionTo([
             'view.products',
             'view.categories',
@@ -124,7 +127,8 @@ class RoleSeeder extends Seeder
             'delete.transactions'
         ]);
 
-        $compras = Role::create(['name' => 'compras']);
+        $compras = Role::create(['name' => 'compras',
+        'description' => 'Encargado de compras']);
         $compras->givePermissionTo([
             'view.products',
             'view.purchases',
@@ -133,7 +137,8 @@ class RoleSeeder extends Seeder
             'view.suppliers'
         ]);
 
-        $inventario = Role::create(['name' => 'inventario']);
+        $inventario = Role::create(['name' => 'inventario',
+        'description' => 'Encargado del inventario']);
         $inventario->givePermissionTo([
             'view.products',
             'manage.inventory',
@@ -141,7 +146,8 @@ class RoleSeeder extends Seeder
             'view.salesdetails'
         ]);
 
-        $cliente = Role::create(['name' => 'cliente']);
+        $cliente = Role::create(['name' => 'cliente',
+        'description' => 'Cliente de la ferreteria']);
         $cliente->givePermissionTo([
             'view.products'
         ]);

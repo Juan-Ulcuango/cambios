@@ -152,6 +152,13 @@ return [
         ],
 
         [
+            'text' => 'Roles',
+            'icon' => 'ti ti-users',
+            'url' => 'roles',
+            'roles' => ['admin']
+        ],
+
+        [
             'text' => 'Usuarios',
             'icon' => 'ti ti-users',
             'url' => 'users',
