@@ -19,7 +19,7 @@ class InventarioController extends Controller
      */
 
     public function __construct(){
-        $this->middleware('can:inventory')->only('index','show');
+        $this->middleware('can:view.inventory')->only('index','show');
         $this->middleware('can:manage.inventory')->only('create','store');
         $this->middleware('can:manage.inventory')->only('edit','update');
         $this->middleware('can:manage.inventory')->only('destroy');

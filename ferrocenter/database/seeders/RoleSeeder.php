@@ -140,6 +140,7 @@ class RoleSeeder extends Seeder
         $inventario = Role::create(['name' => 'inventario',
         'description' => 'Encargado del inventario']);
         $inventario->givePermissionTo([
+            'view.inventory',
             'view.products',
             'manage.inventory',
             'view.purchases',
