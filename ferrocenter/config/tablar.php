@@ -67,10 +67,10 @@ return [
     |
     */
 
-    'layout' => 'horizontal',
+    'layout' => 'combo',
     //boxed, combo, condensed, fluid, fluid-vertical, horizontal, navbar-overlap, navbar-sticky, rtl, vertical, vertical-right, vertical-transparent
 
-    'layout_light_sidebar' => null,
+    'layout_light_sidebar' => false,
     'layout_light_topbar' => true,
     'layout_enable_top_header' => false,
 

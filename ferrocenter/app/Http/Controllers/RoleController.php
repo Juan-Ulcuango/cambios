@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreRole;
 use App\Models\Role;
 use Illuminate\Http\Request;
-use Spatie\Permission\Contracts\Permission;
-// use Spatie\Permission\Models\Permission;
+// use Spatie\Permission\Contracts\Permission;
+use Spatie\Permission\Models\Permission;
 
 /**
  * Class RoleController
@@ -34,6 +34,7 @@ class RoleController extends Controller
      */
     public function create()
     {
+        $permissions = Permission::all();
         $role = new Role();
         return view('role.create', compact('role'));
     }
