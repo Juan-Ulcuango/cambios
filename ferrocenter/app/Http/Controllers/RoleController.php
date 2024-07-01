@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRole;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Spatie\Permission\Contracts\Permission;
@@ -43,11 +44,16 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRole $request)
     {
-        request()->validate(Role::$rules);
+        // request()->validate(Role::$rules);
+        // $role = Role::create($request->all());
 
-        $role = Role::create($request->all());
+        $role = new Role();
+        $role->name = $request->name;
+        $role->description  = $request->description;
+        $role->guard_name = 'web';
+        $role->save();
 
         return redirect()->route('roles.index')
             ->with('success', 'Role created successfully.');
