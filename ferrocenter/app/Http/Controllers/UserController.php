@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 
 /**
@@ -20,7 +21,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware('can:view.users')->only('index', 'showProfile','show');
+        $this->middleware('can:view.users')->only('index', 'showProfile', 'show');
         $this->middleware('can:create.users')->only('create', 'store');
         $this->middleware('can:edit.users')->only('edit', 'update');
         $this->middleware('can:delete.users')->only('destroy');
@@ -40,8 +41,10 @@ class UserController extends Controller
      */
     public function create()
     {
+        $roles = Role::all();
         $user = new User();
-        return view('user.create', compact('user'));
+        $userRoles = [];
+        return view('user.create', compact('user', 'roles', 'userRoles'));
     }
 
     /**
@@ -52,13 +55,27 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(User::$rules);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'roles' => 'required|array',
+        ]);
 
-        $user = User::create($request->all());
+        $data = $request->only(['name', 'email', 'password']);
+        $data['password'] = bcrypt($request->password);
+
+        $user = User::create($data);
+
+        // Convertir IDs de roles a nombres de roles
+        $roleNames = Role::whereIn('id', $request->roles)->pluck('name')->toArray();
+        $user->syncRoles($roleNames);
 
         return redirect()->route('users.index')
             ->with('success', 'User created successfully.');
     }
+
+
 
     /**
      * Display the specified resource.
@@ -75,9 +92,10 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
+        $roles = $user->roles;
 
-        return view('user.show', compact('user'));
+        return view('user.show', compact('user', 'roles'));
     }
 
     /**
@@ -88,10 +106,13 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
+        $roles = Role::all();
+        $userRoles = $user->roles->pluck('id')->toArray();
 
-        return view('user.edit', compact('user'));
+        return view('user.edit', compact('user', 'roles', 'userRoles'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -100,15 +121,33 @@ class UserController extends Controller
      * @param  User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        request()->validate(User::$rules);
+        $user = User::findOrFail($id);
 
-        $user->update($request->all());
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:8|confirmed',
+            'roles' => 'required|array',
+        ]);
+
+        $data = $request->only(['name', 'email']);
+
+        if ($request->filled('password')) {
+            $data['password'] = bcrypt($request->password);
+        }
+
+        $user->update($data);
+        // Convertir IDs de roles a nombres de roles    
+        $roleNames = Role::whereIn('id', $request->roles)->pluck('name')->toArray();
+        $user->syncRoles($roleNames);
 
         return redirect()->route('users.index')
-            ->with('success', 'User updated successfully');
+            ->with('success', 'User updated successfully.');
     }
+
+
 
     /**
      * @param int $id
