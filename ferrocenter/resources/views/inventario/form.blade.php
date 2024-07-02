@@ -1,4 +1,3 @@
-
 <div class="form-group mb-3">
     <label class="form-label">   {{ Form::label('inventario_id') }}</label>
     <div>
@@ -39,8 +38,8 @@
     <div class="form-footer">
         <div class="text-end">
             <div class="d-flex">
-                <a href="{{ route('inventarios.index') }}" class="btn btn-danger">Cancel</a>
-                <button type="submit" class="btn btn-primary ms-auto ajax-submit">Submit</button>
+                <a href="{{ route('inventarios.index') }}" class="btn btn-danger">Cancelar</a>
+                <button type="submit" class="btn btn-primary ms-auto ajax-submit">Guardar</button>
             </div>
         </div>
     </div>

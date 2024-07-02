@@ -62,8 +62,10 @@
                                 <div class="ms-auto text-muted">
                                     Buscar:
                                     <div class="ms-2 d-inline-block">
-                                        <input type="text" class="form-control form-control-sm"
-                                            aria-label="Search invoice">
+                                        <form action="{{ route('categorias.index') }}" method="GET">
+                                            <input type="text" name="search" class="form-control form-control-sm"
+                                                aria-label="Search category" value="{{ request()->input('search') }}">
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -84,26 +86,21 @@
                                                 <polyline points="6 15 12 9 18 15" />
                                             </svg>
                                         </th>
-
                                         <th>Categoria Id</th>
                                         <th>Nombre Categoria</th>
                                         <th>Descripcion Categoria</th>
-
                                         <th class="w-1"></th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
                                     @forelse ($categorias as $categoria)
                                         <tr>
                                             <td><input class="form-check-input m-0 align-middle" type="checkbox"
                                                     aria-label="Select categoria"></td>
                                             <td>{{ ++$i }}</td>
-
                                             <td>{{ $categoria->categoria_id }}</td>
                                             <td>{{ $categoria->nombre_categoria }}</td>
                                             <td>{{ $categoria->descripcion_categoria }}</td>
-
                                             <td>
                                                 <div class="btn-list flex-nowrap">
                                                     <div class="dropdown">
@@ -140,7 +137,6 @@
                                         <td>Datos no encontrados</td>
                                     @endforelse
                                 </tbody>
-
                             </table>
                         </div>
                         <div class="card-footer d-flex align-items-center">
@@ -152,3 +148,4 @@
         </div>
     </div>
 @endsection
+
