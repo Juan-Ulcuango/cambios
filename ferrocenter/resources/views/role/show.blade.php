@@ -49,13 +49,40 @@
                         </div>
                         <div class="card-body">
 
-                            <div class="form-group">
-                                <strong>Nombre Rol:</strong>
-                                {{ $role->name }}
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Detalles del Rol</h5>
+                                    <div class="form-group row">
+                                        <label for="name" class="col-sm-3 col-form-label">Nombre del Rol:</label>
+                                        <div class="col-sm-9">
+                                            <p class="form-control-plaintext">{{ $role->name }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="description" class="col-sm-3 col-form-label ">Descripción del Rol:</label>
+                                        <div class="col-sm-9">
+                                            <p class="form-control-plaintext">{{ $role->description }}</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
                             <div class="form-group">
-                                <strong>Descripcion Rol:</strong>
-                                {{ $role->description }}
+                                <strong class="pt-3" style="font-size: 1.2em;">Permisos Asociados:</strong>
+                                <div class="row pt-3 pb-3">
+                                    @foreach ($role->permissions as $permission)
+                                        <div class="col-md-6 col-lg-4">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input"
+                                                    id="permission-{{ $permission->id }}" name="permissions[]"
+                                                    value="{{ $permission->id }}"{{ in_array($permission->id, $rolePermissions) ? ' checked' : '' }}>
+                                                <label class="form-check-label" for="permission-{{ $permission->id }}">
+                                                    {{ $permission->description }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
 
                         </div>

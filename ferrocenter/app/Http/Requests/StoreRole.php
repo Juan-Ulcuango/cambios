@@ -22,7 +22,9 @@ class StoreRole extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255', // Ejemplo de regla: campo obligatorio, tipo string, máximo 255 caracteres
+            'description' => 'nullable|string',    // Ejemplo de regla: campo opcional, tipo string
+            'permissions' => 'nullable'
         ];
     }
 }

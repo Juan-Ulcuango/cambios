@@ -15,6 +15,26 @@
         <small class="form-hint">Role <b>description</b> instruction.</small>
     </div>
 </div>
+@php
+    // Verificar si $rolePermissions está definida, si no, definirla como un array vacío
+    $rolePermissions = $rolePermissions ?? [];
+@endphp
+
+<div class="form-group mb-3">
+    <label class="form-label">Permissions</label>
+    <div class="row">
+        @foreach ($permissions as $permission)
+            <div class="col-md-6 col-lg-4">
+                <div class="form-check">
+                    {{ Form::checkbox('permissions[]', $permission->id, in_array($permission->id, $rolePermissions), ['class' => 'form-check-input', 'id' => 'permission-' . $permission->id]) }}
+                    <label class="form-check-label" for="permission-{{ $permission->id }}">
+                        {{ $permission->description }}
+                    </label>
+                </div>
+            </div>
+        @endforeach
+    </div>
+</div>
 
 <div class="form-footer">
     <div class="text-end">
