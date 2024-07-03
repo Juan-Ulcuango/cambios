@@ -1,84 +1,47 @@
 @extends('tablar::auth.layout')
 @section('title', 'Login')
 @section('content')
-<div class="container container-tight py-4">
-    <div class="text-center mb-1 mt-5">
-        <a href="" class="navbar-brand navbar-brand-autodark">
-            <img src="{{asset(config('tablar.auth_logo.img.path', 'assets/logo.svg'))}}" height="36" alt=""></a>
+<div style="display: flex; width: 100vw; height: 100vh; margin: 0;">
+    <!-- Contenedor del logo y texto de bienvenida a la izquierda -->
+    <div style="flex: 1; background: linear-gradient(to right, #add8e6, #add8e6); display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <img src="{{ asset('assets/Ferro.png') }}" alt="Ferro Center Logo" style="width: 50%; margin-bottom: 20px;">
+        <h1 style="color: #333; font-size: 24px;">Bienvenido a tu ferreteria</h1>
     </div>
-    <div class="card card-md">
-        <div class="card-body">
-            <h2 class="h2 text-center mb-4">Login to your account</h2>
-            <form action="{{route('login')}}" method="post" autocomplete="off" novalidate>
-                @csrf
 
-                <div class="mb-3">
-                    <label class="form-label">Email address</label>
-                    <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                        placeholder="your@email.com" autocomplete="off">
-                    @error('email')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="mb-2">
-                    <label class="form-label">
-                        Password
-                        <span class="form-label-description">
-                            <a href="{{route('password.request')}}">I forgot password</a>
-                        </span>
-                    </label>
-                    <div class="input-group input-group-flat">
-                        <input type="password" id="password" name="password"
-                            class="form-control @error('password') is-invalid @enderror" placeholder="Your password"
-                            autocomplete="off">
-                        <span class="input-group-text">
-                            <a href="#" onclick="togglePasswordVisibility();" class="link-secondary"
-                                title="Show password" data-bs-toggle="tooltip">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <circle cx="12" cy="12" r="2" />
-                                    <path
-                                        d="M22 12c-2.667 4.667 -6 7 -10 7s-7.333 -2.333 -10 -7c2.667 -4.667 6 -7 10 -7s7.333 2.333 10 7" />
-                                </svg>
-                            </a>
-                        </span>
+    <!-- Contenedor del formulario de login a la derecha -->
+    <div style="flex: 1; display: flex; align-items: center; justify-content: center; background: linear-gradient(to right, #6a11cb, #2575fc);">
+        <div class="card" style="width: 100%; max-width: 420px; background-color: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <div class="card-body">
+                <h2 class="text-center mb-4">Login to your account</h2>
+                <form action="{{ route('login') }}" method="post" novalidate>
+                    @csrf
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="your@email.com" required>
+                        @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Your password" required>
+                        <div class="mt-3">
+                            <a href="{{ route('password.request') }}">I forgot my password</a>
+                        </div>
                         @error('password')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-
-                </div>
-                <div class="mb-2">
-                    <label class="form-check">
-                        <input type="checkbox" class="form-check-input" />
-                        <span class="form-check-label">Remember me on this device</span>
-                    </label>
-                </div>
-                <div class="form-footer">
                     <button type="submit" class="btn btn-primary w-100">Sign in</button>
-                </div>
-            </form>
+                </form>
+                @if(Route::has('register'))
+                    <div class="mt-3 text-center">
+                        Don't have an account? <a href="{{ route('register') }}">Sign up</a>
+                    </div>
+                @endif
+            </div>
         </div>
-
     </div>
-    @if(Route::has('register'))
-        <div class="text-center text-muted mt-3">
-            Don't have account yet? <a href="{{route('register')}}" tabindex="-1">Sign up</a>
-        </div>
-    @endif
 </div>
-
-<script>
-function togglePasswordVisibility() {
-    var passwordInput = document.getElementById('password');
-    var currentType = passwordInput.getAttribute('type');
-    passwordInput.setAttribute('type', currentType === 'password' ? 'text' : 'password');
-}
-</script>
-
 @endsection
-
-
 
