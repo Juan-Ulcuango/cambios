@@ -43,6 +43,20 @@
                                             <th>Correo electrónico:</th>
                                             <td>{{ $user->email }}</td>
                                         </tr>
+                                        <tr>
+                                            <th>Roles:</th>
+                                            <td>
+                                                @if($roles->isNotEmpty())
+                                                    <ol>
+                                                        @foreach($roles as $role)
+                                                            <li>{{ $role->name }}</li>
+                                                        @endforeach
+                                                    </ol>
+                                                @else
+                                                    <p>No tiene roles asignados.</p>
+                                                @endif
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             @else
@@ -62,8 +76,3 @@
         </div>
     </div>
 @endsection
-
-
-
-
-

@@ -45,6 +45,7 @@ body {
 
 .table tr:hover {
     background-color: #6c757d; /* Color de fondo al pasar el ratón */
+    color: #ffffff;
 }
 
 .action-button.edit {
