@@ -87,7 +87,8 @@ class UserController extends Controller
     public function showProfile()
     {
         $user = Auth::user();  // Obtiene el usuario autenticado
-        return view('user.show', compact('user'));
+        $roles = $user->roles; // Asume que tienes una relación 'roles' en tu modelo User
+        return view('user.show', compact('user', 'roles'));
     }
 
     public function show($id)
