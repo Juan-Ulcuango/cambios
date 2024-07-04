@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 
 class LoginController extends Controller
 {
@@ -44,6 +45,7 @@ class LoginController extends Controller
      * Send the response after the user was authenticated.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
      * @return \Illuminate\Http\Response
      */
     protected function authenticated(Request $request, $user)
@@ -108,7 +110,7 @@ class LoginController extends Controller
      */
     public function maxAttempts()
     {
-        return 5; // Número máximo de intentos permitidos
+        return 2; // Número máximo de intentos permitidos
     }
 
     /**
@@ -119,5 +121,30 @@ class LoginController extends Controller
     public function decayMinutes()
     {
         return 1; // Tiempo de bloqueo en minutos
+    }
+
+    /**
+     * Send the failed login response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        $errors = [$this->username() => Lang::get('auth.failed')];
+
+        if ($this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+
+            return redirect()
+                ->back()
+                ->withInput($request->only($this->username(), 'remember'))
+                ->withErrors($errors)
+                ->with('throttle_error', Lang::get('auth.throttle', ['seconds' => $this->limiter()->availableIn($this->throttleKey($request))]));
+        }
+
+        return redirect()->back()
+            ->withInput($request->only($this->username(), 'remember'))
+            ->withErrors($errors);
     }
 }

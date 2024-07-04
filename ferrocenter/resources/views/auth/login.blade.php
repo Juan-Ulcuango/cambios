@@ -59,7 +59,6 @@
     <!-- Contenedor del logo y texto de bienvenida a la izquierda -->
     <div class="left-container">
         <img src="{{ asset('assets/Ferro.png') }}" alt="Ferro Center Logo" style="width: 50%; margin-bottom: 20px;">
-        
     </div>
 
     <!-- Contenedor del formulario de login a la derecha -->
@@ -69,26 +68,45 @@
                 <h2>Ingrese a su cuenta</h2>
                 <form action="{{ route('login') }}" method="post" novalidate>
                     @csrf
+
+                    <!-- Mensaje de error de intento fallido -->
+                    @if ($errors->has('email'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ $errors->first('email') }}
+                        </div>
+                    @endif
+
+                    <!-- Mensaje de bloqueo de cuenta -->
+                    @if (session('throttle_error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('throttle_error') }}
+                        </div>
+                    @endif
+
                     <div class="mb-3">
                         <label for="email" class="form-label">Dirección de correo electrónico</label>
-                        <input type="email" id="email" name="email" class="form-control" placeholder="Email" required>
+                        <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" required>
+                        @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="password" the form-label">Contraseña</label>
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Contraseña" required>
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Contraseña" required>
                         <div class="mt-3">
                             <a href="{{ route('password.request') }}">Olvidé mi contraseña</a>
                         </div>
+                        @error('password')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
                 </form>
                 <div class="mt-3 text-center">
-                ¿No tienes una cuenta? <a href="{{ route('register') }}"> Registrar</a>
+                ¿No tienes una cuenta? <a href="{{ route('register') }}">Registrar</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
-
-
