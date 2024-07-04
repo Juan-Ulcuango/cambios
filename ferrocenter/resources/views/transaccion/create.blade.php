@@ -106,17 +106,19 @@
 
             $("#add_row").click(function(e){
                 e.preventDefault();
-                let new_row_number = row_number - 1;
-                let new_row = $('#product' + new_row_number).clone().attr('id', 'product' + row_number);
+                let new_row_number = row_number;
+                let new_row = $('#product0').clone().attr('id', 'product' + new_row_number);
                 new_row.find('input').val('');
-                $('#products_table').append(new_row);
+                new_row.find('.price-input').val('');
+                new_row.find('.subtotal-input').val('');
+                $('#products_table tbody').append(new_row);
                 row_number++;
             });
 
             $("#delete_row").click(function(e){
                 e.preventDefault();
-                if(row_number > 1){
-                    $("#product" + (row_number - 1)).remove();
+                if($('#products_table tbody tr').length > 1){
+                    $('#products_table tbody tr:last').remove();
                     row_number--;
                 }
                 calculateTotal();

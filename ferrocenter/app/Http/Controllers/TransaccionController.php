@@ -55,21 +55,13 @@ class TransaccionController extends Controller
      */
     public function store(StoreTransaccion $request)
 {
-    // Validar los datos de la solicitud
-    $validatedData = $request->validated();
-
-    // Crear una nueva transacción
-    $transaccion = new Transaccion();
-    $transaccion->fecha_transaccion = $request->fecha_transaccion;
-    $transaccion->total_transaccion = $request->total_transaccion;
-    $transaccion->metodo_pago = $request->metodo_pago;
-    $transaccion->tipo_transaccion = $request->tipo_transaccion;
-    $transaccion->save();
+    // Crear una nueva transacción con los datos del request
+    $transaccion = Transaccion::create($request->all());
 
     // Obtener productos y cantidades de la solicitud
     $productos = $request->input('products', []);
     $cantidades = $request->input('quantities', []);
-    
+
     // Guardar productos relacionados en la tabla pivote
     for ($i = 0; $i < count($productos); $i++) {
         if ($productos[$i] != '') {
@@ -80,6 +72,8 @@ class TransaccionController extends Controller
     // Redirigir con un mensaje de éxito
     return redirect()->route('transaccions.index')->with('success', 'Transaccion created successfully.');
 }
+
+
 
 
     /**
