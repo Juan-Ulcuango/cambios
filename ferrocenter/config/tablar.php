@@ -42,11 +42,11 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'assets/tablar-logo.jpg',
+            'path' => 'assets/Ferro.png',
             'alt' => 'Auth Logo',
             'class' => '',
-            'width' => 50,
-            'height' => 50,
+            'width' => 100,
+            'height' => 100,
         ],
     ],
 

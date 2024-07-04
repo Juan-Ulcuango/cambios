@@ -62,6 +62,11 @@ body {
     opacity: 0.9;
 }
 
+.navbar-brand-image {
+    height: 5rem !important; 
+    width: auto !important;
+}
+
 
 
 
