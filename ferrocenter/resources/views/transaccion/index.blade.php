@@ -85,11 +85,12 @@
                                         </svg>
                                     </th>
                                     
-										<th>Transaccion Id</th>
-										<th>Fecha Transaccion</th>
-										<th>Total Transaccion</th>
-										<th>Metodo Pago</th>
-										<th>Tipo Transaccion</th>
+                                    <th>Transaccion Id</th>
+                                    <th>Fecha Transaccion</th>
+                                    <th>Total Transaccion</th>
+                                    <th>Metodo Pago</th>
+                                    <th>Tipo Transaccion</th>
+                                    <th>Productos</th>
 
                                     <th class="w-1"></th>
                                 </tr>
@@ -102,11 +103,18 @@
                                                    aria-label="Select transaccion"></td>
                                         <td>{{ ++$i }}</td>
                                         
-											<td>{{ $transaccion->transaccion_id }}</td>
-											<td>{{ $transaccion->fecha_transaccion }}</td>
-											<td>{{ $transaccion->total_transaccion }}</td>
-											<td>{{ $transaccion->metodo_pago }}</td>
-											<td>{{ $transaccion->tipo_transaccion }}</td>
+                                        <td>{{ $transaccion->transaccion_id }}</td>
+                                        <td>{{ $transaccion->fecha_transaccion }}</td>
+                                        <td>{{ $transaccion->total_transaccion }}</td>
+                                        <td>{{ $transaccion->metodo_pago }}</td>
+                                        <td>{{ $transaccion->tipo_transaccion }}</td>
+                                        <td>
+                                            <ul>
+                                                @foreach($transaccion->productos as $producto)
+                                                    <li>{{ $producto->nombre_producto }} ({{ $producto->pivot->cantidad }} x ${{ $producto->precio_unitario }})</li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
 
                                         <td>
                                             <div class="btn-list flex-nowrap">

@@ -17,15 +17,15 @@ return new class extends Migration
             $table->text('descripcion_producto')->nullable();
             $table->decimal('precio_unitario', 8, 2);
             $table->unsignedBigInteger('categoria_id'); // Foreign key
-            //$table->unsignedBigInteger('inventario_id')->nullable(); // Foreign key
             $table->timestamps();
 
             // Set foreign key constraints
             $table->foreign('categoria_id')->references('categoria_id')->on('categorias')->onDelete('cascade');
-           // $table->foreign('inventario_id')->references('inventario_id')->on('inventarios')->onDelete('cascade');
-        });
+             });
     }
-
+//$table->unsignedBigInteger('inventario_id')->nullable(); // Foreign key
+           // $table->foreign('inventario_id')->references('inventario_id')->on('inventarios')->onDelete('cascade');
+       
 
     /**
      * Reverse the migrations.

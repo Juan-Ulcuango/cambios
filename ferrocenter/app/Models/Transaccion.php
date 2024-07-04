@@ -12,4 +12,13 @@ class Transaccion extends Model
     public static $rules = [
         
     ];
+
+    public function productos()
+    {
+        return $this->belongsToMany(Producto::class, 'transaccion_producto', 'transaccion_id', 'producto_id')
+                    ->withPivot('cantidad')
+                    ->withTimestamps();
+    }
 }
+
+

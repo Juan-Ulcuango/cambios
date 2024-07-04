@@ -22,4 +22,13 @@ class Producto extends Model
     {
         return $this->belongsTo(Inventario::class, 'inventario_id', 'inventario_id');
     }
+
+    public function transacciones()
+    {
+        return $this->belongsToMany(Transaccion::class, 'transaccion_producto', 'producto_id', 'transaccion_id')
+                    ->withPivot('cantidad')
+                    ->withTimestamps();
+    }
 }
+
+
