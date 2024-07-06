@@ -32,3 +32,4 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Rutas adicionales aquí fuera del grupo middleware si son necesarias
+

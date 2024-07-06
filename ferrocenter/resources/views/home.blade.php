@@ -12,10 +12,10 @@
                 <div class="col">
                     <!-- Page pre-title -->
                     <div class="page-pretitle">
-                        Overview
+                    Descripción general
                     </div>
                     <h2 class="page-title">
-                        Dashboard
+                    Panel
                     </h2>
                 </div>
                 <!-- Page title actions -->
@@ -23,7 +23,7 @@
                     <div class="btn-list">
                         <span class="d-none d-sm-inline">
                             <a href="#" class="btn btn-white">
-                                New view
+                            Nueva vista
                             </a>
                         </span>
                         <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal"
@@ -36,7 +36,7 @@
                                 <line x1="12" y1="5" x2="12" y2="19" />
                                 <line x1="5" y1="12" x2="19" y2="12" />
                             </svg>
-                            Create new report
+                            Crear nuevo informe
                         </a>
                         <a href="#" class="btn btn-primary d-sm-none btn-icon" data-bs-toggle="modal"
                             data-bs-target="#modal-report" aria-label="Create new report">
@@ -61,20 +61,20 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Invoices</h3>
+                            <h3 class="card-title">Facturas</h3>
                         </div>
                         <div class="card-body border-bottom py-3">
                             <div class="d-flex">
                                 <div class="text-muted">
-                                    Show
+                                Espectáculo
                                     <div class="mx-2 d-inline-block">
                                         <input type="text" class="form-control form-control-sm" value="8"
                                             size="3" aria-label="Invoices count">
                                     </div>
-                                    entries
+                                    entradas
                                 </div>
                                 <div class="ms-auto text-muted">
-                                    Search:
+                                Buscar:
                                     <div class="ms-2 d-inline-block">
                                         <input type="text" class="form-control form-control-sm"
                                             aria-label="Search invoice">
@@ -98,12 +98,12 @@
                                                 <polyline points="6 15 12 9 18 15" />
                                             </svg>
                                         </th>
-                                        <th>Invoice Subject</th>
-                                        <th>Client</th>
-                                        <th>VAT No.</th>
-                                        <th>Created</th>
-                                        <th>Status</th>
-                                        <th>Price</th>
+                                        <th>Asunto de la factura</th>
+                                        <th>Cliente</th>
+                                        <th>N° de IVA</th>
+                                        <th>Creado/th>
+                                        <th>Estado</th>
+                                        <th>Precio</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -112,11 +112,11 @@
                                         <td><input class="form-check-input m-0 align-middle" type="checkbox"
                                                 aria-label="Select invoice"></td>
                                         <td><span class="text-muted">001401</span></td>
-                                        <td><a href="invoice.html" class="text-reset" tabindex="-1">Design Works</a>
+                                        <td><a href="invoice.html" class="text-reset" tabindex="-1">Trabajos de diseño</a>
                                         </td>
                                         <td>
                                             <span class="flag flag-country-us"></span>
-                                            Carlson Limited
+                                            Carlson limitada
                                         </td>
                                         <td>
                                             87956621
@@ -125,19 +125,19 @@
                                             15 Dec 2017
                                         </td>
                                         <td>
-                                            <span class="badge bg-success me-1"></span> Paid
+                                            <span class="badge bg-success me-1"></span> Pagado
                                         </td>
                                         <td>$887</td>
                                         <td class="text-end">
                                             <span class="dropdown">
                                                 <button class="btn dropdown-toggle align-text-top"
-                                                    data-bs-boundary="viewport" data-bs-toggle="dropdown">Actions</button>
+                                                    data-bs-boundary="viewport" data-bs-toggle="dropdown">Comportamiento</button>
                                                 <div class="dropdown-menu dropdown-menu-end">
                                                     <a class="dropdown-item" href="#">
-                                                        Action
+                                                    Acción
                                                     </a>
                                                     <a class="dropdown-item" href="#">
-                                                        Another action
+                                                    Otra acción
                                                     </a>
                                                 </div>
                                             </span>
@@ -147,7 +147,7 @@
                                         <td><input class="form-check-input m-0 align-middle" type="checkbox"
                                                 aria-label="Select invoice"></td>
                                         <td><span class="text-muted">001402</span></td>
-                                        <td><a href="invoice.html" class="text-reset" tabindex="-1">UX Wireframes</a>
+                                        <td><a href="invoice.html" class="text-reset" tabindex="-1">Estructuras alámbricas de UX</a>
                                         </td>
                                         <td>
                                             <span class="flag flag-country-gb"></span>
@@ -393,8 +393,8 @@
                             </table>
                         </div>
                         <div class="card-footer d-flex align-items-center">
-                            <p class="m-0 text-muted">Showing <span>1</span> to <span>8</span> of <span>16</span>
-                                entries</p>
+                            <p class="m-0 text-muted">Demostración <span>1</span> a <span>8</span> de <span>16</span>
+                            entradas</p>
                             <ul class="pagination m-0 ms-auto">
                                 <li class="page-item disabled">
                                     <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
@@ -405,7 +405,7 @@
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <polyline points="15 6 9 12 15 18" />
                                         </svg>
-                                        prev
+                                        anterior
                                     </a>
                                 </li>
                                 <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -415,7 +415,7 @@
                                 <li class="page-item"><a class="page-link" href="#">5</a></li>
                                 <li class="page-item">
                                     <a class="page-link" href="#">
-                                        next <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
+                                    siguiente <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
                                             height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                                             fill="none" stroke-linecap="round" stroke-linejoin="round">
