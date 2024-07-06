@@ -21,6 +21,7 @@ class UserController extends Controller
 
     public function __construct()
     {
+        // $this->middleware('sessiontime');
         $this->middleware('can:view.users')->only('index', 'showProfile', 'show');
         $this->middleware('can:create.users')->only('create', 'store');
         $this->middleware('can:edit.users')->only('edit', 'update');
