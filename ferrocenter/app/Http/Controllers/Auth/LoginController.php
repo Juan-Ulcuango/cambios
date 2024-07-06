@@ -100,7 +100,7 @@ class LoginController extends Controller
      */
     protected function throttleKey(Request $request)
     {
-        return strtolower($request->input($this->username())).'|'.$request->ip();
+        return strtolower($request->input($this->username())) . '|' . $request->ip();
     }
 
     /**
