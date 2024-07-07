@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuditController;
 
 // Ruta de bienvenida
 Route::get('/', function () {
@@ -29,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/permisos', App\Http\Controllers\PermisoController::class);
     Route::resource('/users', App\Http\Controllers\UserController::class);
     Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
+    Route::get('/audits', [AuditController::class, 'index'])->name('audits.index');
 });
 
 // Rutas adicionales aquí fuera del grupo middleware si son necesarias

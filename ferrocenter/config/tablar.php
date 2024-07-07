@@ -242,6 +242,13 @@ return [
             'roles' => ['admin','gerente','compras','vendedor']
         ],
 
+        [
+            'text' => 'Auditoria',
+            'icon' => 'ti ti-coin',
+            'url' => 'audits',
+            'roles' => ['admin']
+        ],
+
         // [
         //     'text' => 'Support 1',
         //     'url' => '#',
