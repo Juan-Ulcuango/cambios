@@ -54,20 +54,33 @@ class TransaccionController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTransaccion $request)
 {
-    $transaccion = Transaccion::create($request->all());
+    // Validar los datos de la solicitud
+    $validatedData = $request->validated();
 
-    $products = $request->input('products', []);
-    $quantities = $request->input('quantities', []);
+    // Crear una nueva transacción
+    $transaccion = new Transaccion();
+    $transaccion->fecha_transaccion = $request->fecha_transaccion;
+    $transaccion->total_transaccion = $request->total_transaccion;
+    $transaccion->metodo_pago = $request->metodo_pago;
+    $transaccion->tipo_transaccion = $request->tipo_transaccion;
+    $transaccion->cliente_id = $request->cliente_id;
+    $transaccion->save();
 
-    for ($product = 0; $product < count($products); $product++) {
-        if ($products[$product] != '') {
-            $transaccion->productos()->attach($products[$product], ['cantidad' => $quantities[$product]]);
+    // Obtener productos y cantidades de la solicitud
+    $productos = $request->input('products', []);
+    $cantidades = $request->input('quantities', []);
+    
+    // Guardar productos relacionados en la tabla pivote
+    for ($i = 0; $i < count($productos); $i++) {
+        if ($productos[$i] != '') {
+            $transaccion->productos()->attach($productos[$i], ['cantidad' => $cantidades[$i]]);
         }
     }
 
-    return redirect()->route('transaccions.index');
+    // Redirigir con un mensaje de éxito
+    return redirect()->route('transaccions.index')->with('success', 'Transacción creada con éxito.');
 }
 
 

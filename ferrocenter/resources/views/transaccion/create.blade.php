@@ -8,21 +8,9 @@
     <div class="container">
         <div class="row clearfix">
             <div class="col-md-12">
-                <form method="POST" action="{{ route('transaccions.store') }}" id="ajaxForm" role="form" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('transaccions.store') }}" id="transaccionForm" role="form" enctype="multipart/form-data">
                     @csrf
                     @include('transaccion.form')
-
-                    <div class="form-group">
-                        <label for="cliente_id">Cliente:</label>
-                        <select name="cliente_id" class="form-control">
-                            <option value="">-- Selecciona un cliente --</option>
-                            @foreach ($clientes as $cliente)
-                                <option value="{{ $cliente->cliente_id }}">
-                                    {{ $cliente->nombre_cliente }} {{ $cliente->apellido_cliente }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
 
                     <div class="card">
                         <div class="card-header">
@@ -92,7 +80,7 @@
                     </div>
 
                     <div>
-                        <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
+                        <input class="btn btn-danger" type="submit" value="Guardar">
                     </div>
                 </form>
             </div>
@@ -152,6 +140,7 @@
 
                 $('#sub_total').val(total.toFixed(2));
                 $('#total_amount').val(total.toFixed(2)); // Actualizar el total_amount
+                $('input[name="total_transaccion"]').val(total.toFixed(2)); // También actualizar el total_transaccion en el formulario principal
             }
         });
     </script>
