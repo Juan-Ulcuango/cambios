@@ -92,7 +92,6 @@
                                         <th>Valores Anteriores</th>
                                         <th>Valores Nuevos</th>
                                         <th>Fecha</th>
-                                        <th class="w-1"></th>
                                     </tr>
                                 </thead>
 
@@ -105,42 +104,11 @@
                                             <td>{{ $audit->id }}</td>
                                             <td>{{ optional($audit->user)->name }}</td>
                                             <td>{{ $audit->event }}</td>
-                                            <td>{{ $audit->auditable_type }}</td>
+                                            <td>{{ class_basename($audit->auditable_type) }}</td>
                                             <td>{{ $audit->auditable_id }}</td>
                                             <td>{{ json_encode($audit->old_values) }}</td>
                                             <td>{{ json_encode($audit->new_values) }}</td>
                                             <td>{{ $audit->created_at }}</td>
-                                            <td>
-                                                <div class="btn-list flex-nowrap">
-                                                    <div class="dropdown">
-                                                        <button class="btn dropdown-toggle align-text-top"
-                                                            data-bs-toggle="dropdown">
-                                                            Actions
-                                                        </button>
-                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                            <a class="dropdown-item"
-                                                                href="#">
-                                                                View
-                                                            </a>
-                                                            <a class="dropdown-item"
-                                                                href="#">
-                                                                Edit
-                                                            </a>
-                                                            <form action="#"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    onclick="if(!confirm('Do you Want to Proceed?')){return false;}"
-                                                                    class="dropdown-item text-red"><i
-                                                                        class="fa fa-fw fa-trash"></i>
-                                                                    Delete
-                                                                </button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
