@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTransaccion;
 use App\Models\Producto;
 use App\Models\Transaccion;
+use App\Models\Cliente;
 use Illuminate\Http\Request;
 
 /**
@@ -26,13 +27,12 @@ class TransaccionController extends Controller
         $this->middleware('can:delete.transactions')->only('destroy');
     }
     public function index()
-{
-    $transaccions = Transaccion::with('productos')->paginate(10);
+    {
+        $transaccions = Transaccion::with('productos', 'cliente')->paginate(10);
 
-    return view('transaccion.index', compact('transaccions'))
-        ->with('i', (request()->input('page', 1) - 1) * $transaccions->perPage());
-}
-
+        return view('transaccion.index', compact('transaccions'))
+            ->with('i', (request()->input('page', 1) - 1) * $transaccions->perPage());
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -41,10 +41,11 @@ class TransaccionController extends Controller
      */
     public function create()
     {
-        $productos = Producto::all(); 
+        $productos = Producto::all();
+        $clientes = Cliente::all(); // Obtener todos los clientes
         $transaccion = new Transaccion();
-        
-        return view('transaccion.create', compact('transaccion', 'productos'));
+
+        return view('transaccion.create', compact('transaccion', 'productos', 'clientes'));
     }
 
     /**
@@ -53,26 +54,21 @@ class TransaccionController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTransaccion $request)
+    public function store(Request $request)
 {
-    // Crear una nueva transacción con los datos del request
     $transaccion = Transaccion::create($request->all());
 
-    // Obtener productos y cantidades de la solicitud
-    $productos = $request->input('products', []);
-    $cantidades = $request->input('quantities', []);
+    $products = $request->input('products', []);
+    $quantities = $request->input('quantities', []);
 
-    // Guardar productos relacionados en la tabla pivote
-    for ($i = 0; $i < count($productos); $i++) {
-        if ($productos[$i] != '') {
-            $transaccion->productos()->attach($productos[$i], ['cantidad' => $cantidades[$i]]);
+    for ($product = 0; $product < count($products); $product++) {
+        if ($products[$product] != '') {
+            $transaccion->productos()->attach($products[$product], ['cantidad' => $quantities[$product]]);
         }
     }
 
-    // Redirigir con un mensaje de éxito
-    return redirect()->route('transaccions.index')->with('success', 'Transaccion created successfully.');
+    return redirect()->route('transaccions.index');
 }
-
 
 
 

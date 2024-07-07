@@ -60,7 +60,7 @@
                                     entradas
                                 </div>
                                 <div class="ms-auto text-muted">
-                                Buscar:
+                                    Buscar:
                                     <div class="ms-2 d-inline-block">
                                         <input type="text" class="form-control form-control-sm"
                                                aria-label="Search invoice">
@@ -86,16 +86,17 @@
                                     </th>
                                     
                                     <th>Transaccion Id</th>
+                                    <th>Cliente</th> <!-- Nueva columna para cliente -->
                                     <th>Fecha Transaccion</th>
                                     <th>Total Transaccion</th>
                                     <th>Metodo Pago</th>
                                     <th>Tipo Transaccion</th>
                                     <th>Productos</th>
-
+    
                                     <th class="w-1"></th>
                                 </tr>
                                 </thead>
-
+    
                                 <tbody>
                                 @forelse ($transaccions as $transaccion)
                                     <tr>
@@ -104,6 +105,7 @@
                                         <td>{{ ++$i }}</td>
                                         
                                         <td>{{ $transaccion->transaccion_id }}</td>
+                                        <td>{{ $transaccion->cliente->nombre_cliente }} {{ $transaccion->cliente->apellido_cliente }}</td> <!-- Mostrar cliente -->
                                         <td>{{ $transaccion->fecha_transaccion }}</td>
                                         <td>{{ $transaccion->total_transaccion }}</td>
                                         <td>{{ $transaccion->metodo_pago }}</td>
@@ -115,7 +117,7 @@
                                                 @endforeach
                                             </ul>
                                         </td>
-
+    
                                         <td>
                                             <div class="btn-list flex-nowrap">
                                                 <div class="dropdown">
@@ -153,7 +155,7 @@
                                     <td>Datos no encontrados</td>
                                 @endforelse
                                 </tbody>
-
+    
                             </table>
                         </div>
                        <div class="card-footer d-flex align-items-center">
@@ -164,4 +166,4 @@
             </div>
         </div>
     </div>
-@endsection
+@endsection    

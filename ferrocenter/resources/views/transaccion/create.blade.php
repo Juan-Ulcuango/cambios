@@ -12,6 +12,18 @@
                     @csrf
                     @include('transaccion.form')
 
+                    <div class="form-group">
+                        <label for="cliente_id">Cliente:</label>
+                        <select name="cliente_id" class="form-control">
+                            <option value="">-- Selecciona un cliente --</option>
+                            @foreach ($clientes as $cliente)
+                                <option value="{{ $cliente->cliente_id }}">
+                                    {{ $cliente->nombre_cliente }} {{ $cliente->apellido_cliente }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     <div class="card">
                         <div class="card-header">
                             Productos
@@ -71,19 +83,6 @@
                                         <td class="text-center"><input type="number" name='sub_total' placeholder='0.00' class="form-control" id="sub_total" readonly/></td>
                                     </tr>
                                     <tr>
-                                        <th class="text-center">Tax</th>
-                                        <td class="text-center">
-                                            <div class="input-group mb-2 mb-sm-0">
-                                                <input type="number" class="form-control" id="tax" placeholder="0">
-                                                <div class="input-group-addon">%</div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-center">Tax Amount</th>
-                                        <td class="text-center"><input type="number" name='tax_amount' id="tax_amount" placeholder='0.00' class="form-control" readonly/></td>
-                                    </tr>
-                                    <tr>
                                         <th class="text-center">Grand Total</th>
                                         <td class="text-center"><input type="number" name='total_amount' id="total_amount" placeholder='0.00' class="form-control" readonly/></td>
                                     </tr>
@@ -138,10 +137,6 @@
                 calculateTotal();
             });
 
-            $('#tax').on('keyup change', function(){
-                calculateTotal();
-            });
-
             function calculateRow(row){
                 let quantity = parseFloat(row.find('.quantity-input').val());
                 let price = parseFloat(row.find('.price-input').val());
@@ -155,13 +150,8 @@
                     total += parseFloat($(this).val());
                 });
 
-                let tax_percent = parseFloat($('#tax').val());
-                let tax_amount = total * (tax_percent / 100);
-                let grand_total = total + tax_amount;
-
                 $('#sub_total').val(total.toFixed(2));
-                $('#tax_amount').val(tax_amount.toFixed(2));
-                $('#total_amount').val(grand_total.toFixed(2));
+                $('#total_amount').val(total.toFixed(2)); // Actualizar el total_amount
             }
         });
     </script>
