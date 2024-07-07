@@ -73,6 +73,8 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'edit.users', 'description' => 'Editar usuarios']);
         Permission::create(['name' => 'delete.users', 'description' => 'Eliminar usuarios']);
 
+        Permission::create(['name' => 'view.profile', 'description' => 'Ver Perfil']);
+
         // Crear roles y asignar permisos
         $admin = Role::create(['name' => 'admin', 'description' => 'Encargado de administrar todo']);
         $admin->givePermissionTo(Permission::all());
@@ -91,6 +93,8 @@ class RoleSeeder extends Seeder
             'create.salesdetails',
             'edit.salesdetails',
             'delete.salesdetails',
+
+            'view.profile',
         ]);
 
         $gerente = Role::create(['name' => 'gerente', 'description' => 'Encargado de ventas, compras, empleados']);
@@ -114,6 +118,8 @@ class RoleSeeder extends Seeder
             'edit.transactions',
             'view.transactions',
             'delete.transactions',
+
+            'view.profile',
         ]);
 
         $compras = Role::create(['name' => 'compras', 'description' => 'Encargado de compras']);
@@ -123,6 +129,8 @@ class RoleSeeder extends Seeder
             'create.purchases',
             'edit.purchases',
             'view.suppliers',
+
+            'view.profile',
         ]);
 
         $inventario = Role::create(['name' => 'inventario', 'description' => 'Encargado del inventario']);
@@ -132,6 +140,8 @@ class RoleSeeder extends Seeder
             'manage.inventory',
             'view.purchases',
             'view.salesdetails',
+
+            'view.profile',
         ]);
 
         $cliente = Role::create(['name' => 'cliente', 'description' => 'Cliente de la ferretería']);
