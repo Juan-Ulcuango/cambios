@@ -32,6 +32,9 @@
                             </svg>
                             Crear Usuario
                         </a>
+                        <a href="{{ route('users.pdf') }}" class="btn btn-secondary d-none d-sm-inline-block">
+                            Exportar a PDF
+                        </a>
                     </div>
                 </div>
             </div>

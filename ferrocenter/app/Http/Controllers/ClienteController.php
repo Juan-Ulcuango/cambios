@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Cliente;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreCliente;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
+
 
 /**
  * Class ClienteController
@@ -18,7 +21,8 @@ class ClienteController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __contruct(){
+    public function __contruct()
+    {
         $this->middleware('can:view.products')->only('index');
     }
 
@@ -114,10 +118,19 @@ class ClienteController extends Controller
      * @throws \Exception
      */
     public function destroy($cliente_id)
-{
-    $cliente = Cliente::where('cliente_id', $cliente_id)->firstOrFail();
-    $cliente->delete();
+    {
+        $cliente = Cliente::where('cliente_id', $cliente_id)->firstOrFail();
+        $cliente->delete();
 
-    return redirect()->route('clientes.index')->with('success', 'Cliente deleted successfully');
-}
+        return redirect()->route('clientes.index')->with('success', 'Cliente deleted successfully');
+    }
+
+    public function exportPdf()
+    {
+        $clientes = Cliente::all();
+        $pdf = PDF::loadView('cliente.pdf', compact('clientes'));
+        $currentDate = Carbon::now()->format('d-m-Y'); // Formato de fecha: dd-mm-yyyy
+        $filename = 'Clientes-' . $currentDate . '.pdf';
+        return $pdf->download($filename);
+    }
 }

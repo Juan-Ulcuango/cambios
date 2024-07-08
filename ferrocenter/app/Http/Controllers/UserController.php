@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 /**
  * Class UserController
@@ -164,4 +166,16 @@ class UserController extends Controller
         return redirect()->route('users.index')
             ->with('success', 'User deleted successfully');
     }
+
+    public function exportPdf()
+    {
+        $users = User::all();
+        $pdf = PDF::loadView('user.pdf', compact('users'));
+        $currentDate = Carbon::now()->format('d-m-Y'); // Formato de fecha: dd-mm-yyyy
+        $filename = 'Usuarios-' . $currentDate . '.pdf';
+        return $pdf->download($filename);
+    }
+
+
+
 }

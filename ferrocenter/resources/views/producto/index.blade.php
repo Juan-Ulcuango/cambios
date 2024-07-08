@@ -98,11 +98,11 @@
                                             <td><input class="form-check-input m-0 align-middle" type="checkbox"
                                                     aria-label="Select producto"></td>
                                             <td>{{ ++$i }}</td>
-                                            <td>{{ $producto->producto_id }}</td>
-                                            <td>{{ $producto->nombre_producto }}</td>
-                                            <td>{{ $producto->descripcion_producto }}</td>
-                                            <td>{{ $producto->precio_unitario }}</td>
-                                            <td>{{ $producto->categoria->nombre_categoria }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $producto->producto_id }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $producto->nombre_producto }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $producto->descripcion_producto }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $producto->precio_unitario }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $producto->categoria->nombre_categoria }}</td>
                                             <td>
                                                 <div class="btn-list flex-nowrap">
                                                     <div class="dropdown">

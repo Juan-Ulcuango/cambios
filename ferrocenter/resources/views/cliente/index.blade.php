@@ -12,7 +12,7 @@
                 <div class="col">
                     <!-- Page pre-title -->
                     <div class="page-pretitle">
-                    Lista
+                        Lista
                     </div>
                     <h2 class="page-title">
                         {{ __('Cliente ') }}
@@ -31,6 +31,9 @@
                                 <line x1="5" y1="12" x2="19" y2="12" />
                             </svg>
                             Crear Cliente
+                        </a>
+                        <a href="{{ route('clientes.pdf') }}" class="btn btn-secondary d-none d-sm-inline-block">
+                            Exportar a PDF
                         </a>
                     </div>
                 </div>
@@ -52,7 +55,7 @@
                         <div class="card-body border-bottom py-3">
                             <div class="d-flex">
                                 <div class="text-muted">
-                                Espectáculo
+                                    Mostrar
                                     <div class="mx-2 d-inline-block">
                                         <input type="text" class="form-control form-control-sm" value="10"
                                             size="3" aria-label="Invoices count">
@@ -60,7 +63,7 @@
                                     entradas
                                 </div>
                                 <div class="ms-auto text-muted">
-                                Buscar:
+                                    Buscar:
                                     <div class="ms-2 d-inline-block">
                                         <input type="text" class="form-control form-control-sm"
                                             aria-label="Search invoice">
@@ -84,38 +87,33 @@
                                                 <polyline points="6 15 12 9 18 15" />
                                             </svg>
                                         </th>
-
                                         <th>Cliente Id</th>
                                         <th>Nombre Cliente</th>
                                         <th>Apellido Cliente</th>
                                         <th>Direccion Cliente</th>
                                         <th>Telefono Cliente</th>
                                         <th>Email Cliente</th>
-
                                         <th class="w-1"></th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
                                     @forelse ($clientes as $cliente)
                                         <tr>
                                             <td><input class="form-check-input m-0 align-middle" type="checkbox"
                                                     aria-label="Select cliente"></td>
                                             <td>{{ ++$i }}</td>
-
-                                            <td>{{ $cliente->cliente_id }}</td>
-                                            <td>{{ $cliente->nombre_cliente }}</td>
-                                            <td>{{ $cliente->apellido_cliente }}</td>
-                                            <td>{{ $cliente->direccion_cliente }}</td>
-                                            <td>{{ $cliente->telefono_cliente }}</td>
-                                            <td>{{ $cliente->email_cliente }}</td>
-
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $cliente->cliente_id }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $cliente->nombre_cliente }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $cliente->apellido_cliente }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $cliente->direccion_cliente }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $cliente->telefono_cliente }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $cliente->email_cliente }}</td>
                                             <td>
                                                 <div class="btn-list flex-nowrap">
                                                     <div class="dropdown">
                                                         <button class="btn dropdown-toggle align-text-top"
                                                             data-bs-toggle="dropdown">
-                                                            Comportamiento
+                                                            Acciones
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-end">
                                                             <a class="dropdown-item"
@@ -132,9 +130,8 @@
                                                                 @method('DELETE')
                                                                 <button type="submit"
                                                                     onclick="if(!confirm('Do you Want to Proceed?')){return false;}"
-                                                                    class="dropdown-item text-red"><i
-                                                                        class="fa fa-fw fa-trash"></i>
-                                                                        Borrar
+                                                                    class="dropdown-item text-red">
+                                                                    Borrar
                                                                 </button>
                                                             </form>
                                                         </div>
@@ -143,10 +140,9 @@
                                             </td>
                                         </tr>
                                     @empty
-                                        <td>Datos no encontrados</td>
+                                        <td colspan="9" class="text-center">Datos no encontrados</td>
                                     @endforelse
                                 </tbody>
-
                             </table>
                         </div>
                         <div class="card-footer d-flex align-items-center">

@@ -14,6 +14,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('users/pdf', [ClienteController::class, 'exportPdf'])->name('users.pdf');
+    Route::get('clientes/pdf', [ClienteController::class, 'exportPdf'])->name('clientes.pdf');
     Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource('/clientes', ClienteController::class);
     Route::resource('/detalleventas', App\Http\Controllers\DetalleventaController::class);

@@ -102,11 +102,11 @@
                                                    aria-label="Select proveedore"></td>
                                         <td>{{ ++$i }}</td>
                                         
-											<td>{{ $proveedore->proveedor_id }}</td>
-											<td>{{ $proveedore->nombre_proveedor }}</td>
-											<td>{{ $proveedore->direccion_proveedor }}</td>
-											<td>{{ $proveedore->telefono_proveedor }}</td>
-											<td>{{ $proveedore->email_proveedor }}</td>
+											<td style="word-wrap: break-word; white-space: pre-wrap;">{{ $proveedore->proveedor_id }}</td>
+											<td style="word-wrap: break-word; white-space: pre-wrap;">{{ $proveedore->nombre_proveedor }}</td>
+											<td style="word-wrap: break-word; white-space: pre-wrap;">{{ $proveedore->direccion_proveedor }}</td>
+											<td style="word-wrap: break-word; white-space: pre-wrap;">{{ $proveedore->telefono_proveedor }}</td>
+											<td style="word-wrap: break-word; white-space: pre-wrap;">{{ $proveedore->email_proveedor }}</td>
 
                                         <td>
                                             <div class="btn-list flex-nowrap">

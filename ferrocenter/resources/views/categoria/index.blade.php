@@ -98,9 +98,9 @@
                                             <td><input class="form-check-input m-0 align-middle" type="checkbox"
                                                     aria-label="Select categoria"></td>
                                             <td>{{ ++$i }}</td>
-                                            <td>{{ $categoria->categoria_id }}</td>
-                                            <td>{{ $categoria->nombre_categoria }}</td>
-                                            <td>{{ $categoria->descripcion_categoria }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $categoria->categoria_id }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $categoria->nombre_categoria }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $categoria->descripcion_categoria }}</td>
                                             <td>
                                                 <div class="btn-list flex-nowrap">
                                                     <div class="dropdown">
