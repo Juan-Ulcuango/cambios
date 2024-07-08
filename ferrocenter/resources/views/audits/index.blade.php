@@ -106,8 +106,16 @@
                                             <td>{{ $audit->event }}</td>
                                             <td>{{ class_basename($audit->auditable_type) }}</td>
                                             <td>{{ $audit->auditable_id }}</td>
-                                            <td>{{ json_encode($audit->old_values) }}</td>
-                                            <td>{{ json_encode($audit->new_values) }}</td>
+                                            <td>
+                                                @foreach ($audit->old_values as $key => $value)
+                                                    <strong>{{ $key }}:</strong> {{ $value }}<br>
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                @foreach ($audit->new_values as $key => $value)
+                                                    <strong>{{ $key }}:</strong> {{ $value }}<br>
+                                                @endforeach
+                                            </td>
                                             <td>{{ $audit->created_at }}</td>
                                         </tr>
                                     @endforeach
