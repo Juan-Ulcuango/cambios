@@ -153,14 +153,14 @@ return [
 
         [
             'text' => 'Roles',
-            'icon' => 'ti ti-users',
+            'icon' => 'ti ti-circles',
             'url' => 'roles',
             'roles' => ['admin']
         ],
 
         [
             'text' => 'Usuarios',
-            'icon' => 'ti ti-users',
+            'icon' => 'ti ti-user',
             'url' => 'users',
             'roles' => ['admin']
         ],
@@ -244,7 +244,7 @@ return [
 
         [
             'text' => 'Auditoria',
-            'icon' => 'ti ti-coin',
+            'icon' => 'ti ti-book-upload',
             'url' => 'audits',
             'roles' => ['admin']
         ],
