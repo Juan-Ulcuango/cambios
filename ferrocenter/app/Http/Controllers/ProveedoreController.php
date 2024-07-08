@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProveedore;
 use App\Models\Proveedore;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 /**
  * Class ProveedoreController
@@ -123,4 +125,13 @@ class ProveedoreController extends Controller
         return redirect()->route('proveedores.index')
             ->with('success', 'Proveedore deleted successfully');
     }
+    public function exportPdf()
+    {
+        $proveedores = Proveedore::all();
+        $pdf = PDF::loadView('proveedore.pdf', compact('proveedores'));
+        $currentDate = Carbon::now()->format('d-m-Y'); // Formato de fecha: dd-mm-yyyy
+        $filename = 'Proveedores-' . $currentDate . '.pdf';
+        return $pdf->download($filename);
+    }
+
 }

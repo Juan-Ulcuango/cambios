@@ -32,6 +32,9 @@
                             </svg>
                             Crear Proveedore
                         </a>
+                        <a href="{{ route('proveedores.pdf') }}" class="btn btn-secondary d-none d-sm-inline-block">
+                            Exportar a PDF
+                        </a>
                     </div>
                 </div>
             </div>

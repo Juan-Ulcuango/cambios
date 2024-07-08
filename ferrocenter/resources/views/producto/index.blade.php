@@ -32,6 +32,10 @@
                             </svg>
                             Crear Producto
                         </a>
+
+                        <a href="{{ route('productos.pdf') }}" class="btn btn-secondary d-none d-sm-inline-block">
+                            Exportar a PDF
+                        </a>
                     </div>
                 </div>
             </div>

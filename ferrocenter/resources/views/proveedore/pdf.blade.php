@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Lista de Usuarios</title>
+    <title>Lista de Proveedores</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -55,21 +55,25 @@
 </head>
 <body>
     <div class="container">
-        <h1>Lista de Usuarios</h1>
+        <h1>Lista de Proveedores</h1>
         <table>
             <thead>
                 <tr>
-                    <th style="width: 5%">No.</th>
-                    <th style="width: 15%">Nombre</th>
-                    <th style="width: 15%">Correo electronico</th>
+                    <th>Proveedor Id</th>
+                    <th>Nombre Proveedor</th>
+                    <th>Direccion Proveedor</th>
+                    <th>Telefono Proveedor</th>
+                    <th>Email Proveedor</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($users as $index => $user)
+                @foreach($proveedores as $index => $proveedore)
                     <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->mail }}</td>
+                        <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $proveedore->proveedor_id }}</td>
+                        <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $proveedore->nombre_proveedor }}</td>
+                        <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $proveedore->direccion_proveedor }}</td>
+                        <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $proveedore->telefono_proveedor }}</td>
+                        <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $proveedore->email_proveedor }}</td>
                     </tr>
                 @endforeach
             </tbody>

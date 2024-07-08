@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuditController;
+use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\ProveedoreController;
+use App\Models\Proveedore;
 
 // Ruta de bienvenida
 Route::get('/', function () {
@@ -14,8 +17,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('users/pdf', [ClienteController::class, 'exportPdf'])->name('users.pdf');
+    Route::get('users/pdf', [UserController::class, 'exportPdf'])->name('users.pdf');
     Route::get('clientes/pdf', [ClienteController::class, 'exportPdf'])->name('clientes.pdf');
+    Route::get('productos/pdf', [ProductoController::class, 'exportPdf'])->name('productos.pdf');
+    Route::get('proveedores/pdf', [ProveedoreController::class, 'exportPdf'])->name('proveedores.pdf');
     Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource('/clientes', ClienteController::class);
     Route::resource('/detalleventas', App\Http\Controllers\DetalleventaController::class);

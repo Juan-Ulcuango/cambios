@@ -6,6 +6,8 @@ use App\Http\Requests\StoreProducto;
 use App\Models\Producto;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 /**
  * Class ProductoController
@@ -126,4 +128,13 @@ class ProductoController extends Controller
         return redirect()->route('productos.index')
             ->with('success', 'Producto deleted successfully');
     }
+    public function exportPdf()
+    {
+        $productos = Producto::all();
+        $pdf = PDF::loadView('producto.pdf', compact('productos'));
+        $currentDate = Carbon::now()->format('d-m-Y'); // Formato de fecha: dd-mm-yyyy
+        $filename = 'Productos-' . $currentDate . '.pdf';
+        return $pdf->download($filename);
+    }
+
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Lista de Usuarios</title>
+    <title>Lista de Productos</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -55,21 +55,25 @@
 </head>
 <body>
     <div class="container">
-        <h1>Lista de Usuarios</h1>
+        <h1>Lista de Productos</h1>
         <table>
             <thead>
                 <tr>
-                    <th style="width: 5%">No.</th>
-                    <th style="width: 15%">Nombre</th>
-                    <th style="width: 15%">Correo electronico</th>
+                    <th>Producto Id</th>
+                    <th>Nombre Producto</th>
+                    <th>Descripcion Producto</th>
+                    <th>Precio Unitario</th>
+                    <th>Categoría</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($users as $index => $user)
+                @foreach($productos as $index => $producto)
                     <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->mail }}</td>
+                        <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $producto->producto_id }}</td>
+                        <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $producto->nombre_producto }}</td>
+                        <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $producto->descripcion_producto }}</td>
+                        <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $producto->precio_unitario }}</td>
+                        <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $producto->categoria->nombre_categoria }}</td>
                     </tr>
                 @endforeach
             </tbody>
