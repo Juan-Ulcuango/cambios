@@ -101,6 +101,10 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="form-group mt-3">
+                            {!! NoCaptcha::renderJs() !!}
+                            {!! NoCaptcha::display() !!}
+                        </div>
                         <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
                     </form>
                     <div class="mt-3 text-center">
@@ -110,4 +114,11 @@
             </div>
         </div>
     </div>
+
+    <script>
+    var onloadCallback = funtion() {
+        alert("grecaptcha is ready");
+    };
+</script>
 @endsection
+

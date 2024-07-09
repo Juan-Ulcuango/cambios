@@ -123,6 +123,16 @@ class LoginController extends Controller
         return 1; // Tiempo de bloqueo en minutos
     }
 
+    public function rules()
+    {
+        return [
+            'email' =>['required', 'string', 'email'],
+            'password' =>['required','string'],
+            'g-recaptcha-response' => 'required|captcha',
+        ];
+    }
+
+
     /**
      * Send the failed login response.
      *

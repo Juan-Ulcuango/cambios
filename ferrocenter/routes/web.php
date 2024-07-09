@@ -16,6 +16,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
+//Route::post('login', 'Auth\LoginController@login')->middleware('verifycaptcha');
+//Route::post('register', 'Auth\RegisterController@register')->middleware('verifycaptcha');
+
+//Auth::routes(['login' => false, 'register' => false]); 
+
 Route::middleware(['auth'])->group(function () {
     Route::get('users/pdf', [UserController::class, 'exportPdf'])->name('users.pdf');
     Route::get('clientes/pdf', [ClienteController::class, 'exportPdf'])->name('clientes.pdf');
