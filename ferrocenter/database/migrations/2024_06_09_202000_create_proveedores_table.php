@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('proveedores', function (Blueprint $table) {
-            $table->id('proveedor_id'); // Primary key
+            $table->id('proveedor_id');
             $table->string('nombre_proveedor');
             $table->string('direccion_proveedor');
             $table->string('telefono_proveedor');
-            $table->string('email_proveedor')->unique(); // Assuming emails should be unique
+            $table->string('email_proveedor')->unique();
             $table->timestamps();
         });
     }

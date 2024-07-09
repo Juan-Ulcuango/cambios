@@ -4,122 +4,69 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCompra;
 use App\Models\Compra;
+use App\Models\Proveedore;
 use Illuminate\Http\Request;
 
-/**
- * Class CompraController
- * @package App\Http\Controllers
- */
 class CompraController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    public function __construct(){
-        $this->middleware('can:view.purchases')->only('index','show');
-        $this->middleware('can:create.purchases')->only('create','store');
-        $this->middleware('can:edit.purchases')->only('edit','update');
+    public function __construct()
+    {
+        $this->middleware('can:view.purchases')->only('index', 'show');
+        $this->middleware('can:create.purchases')->only('create', 'store');
+        $this->middleware('can:edit.purchases')->only('edit', 'update');
         $this->middleware('can:delete.purchases')->only('destroy');
     }
-    
+
     public function index()
     {
-        $compras = Compra::paginate(10);
-
+        $compras = Compra::with('proveedor')->paginate(10);
         return view('compra.index', compact('compras'))
             ->with('i', (request()->input('page', 1) - 1) * $compras->perPage());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $compra = new Compra();
-        return view('compra.create', compact('compra'));
+        $proveedores = Proveedore::all();
+        return view('compra.create', compact('compra', 'proveedores'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreCompra $request)
     {
-        // request()->validate(Compra::$rules);
-        // $compra = Compra::create($request->all());
+        $validatedData = $request->validated();
+        $validatedData['numero_factura'] = $request->input('numero_factura');
 
-        $compra = new Compra();
-        $compra->fecha_compra = $request->fecha_compra;
-        $compra->total_compra  = $request->total_compra;
-        $compra->metodo_pago = $request->metodo_pago;
-        $compra->save();
+        Compra::create($validatedData);
+
         return redirect()->route('compras.index')
-            ->with('success', 'Compra created successfully.');
+            ->with('success', 'Compra creada exitosamente.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(Compra $compra)
     {
-        $compra = Compra::find($id);
-
         return view('compra.show', compact('compra'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $compra = Compra::find($id);
-
-        return view('compra.edit', compact('compra'));
+        $proveedores = Proveedore::all();
+        return view('compra.edit', compact('compra', 'proveedores'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  Compra $compra
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Compra $compra)
+    public function update(StoreCompra $request, Compra $compra)
     {
-        // request()->validate(Compra::$rules);
-        // $compra->update($request->all());
+        $validatedData = $request->validated();
+        $compra->update($validatedData);
 
-        $compra->fecha_compra = $request->fecha_compra;
-        $compra->total_compra  = $request->total_compra;
-        $compra->metodo_pago = $request->metodo_pago;
-        $compra->save();
         return redirect()->route('compras.index')
-            ->with('success', 'Compra updated successfully');
+            ->with('success', 'Compra actualizada exitosamente.');
     }
 
-    /**
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
-    public function destroy($id)
+    public function destroy(Compra $compra)
     {
-        $compra = Compra::find($id)->delete();
-
+        $compra->delete();
         return redirect()->route('compras.index')
-            ->with('success', 'Compra deleted successfully');
+            ->with('success', 'Compra eliminada exitosamente.');
     }
 }

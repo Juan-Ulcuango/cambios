@@ -12,10 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('detallecompras', function (Blueprint $table) {
-            $table->id('detallecompra_id'); // Primary key
+            $table->id('detallecompra_id');
+            $table->unsignedBigInteger('compra_id');
+            $table->unsignedBigInteger('producto_id');
             $table->decimal('precio_unitario', 8, 2);
             $table->integer('cantidad');
+            $table->decimal('subtotal', 10, 2);
             $table->timestamps();
+
+            $table->foreign('compra_id')->references('compra_id')->on('compras');
+            $table->foreign('producto_id')->references('producto_id')->on('productos');
         });
     }
 

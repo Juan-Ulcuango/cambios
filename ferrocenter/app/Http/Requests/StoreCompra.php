@@ -23,8 +23,10 @@ class StoreCompra extends FormRequest
     {
         return [
             'fecha_compra' => 'required|date',
-            'total_compra' => 'required|numeric|min:0',
-            'metodo_pago' => 'required|string|max:255',
+            'total_compra' => 'required|numeric',
+            'metodo_pago' => 'required|string|max:30',
+            'proveedor_id' => 'required|exists:proveedores,proveedor_id',
+            'numero_factura' => 'required|string|max:255', // Añade esta línea si es obligatorio
         ];
     }
 }

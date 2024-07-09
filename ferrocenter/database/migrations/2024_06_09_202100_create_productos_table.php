@@ -21,11 +21,11 @@ return new class extends Migration
 
             // Set foreign key constraints
             $table->foreign('categoria_id')->references('categoria_id')->on('categorias')->onDelete('cascade');
-             });
+        });
     }
-//$table->unsignedBigInteger('inventario_id')->nullable(); // Foreign key
-           // $table->foreign('inventario_id')->references('inventario_id')->on('inventarios')->onDelete('cascade');
-       
+    //$table->unsignedBigInteger('inventario_id')->nullable(); // Foreign key
+    // $table->foreign('inventario_id')->references('inventario_id')->on('inventarios')->onDelete('cascade');
+
 
     /**
      * Reverse the migrations.
