@@ -110,7 +110,7 @@ class LoginController extends Controller
      */
     public function maxAttempts()
     {
-        return 2; // Número máximo de intentos permitidos
+        return 3; // Número máximo de intentos permitidos
     }
 
     /**
