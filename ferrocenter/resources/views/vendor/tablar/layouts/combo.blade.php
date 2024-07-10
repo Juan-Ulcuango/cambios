@@ -24,7 +24,7 @@
             clearTimeout(timeout);
             timeout = setTimeout(() => {
                 window.location.reload(true);
-            }, 60000); // 1 minuto en milisegundos
+            }, 10000); 
         }
         document.addEventListener('mousemove', resetTimeout);
         document.addEventListener('keydown', resetTimeout);

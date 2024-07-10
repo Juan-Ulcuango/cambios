@@ -8,7 +8,7 @@ class InactivityMiddleware
 {
     public function handle($request, Closure $next)
 {
-    $timeout = config('session.lifetime') * 60; // tiempo en segundos
+    $timeout = config('session.lifetime') * 10; // tiempo en segundos
 
     if (!session()->has('lastActivityTime')) {
         session(['lastActivityTime' => now()->timestamp]);

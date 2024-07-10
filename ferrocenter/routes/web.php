@@ -45,5 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/audits', [AuditController::class, 'index'])->name('audits.index');
 });
 
+Route::get('/password/recover', 'PasswordController@showRecoverForm')->name('password.recover');
+Route::post('/password/recover', 'PasswordController@recover')->name('password.recover.post');
 // Rutas adicionales aquí fuera del grupo middleware si son necesarias
 

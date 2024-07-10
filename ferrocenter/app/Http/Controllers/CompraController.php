@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCompra;
 use App\Models\Compra;
 use App\Models\Proveedore;
+use App\Models\Producto;
 use Illuminate\Http\Request;
 
 class CompraController extends Controller
@@ -28,18 +29,48 @@ class CompraController extends Controller
     {
         $compra = new Compra();
         $proveedores = Proveedore::all();
-        return view('compra.create', compact('compra', 'proveedores'));
+        $productos = Producto::all();
+        return view('compra.create', compact('compra', 'proveedores', 'productos'));
     }
 
-    public function store(StoreCompra $request)
+    public function store(Request $request)
     {
-        $validatedData = $request->validated();
-        $validatedData['numero_factura'] = $request->input('numero_factura');
+        $request->validate([
+            'compra_id' => 'required',
+            'fecha_compra' => 'required|date',
+            'numero_factura' => 'required',
+            'subtotal' => 'required|numeric',
+            'impuesto' => 'required|numeric',
+            'total_compra' => 'required|numeric',
+            'metodo_pago' => 'required',
+            'estado' => 'required',
+            'proveedor_id' => 'required|exists:proveedores,proveedor_id',
+            'producto_id.*' => 'required|exists:productos,producto_id',
+            'cantidad.*' => 'required|numeric|min:1',
+            'precio_unitario.*' => 'required|numeric|min:0',
+        ]);
 
-        Compra::create($validatedData);
+        $compra = Compra::create($request->only([
+            'compra_id',
+            'fecha_compra',
+            'numero_factura',
+            'subtotal',
+            'impuesto',
+            'total_compra',
+            'metodo_pago',
+            'estado',
+            'proveedor_id',
+        ]));
 
-        return redirect()->route('compras.index')
-            ->with('success', 'Compra creada exitosamente.');
+        foreach ($request->producto_id as $key => $producto_id) {
+            $compra->productos()->create([
+                'producto_id' => $producto_id,
+                'cantidad' => $request->cantidad[$key],
+                'precio_unitario' => $request->precio_unitario[$key],
+            ]);
+        }
+
+        return redirect()->route('compras.index')->with('success', 'Compra y productos almacenados con éxito.');
     }
 
     public function show(Compra $compra)
