@@ -30,4 +30,9 @@ class Compra extends Model implements Auditable
     {
         return $this->hasMany(DetalleCompra::class, 'compra_id', 'compra_id');
     }
+    // Definir la relación muchos a muchos
+    public function productos()
+    {
+        return $this->belongsToMany(Producto::class, 'compra_producto', 'compra_id', 'producto_id');
+    }
 }

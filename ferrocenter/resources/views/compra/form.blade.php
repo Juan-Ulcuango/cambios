@@ -65,10 +65,14 @@
                     </div>
                     <div class="form-group mb-3">
                         <label class="form-label">{{ Form::label('proveedor_id', 'Proveedor') }}</label>
-                        <div>
+                        <div class="d-flex">
                             {{ Form::select('proveedor_id', $proveedores->pluck('nombre_proveedor', 'proveedor_id'), old('proveedor_id'), ['class' => 'form-control' . ($errors->has('proveedor_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione un proveedor']) }}
-                            {!! $errors->first('proveedor_id', '<div class="invalid-feedback">:message</div>') !!}
+                            <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal"
+                                data-bs-target="#nuevoProveedorModal">
+                                Nuevo Proveedor
+                            </button>
                         </div>
+                        {!! $errors->first('proveedor_id', '<div class="invalid-feedback">:message</div>') !!}
                     </div>
 
                     <!-- Tabla de Productos -->
@@ -83,6 +87,7 @@
                                         <th>Producto</th>
                                         <th>Cantidad</th>
                                         <th>Precio Unitario</th>
+                                        <th>Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -91,18 +96,26 @@
                                             <select name="producto_id[]" class="form-control">
                                                 <option value="">-- Selecciona un producto --</option>
                                                 @foreach ($productos as $producto)
-                                                    <option value="{{ $producto->producto_id }}">{{ $producto->nombre_producto }}</option>
+                                                    <option value="{{ $producto->producto_id }}">
+                                                        {{ $producto->nombre_producto }}</option>
                                                 @endforeach
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="number" name="cantidad[]" class="form-control" oninput="calculateSubtotal()" />
+                                            <input type="number" name="cantidad[]" class="form-control"
+                                                oninput="calculateSubtotal()" />
                                         </td>
                                         <td>
-                                            <input type="number" name="precio_unitario[]" class="form-control" oninput="calculateSubtotal()" />
+                                            <input type="number" name="precio_unitario[]" class="form-control"
+                                                oninput="calculateSubtotal()" />
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                                data-bs-target="#nuevoProductoModal">
+                                                Nuevo Producto
+                                            </button>
                                         </td>
                                     </tr>
-                                    <tr id="product1"></tr>
                                 </tbody>
                             </table>
                             <div class="row">
@@ -125,12 +138,64 @@
             </div>
         </div>
     </div>
+    @include('tablar::extra.modalproveedor')
+    @include('tablar::extra.modalproducto')
 
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function(){
+        document.addEventListener('DOMContentLoaded', function() {
+            var nuevoProveedorModal = document.getElementById('nuevoProveedorModal');
+            var guardarProveedorBtn = document.getElementById('guardarProveedor');
+
+            guardarProveedorBtn.addEventListener('click', function() {
+                var formData = new FormData(document.getElementById('nuevoProveedorForm'));
+
+                fetch("{{ route('proveedores.store') }}", {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                .getAttribute('content'),
+                            'X-Requested-With': 'XMLHttpRequest' // Asegura que la solicitud se marque como AJAX
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Proveedor creado con éxito.');
+
+                            // Actualizar el select de proveedores
+                            var selectProveedor = document.querySelector('select[name="proveedor_id"]');
+                            var option = document.createElement('option');
+                            option.value = data.proveedor.proveedor_id;
+                            option.textContent = data.proveedor.nombre_proveedor;
+                            option.selected = true;
+                            selectProveedor.appendChild(option);
+
+                            // Cerrar el modal
+                            var modal = bootstrap.Modal.getInstance(nuevoProveedorModal);
+                            modal.hide();
+
+                            // Limpiar el formulario
+                            document.getElementById('nuevoProveedorForm').reset();
+                        } else {
+                            alert('Hubo un error al crear el proveedor.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Hubo un error al procesar la solicitud.');
+                    });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
             let row_number = 1;
 
-            $("#add_row").click(function(e){
+            $("#add_row").click(function(e) {
                 e.preventDefault();
                 let new_row_number = row_number;
                 let new_row = $('#product0').clone().attr('id', 'product' + new_row_number);
@@ -139,9 +204,9 @@
                 row_number++;
             });
 
-            $("#delete_row").click(function(e){
+            $("#delete_row").click(function(e) {
                 e.preventDefault();
-                if($('#products_table tbody tr').length > 1){
+                if ($('#products_table tbody tr').length > 1) {
                     $('#products_table tbody tr:last').remove();
                     row_number--;
                     calculateSubtotal();

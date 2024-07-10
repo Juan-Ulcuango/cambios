@@ -24,7 +24,7 @@
             clearTimeout(timeout);
             timeout = setTimeout(() => {
                 window.location.reload(true);
-            }, 10000); 
+            }, 600000); 
         }
         document.addEventListener('mousemove', resetTimeout);
         document.addEventListener('keydown', resetTimeout);

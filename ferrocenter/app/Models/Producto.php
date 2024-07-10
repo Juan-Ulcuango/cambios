@@ -32,6 +32,11 @@ class Producto extends Model implements Auditable
                     ->withPivot('cantidad')
                     ->withTimestamps();
     }
+    // Definir la relación muchos a muchos
+    public function compras()
+    {
+        return $this->belongsToMany(Compra::class, 'compra_producto', 'producto_id', 'compra_id');
+    }
 }
 
 

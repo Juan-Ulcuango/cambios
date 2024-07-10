@@ -62,17 +62,18 @@ class CompraController extends Controller
             'proveedor_id',
         ]));
 
+        $productos = [];
         foreach ($request->producto_id as $key => $producto_id) {
-            $compra->productos()->create([
-                'producto_id' => $producto_id,
+            $productos[$producto_id] = [
                 'cantidad' => $request->cantidad[$key],
                 'precio_unitario' => $request->precio_unitario[$key],
-            ]);
+            ];
         }
+
+        $compra->productos()->attach($productos);
 
         return redirect()->route('compras.index')->with('success', 'Compra y productos almacenados con éxito.');
     }
-
     public function show(Compra $compra)
     {
         return view('compra.show', compact('compra'));

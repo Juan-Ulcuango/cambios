@@ -19,10 +19,11 @@ class ProveedoreController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(){
-        $this->middleware('can:view.suppliers')->only('index','show');
-        $this->middleware('can:create.suppliers')->only('create','store');
-        $this->middleware('can:edit.suppliers')->only('edit','update');
+    public function __construct()
+    {
+        $this->middleware('can:view.suppliers')->only('index', 'show');
+        $this->middleware('can:create.suppliers')->only('create', 'store');
+        $this->middleware('can:edit.suppliers')->only('edit', 'update');
         $this->middleware('can:delete.suppliers')->only('destroy');
     }
     public function index()
@@ -50,20 +51,40 @@ class ProveedoreController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProveedore $request)
+    public function store(Request $request)
     {
-        // request()->validate(Proveedore::$rules);
-        // $proveedore = Proveedore::create($request->all());
-        $proveedore = new Proveedore();
-        $proveedore->nombre_proveedor = $request->nombre_proveedor;
-        $proveedore->direccion_proveedor  = $request->direccion_proveedor;
-        $proveedore->telefono_proveedor = $request->telefono_proveedor;
-        $proveedore->email_proveedor  = $request->email_proveedor;
-        $proveedore->save();
+        // Validación de los datos del formulario
+        $request->validate([
+            'nombre_proveedor' => 'required|string|max:255',
+            'direccion_proveedor' => 'required|string|max:255',
+            'telefono_proveedor' => 'required|string|max:15',
+            'email_proveedor' => 'required|email|unique:proveedores,email_proveedor|max:255',
+        ]);
 
-        return redirect()->route('proveedores.index')
-            ->with('success', 'Proveedore created successfully.');
+        // Creación del proveedor en la base de datos
+        $proveedor = Proveedore::create([
+            'nombre_proveedor' => $request->nombre_proveedor,
+            'direccion_proveedor' => $request->direccion_proveedor,
+            'telefono_proveedor' => $request->telefono_proveedor,
+            'email_proveedor' => $request->email_proveedor,
+        ]);
+
+        // Verifica si la solicitud es AJAX
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'proveedor' => [
+                    'proveedor_id' => $proveedor->id,
+                    'nombre_proveedor' => $proveedor->nombre_proveedor,
+                ]
+            ]);
+        }
+
+        // Redirección manual
+        return redirect()->route('proveedores.index')->with('success', 'Proveedor almacenado con éxito.');
     }
+
+
 
     /**
      * Display the specified resource.
@@ -133,5 +154,4 @@ class ProveedoreController extends Controller
         $filename = 'Proveedores-' . $currentDate . '.pdf';
         return $pdf->download($filename);
     }
-
 }
