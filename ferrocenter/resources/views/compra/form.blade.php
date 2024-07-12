@@ -93,8 +93,8 @@
                                 <tbody>
                                     <tr id="product0">
                                         <td>
-                                            <select name="producto_id[]" class="form-control">
-                                                <option value="">-- Selecciona un producto --</option>
+                                            <select name="producto_id[]" class="form-control" required>
+                                                <option value="">Seleccione un producto</option>
                                                 @foreach ($productos as $producto)
                                                     <option value="{{ $producto->producto_id }}">
                                                         {{ $producto->nombre_producto }}</option>
@@ -146,19 +146,25 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Almacenar todos los proveedores existentes
+            var proveedores = Array.from(document.querySelector('select[name="proveedor_id"]').options).map(
+                option => ({
+                    id: option.value,
+                    nombre: option.textContent
+                }));
+
             var nuevoProveedorModal = document.getElementById('nuevoProveedorModal');
             var guardarProveedorBtn = document.getElementById('guardarProveedor');
 
             guardarProveedorBtn.addEventListener('click', function() {
                 var formData = new FormData(document.getElementById('nuevoProveedorForm'));
-
                 fetch("{{ route('proveedores.store') }}", {
                         method: 'POST',
                         body: formData,
                         headers: {
                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
                                 .getAttribute('content'),
-                            'X-Requested-With': 'XMLHttpRequest' // Asegura que la solicitud se marque como AJAX
+                            'X-Requested-With': 'XMLHttpRequest'
                         }
                     })
                     .then(response => response.json())
@@ -166,13 +172,14 @@
                         if (data.success) {
                             alert('Proveedor creado con éxito.');
 
-                            // Actualizar el select de proveedores
-                            var selectProveedor = document.querySelector('select[name="proveedor_id"]');
-                            var option = document.createElement('option');
-                            option.value = data.proveedor.proveedor_id;
-                            option.textContent = data.proveedor.nombre_proveedor;
-                            option.selected = true;
-                            selectProveedor.appendChild(option);
+                            // Añadir el nuevo proveedor a la lista
+                            proveedores.push({
+                                id: data.proveedor.proveedor_id,
+                                nombre: data.proveedor.nombre_proveedor
+                            });
+
+                            // Actualizar el select con todos los proveedores
+                            actualizarSelectProveedores();
 
                             // Cerrar el modal
                             var modal = bootstrap.Modal.getInstance(nuevoProveedorModal);
@@ -182,6 +189,76 @@
                             document.getElementById('nuevoProveedorForm').reset();
                         } else {
                             alert('Hubo un error al crear el proveedor.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Hubo un error al procesar la solicitud.');
+                    });
+            });
+
+            function actualizarSelectProveedores() {
+                var selectProveedor = document.querySelector('select[name="proveedor_id"]');
+                selectProveedor.innerHTML = ''; // Limpiar opciones existentes
+
+                proveedores.forEach(proveedor => {
+                    var option = document.createElement('option');
+                    option.value = proveedor.id;
+                    option.textContent = proveedor.nombre;
+                    selectProveedor.appendChild(option);
+                });
+
+                // Seleccionar el último proveedor añadido
+                selectProveedor.value = proveedores[proveedores.length - 1].id;
+
+                // Disparar evento de cambio
+                var event = new Event('change');
+                selectProveedor.dispatchEvent(event);
+
+                // Si estás usando Select2, actualízalo aquí
+                // $(selectProveedor).trigger('change.select2');
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var nuevoProductoModal = document.getElementById('nuevoProductoModal');
+            var guardarProductoBtn = document.getElementById('guardarProducto');
+            guardarProductoBtn.addEventListener('click', function() {
+                var formData = new FormData(document.getElementById('nuevoProductoForm'));
+                fetch("{{ route('productos.store') }}", {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                .getAttribute('content'),
+                            'Accept': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            alert('Producto creado con éxito.');
+                            // Actualizar el select de productos
+                            var selectProducto = document.querySelector('select[name="producto_id[]"]');
+                            var option = document.createElement('option');
+                            option.value = data.producto.producto_id;
+                            option.textContent = data.producto.nombre_producto;
+                            option.selected = true;
+                            selectProducto.appendChild(option);
+                            // Cerrar el modal
+                            var modal = bootstrap.Modal.getInstance(nuevoProductoModal);
+                            modal.hide();
+                            // Limpiar el formulario
+                            document.getElementById('nuevoProductoForm').reset();
+                        } else {
+                            alert('Hubo un error al crear el producto: ' + data.message);
                         }
                     })
                     .catch(error => {

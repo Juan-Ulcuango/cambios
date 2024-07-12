@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCompra;
+use App\Models\Categoria;
 use App\Models\Compra;
 use App\Models\Proveedore;
 use App\Models\Producto;
@@ -30,13 +31,14 @@ class CompraController extends Controller
         $compra = new Compra();
         $proveedores = Proveedore::all();
         $productos = Producto::all();
-        return view('compra.create', compact('compra', 'proveedores', 'productos'));
+        $categorias = Categoria::all();
+        return view('compra.create', compact('compra', 'proveedores', 'productos','categorias'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'compra_id' => 'required',
+            'compra_id' => '',
             'fecha_compra' => 'required|date',
             'numero_factura' => 'required',
             'subtotal' => 'required|numeric',

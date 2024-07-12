@@ -20,10 +20,11 @@ class ProductoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(){
-        $this->middleware('can:view.products')->only('index','show');
-        $this->middleware('can:create.products')->only('create','store');
-        $this->middleware('can:edit.products')->only('edit','update');
+    public function __construct()
+    {
+        $this->middleware('can:view.products')->only('index', 'show');
+        $this->middleware('can:create.products')->only('create', 'store');
+        $this->middleware('can:edit.products')->only('edit', 'update');
         $this->middleware('can:delete.products')->only('destroy');
     }
     public function index()
@@ -52,20 +53,46 @@ class ProductoController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProducto $request)
+    public function store(Request $request)
     {
-        $request->validate([
-            'nombre_producto' => 'required|string|max:30',
-            'descripcion_producto' => 'nullable|string',
-            'precio_unitario' => 'required|numeric',
-            'categoria_id' => 'required|exists:categorias,categoria_id',
-        ]);
+        try {
+            $request->validate([
+                'nombre_producto' => 'required|string|max:100',
+                'descripcion_producto' => 'nullable|string',
+                'precio_unitario' => 'required|numeric',
+                'categoria_id' => 'required|exists:categorias,categoria_id',
+            ]);
 
-        Producto::create($request->all());
+            $producto = Producto::create([
+                'nombre_producto' => $request->nombre_producto,
+                'descripcion_producto' => $request->descripcion_producto,
+                'precio_unitario' => $request->precio_unitario,
+                'categoria_id' => $request->categoria_id,
+            ]);
 
-        return redirect()->route('productos.index')
-            ->with('success', 'Producto creado exitosamente.');
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'producto' => [
+                        'producto_id' => $producto->producto_id,
+                        'nombre_producto' => $producto->nombre_producto,
+                    ],
+                ]);
+            }
+
+            return redirect()->route('productos.index')->with('success', 'Producto creado exitosamente.');
+        } catch (\Exception $e) {
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Error al crear el producto: ' . $e->getMessage()
+                ], 500);
+            }
+            return back()->withErrors(['error' => 'Error al crear el producto: ' . $e->getMessage()]);
+        }
     }
+
+
 
     /**
      * Display the specified resource.
@@ -136,5 +163,4 @@ class ProductoController extends Controller
         $filename = 'Productos-' . $currentDate . '.pdf';
         return $pdf->download($filename);
     }
-
 }

@@ -23,8 +23,10 @@
                     <div class="mb-3">
                         <label for="categoria_id" class="form-label">Categoría</label>
                         <select class="form-control" id="categoria_id" name="categoria_id" required>
-                            <!-- Aquí deberías cargar dinámicamente las categorías desde tu base de datos -->
                             <option value="">Seleccione una categoría</option>
+                            @foreach($categorias as $categoria)
+                                <option value="{{ $categoria->categoria_id }}">{{ $categoria->nombre_categoria }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </form>
