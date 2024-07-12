@@ -18,15 +18,16 @@ class Transaccion extends Model implements Auditable
 
     protected $fillable = ['fecha_transaccion', 'total_transaccion', 'metodo_pago', 'tipo_transaccion', 'cliente_id'];
 
-    public function productos()
-    {
-        return $this->belongsToMany(Producto::class, 'transaccion_producto', 'transaccion_id', 'producto_id')
-                    ->withPivot('cantidad')
-                    ->withTimestamps();
-    }
     public function cliente()
     {
-        return $this->belongsTo(Cliente::class, 'cliente_id');
+        return $this->belongsTo(Cliente::class, 'cliente_id', 'cliente_id');
+    }
+
+    public function productos()
+    {
+        return $this->belongsToMany(Producto::class, 'producto_transaccion', 'transaccion_id', 'producto_id')
+                    ->withPivot('cantidad', 'precio_unitario')
+                    ->withTimestamps();
     }
 }
 

@@ -11,16 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transaccion_producto', function (Blueprint $table) {
-            $table->id();
+        Schema::create('producto_transaccion', function (Blueprint $table) {
+            $table->id(); // Primary key for this pivot table
             $table->unsignedBigInteger('transaccion_id');
             $table->unsignedBigInteger('producto_id');
             $table->integer('cantidad');
+            $table->decimal('precio_unitario', 8, 2);
             $table->timestamps();
-
+        
+            // Foreign key constraints
             $table->foreign('transaccion_id')->references('transaccion_id')->on('transaccions')->onDelete('cascade');
             $table->foreign('producto_id')->references('producto_id')->on('productos')->onDelete('cascade');
-        });
+        });                
     }
 
     /**
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transaccion_producto');
+        Schema::dropIfExists('producto_transaccion');
     }
 };

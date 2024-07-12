@@ -26,12 +26,13 @@ class Producto extends Model implements Auditable
         return $this->belongsTo(Inventario::class, 'inventario_id', 'inventario_id');
     }
 
-    public function transacciones()
+    public function transaccions()
     {
-        return $this->belongsToMany(Transaccion::class, 'transaccion_producto', 'producto_id', 'transaccion_id')
-                    ->withPivot('cantidad')
+        return $this->belongsToMany(Transaccion::class, 'producto_transaccion', 'producto_id', 'transaccion_id')
+                    ->withPivot('cantidad', 'precio_unitario')
                     ->withTimestamps();
     }
+    
     // Definir la relación muchos a muchos
     public function compras()
     {

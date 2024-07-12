@@ -16,4 +16,9 @@ class Cliente extends Model implements Auditable
         
     ];
 
+    public function transaccions()
+    {
+        return $this->hasMany(Transaccion::class, 'cliente_id', 'cliente_id');
+    }
+
 }

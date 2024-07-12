@@ -3,29 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTransaccion;
+use App\Models\Cliente;
 use App\Models\Producto;
 use App\Models\Transaccion;
-use App\Models\Cliente;
 use Illuminate\Http\Request;
 
-/**
- * Class TransaccionController
- * @package App\Http\Controllers
- */
 class TransaccionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('can:view.transactions')->only('index','show');
         $this->middleware('can:create.transactions')->only('create','store');
         $this->middleware('can:edit.transactions')->only('edit','update');
         $this->middleware('can:delete.transactions')->only('destroy');
     }
+
     public function index()
     {
         $transaccions = Transaccion::with('productos', 'cliente')->paginate(10);
@@ -34,117 +26,107 @@ class TransaccionController extends Controller
             ->with('i', (request()->input('page', 1) - 1) * $transaccions->perPage());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $productos = Producto::all();
-        $clientes = Cliente::all(); // Obtener todos los clientes
+        $clientes = Cliente::all();
         $transaccion = new Transaccion();
 
         return view('transaccion.create', compact('transaccion', 'productos', 'clientes'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreTransaccion $request)
-{
-    // Validar los datos de la solicitud
-    $validatedData = $request->validated();
+    public function store(Request $request)
+    {
+        $request->validate([
+            'transaccion_id' => 'required',
+            'fecha_transaccion' => 'required|date',
+            'total_transaccion' => 'required|numeric',
+            'metodo_pago' => 'required',
+            'tipo_transaccion' => 'required',
+            'cliente_id' => 'required|exists:clientes,cliente_id',
+            'producto_id.*' => 'required|exists:productos,producto_id',
+            'cantidad.*' => 'required|numeric|min:1',
+            'precio_unitario.*' => 'required|numeric|min:0',
+        ]);
 
-    // Crear una nueva transacción
-    $transaccion = new Transaccion();
-    $transaccion->fecha_transaccion = $request->fecha_transaccion;
-    $transaccion->total_transaccion = $request->total_transaccion;
-    $transaccion->metodo_pago = $request->metodo_pago;
-    $transaccion->tipo_transaccion = $request->tipo_transaccion;
-    $transaccion->cliente_id = $request->cliente_id;
-    $transaccion->save();
+        $transaccion = Transaccion::create($request->only([
+            'transaccion_id',
+            'fecha_transaccion',
+            'total_transaccion',
+            'metodo_pago',
+            'tipo_transaccion',
+            'cliente_id',
+        ]));
 
-    // Obtener productos y cantidades de la solicitud
-    $productos = $request->input('products', []);
-    $cantidades = $request->input('quantities', []);
-    
-    // Guardar productos relacionados en la tabla pivote
-    for ($i = 0; $i < count($productos); $i++) {
-        if ($productos[$i] != '') {
-            $transaccion->productos()->attach($productos[$i], ['cantidad' => $cantidades[$i]]);
+        $productos = [];
+        foreach ($request->producto_id as $key => $producto_id) {
+            $productos[$producto_id] = [
+                'cantidad' => $request->cantidad[$key],
+                'precio_unitario' => $request->precio_unitario[$key],
+            ];
         }
+
+        $transaccion->productos()->attach($productos);
+
+        return redirect()->route('transaccions.index')->with('success', 'Transacción y productos almacenados con éxito.');
     }
 
-    // Redirigir con un mensaje de éxito
-    return redirect()->route('transaccions.index')->with('success', 'Transacción creada con éxito.');
-}
-
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        $transaccion = Transaccion::find($id);
+        $transaccion = Transaccion::with('productos', 'cliente')->findOrFail($id);
 
         return view('transaccion.show', compact('transaccion'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        $transaccion = Transaccion::find($id);
+        $transaccion = Transaccion::findOrFail($id);
+        $productos = Producto::all();
+        $clientes = Cliente::all();
 
-        return view('transaccion.edit', compact('transaccion'));
+        return view('transaccion.edit', compact('transaccion', 'productos', 'clientes'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  Transaccion $transaccion
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Transaccion $transaccion)
     {
-        // request()->validate(Transaccion::$rules);
-        // $transaccion->update($request->all());
+        $request->validate([
+            'fecha_transaccion' => 'required|date',
+            'total_transaccion' => 'required|numeric',
+            'metodo_pago' => 'required',
+            'tipo_transaccion' => 'required',
+            'cliente_id' => 'required|exists:clientes,cliente_id',
+            'producto_id.*' => 'required|exists:productos,producto_id',
+            'cantidad.*' => 'required|numeric|min:1',
+            'precio_unitario.*' => 'required|numeric|min:0',
+        ]);
 
-        $transaccion->fecha_transaccion = $request->fecha_transaccion;
-        $transaccion->total_transaccion  = $request->total_transaccion;
-        $transaccion->metodo_pago = $request->metodo_pago;
-        $transaccion->tipo_transaccion  = $request->tipo_transaccion;
-        $transaccion->save();
+        $transaccion->update($request->only([
+            'fecha_transaccion',
+            'total_transaccion',
+            'metodo_pago',
+            'tipo_transaccion',
+            'cliente_id',
+        ]));
 
-        return redirect()->route('transaccions.index')
-            ->with('success', 'Transaccion updated successfully');
+        $productos = [];
+        foreach ($request->producto_id as $key => $producto_id) {
+            $productos[$producto_id] = [
+                'cantidad' => $request->cantidad[$key],
+                'precio_unitario' => $request->precio_unitario[$key],
+            ];
+        }
+
+        $transaccion->productos()->sync($productos);
+
+        return redirect()->route('transaccions.index')->with('success', 'Transacción actualizada con éxito.');
     }
 
-    /**
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
     public function destroy($id)
     {
-        $transaccion = Transaccion::find($id)->delete();
+        $transaccion = Transaccion::findOrFail($id);
+        $transaccion->productos()->detach();
+        $transaccion->delete();
 
-        return redirect()->route('transaccions.index')
-            ->with('success', 'Transaccion deleted successfully');
+        return redirect()->route('transaccions.index')->with('success', 'Transacción eliminada exitosamente.');
     }
 }
-
-
