@@ -5,16 +5,18 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuditController;
+use App\Http\Controllers\NosotrosController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProveedoreController;
 use App\Models\Proveedore;
+
 
 // Ruta de bienvenida
 Route::get('/', function () {
     return view('auth.login');
 });
 
-Auth::routes();
+
 
 //Route::post('login', 'Auth\LoginController@login')->middleware('verifycaptcha');
 //Route::post('register', 'Auth\RegisterController@register')->middleware('verifycaptcha');
@@ -43,9 +45,18 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/users', App\Http\Controllers\UserController::class);
     Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
     Route::get('/audits', [AuditController::class, 'index'])->name('audits.index');
+    //Route::get('/acercadenosotros', [App\Http\Controllers\NosotrosController::class, 'index'])->name('nosotros.index');
+    //Route::get('/acercadenosotros', [NosotrosController::class, 'index'])->name('nosotros.index');
+    // Route::get('/acercadenosotros', 'App\Http\Controllers\NosotrosController@index')->name('acercadenosotros');
+    Route::get('/acercanosotros', [NosotrosController::class, 'index'])->name('acercanosotros.nosotros');
+
+
+
+
 });
 
 Route::get('/password/recover', 'PasswordController@showRecoverForm')->name('password.recover');
 Route::post('/password/recover', 'PasswordController@recover')->name('password.recover.post');
 // Rutas adicionales aquí fuera del grupo middleware si son necesarias
 
+Auth::routes();

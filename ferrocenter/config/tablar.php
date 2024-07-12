@@ -249,6 +249,13 @@ return [
             'roles' => ['admin']
         ],
 
+        [
+            'text' => 'Acerca de Nosotros',
+            'icon' => 'ti ti-accessible',
+            'url' => 'acercanosotros',
+            'roles' => ['admin']
+        ],
+
         // [
         //     'text' => 'Support 1',
         //     'url' => '#',
