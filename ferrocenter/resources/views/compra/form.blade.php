@@ -10,63 +10,62 @@
                     <div class="form-group mb-3">
                         <label class="form-label">{{ Form::label('compra_id', 'ID de la Compra') }}</label>
                         <div>
-                            {{ Form::text('compra_id', old('compra_id'), ['class' => 'form-control' . ($errors->has('compra_id') ? ' is-invalid' : ''), 'placeholder' => 'Compra Id']) }}
+                            {{ Form::text('compra_id', old('compra_id', isset($compra) ? $compra->compra_id : ''), ['class' => 'form-control' . ($errors->has('compra_id') ? ' is-invalid' : ''), 'placeholder' => 'Compra Id']) }}
                             {!! $errors->first('compra_id', '<div class="invalid-feedback">:message</div>') !!}
                         </div>
                     </div>
                     <div class="form-group mb-3">
                         <label class="form-label">{{ Form::label('numero_factura', 'Número de Factura') }}</label>
                         <div>
-                            {{ Form::text('numero_factura', old('numero_factura'), ['class' => 'form-control' . ($errors->has('numero_factura') ? ' is-invalid' : ''), 'placeholder' => 'Número de Factura']) }}
+                            {{ Form::text('numero_factura', old('numero_factura', isset($compra) ? $compra->numero_factura : ''), ['class' => 'form-control' . ($errors->has('numero_factura') ? ' is-invalid' : ''), 'placeholder' => 'Número de Factura']) }}
                             {!! $errors->first('numero_factura', '<div class="invalid-feedback">:message</div>') !!}
                         </div>
                     </div>
                     <div class="form-group mb-3">
                         <label class="form-label">{{ Form::label('fecha_compra', 'Fecha de Compra') }}</label>
                         <div>
-                            {{ Form::date('fecha_compra', old('fecha_compra'), ['class' => 'form-control' . ($errors->has('fecha_compra') ? ' is-invalid' : ''), 'placeholder' => 'Fecha de Compra']) }}
+                            {{ Form::date('fecha_compra', old('fecha_compra', isset($compra) ? $compra->fecha_compra : ''), ['class' => 'form-control' . ($errors->has('fecha_compra') ? ' is-invalid' : ''), 'placeholder' => 'Fecha de Compra']) }}
                             {!! $errors->first('fecha_compra', '<div class="invalid-feedback">:message</div>') !!}
                         </div>
                     </div>
                     <div class="form-group mb-3">
                         <label class="form-label">{{ Form::label('subtotal', 'Subtotal') }}</label>
                         <div>
-                            {{ Form::text('subtotal', old('subtotal'), ['class' => 'form-control' . ($errors->has('subtotal') ? ' is-invalid' : ''), 'placeholder' => 'Subtotal', 'readonly' => true]) }}
+                            {{ Form::text('subtotal', old('subtotal', isset($compra) ? $compra->subtotal : ''), ['class' => 'form-control' . ($errors->has('subtotal') ? ' is-invalid' : ''), 'placeholder' => 'Subtotal', 'readonly' => true]) }}
                             {!! $errors->first('subtotal', '<div class="invalid-feedback">:message</div>') !!}
                         </div>
                     </div>
                     <div class="form-group mb-3">
                         <label class="form-label">{{ Form::label('impuesto', 'Impuesto (%)') }}</label>
                         <div>
-                            {{ Form::text('impuesto', old('impuesto'), ['class' => 'form-control' . ($errors->has('impuesto') ? ' is-invalid' : ''), 'placeholder' => 'Impuesto']) }}
+                            {{ Form::text('impuesto', old('impuesto', isset($compra) ? $compra->impuesto : ''), ['class' => 'form-control' . ($errors->has('impuesto') ? ' is-invalid' : ''), 'placeholder' => 'Impuesto']) }}
                             {!! $errors->first('impuesto', '<div class="invalid-feedback">:message</div>') !!}
                         </div>
                     </div>
                     <div class="form-group mb-3">
                         <label class="form-label">{{ Form::label('total_compra', 'Total de la Compra') }}</label>
                         <div>
-                            {{ Form::text('total_compra', old('total_compra'), ['class' => 'form-control' . ($errors->has('total_compra') ? ' is-invalid' : ''), 'placeholder' => 'Total de la Compra', 'readonly' => true]) }}
+                            {{ Form::text('total_compra', old('total_compra', isset($compra) ? $compra->total_compra : ''), ['class' => 'form-control' . ($errors->has('total_compra') ? ' is-invalid' : ''), 'placeholder' => 'Total de la Compra', 'readonly' => true]) }}
                             {!! $errors->first('total_compra', '<div class="invalid-feedback">:message</div>') !!}
                         </div>
                     </div>
-                    <div class="form-group mb-3">
-                        <label class="form-label">{{ Form::label('metodo_pago', 'Método de Pago') }}</label>
+                    <div class="form-group mb-3"> <label
+                            class="form-label">{{ Form::label('metodo_pago', 'Método de Pago') }}</label>
                         <div>
-                            {{ Form::text('metodo_pago', old('metodo_pago'), ['class' => 'form-control' . ($errors->has('metodo_pago') ? ' is-invalid' : ''), 'placeholder' => 'Método de Pago']) }}
-                            {!! $errors->first('metodo_pago', '<div class="invalid-feedback">:message</div>') !!}
-                        </div>
+                            {{ Form::select('metodo_pago', ['efectivo' => 'Efectivo', 'transferencia' => 'Transferencia'], old('metodo_pago', isset($compra) ? $compra->metodo_pago : ''), ['class' => 'form-control' . ($errors->has('metodo_pago') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione el método de pago']) }}
+                            {!! $errors->first('metodo_pago', '<div class="invalid-feedback">:message</div>') !!} </div>
                     </div>
                     <div class="form-group mb-3">
                         <label class="form-label">{{ Form::label('estado', 'Estado de la Compra') }}</label>
                         <div>
-                            {{ Form::select('estado', ['pendiente' => 'Pendiente', 'completada' => 'Completada', 'cancelada' => 'Cancelada'], old('estado'), ['class' => 'form-control' . ($errors->has('estado') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione el estado']) }}
+                            {{ Form::select('estado', ['pendiente' => 'Pendiente', 'completada' => 'Completada', 'cancelada' => 'Cancelada'], old('estado', isset($compra) ? $compra->estado : ''), ['class' => 'form-control' . ($errors->has('estado') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione el estado']) }}
                             {!! $errors->first('estado', '<div class="invalid-feedback">:message</div>') !!}
                         </div>
                     </div>
                     <div class="form-group mb-3">
                         <label class="form-label">{{ Form::label('proveedor_id', 'Proveedor') }}</label>
                         <div class="d-flex">
-                            {{ Form::select('proveedor_id', $proveedores->pluck('nombre_proveedor', 'proveedor_id'), old('proveedor_id'), ['class' => 'form-control' . ($errors->has('proveedor_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione un proveedor']) }}
+                            {{ Form::select('proveedor_id', $proveedores->pluck('nombre_proveedor', 'proveedor_id'), old('proveedor_id', isset($compra) ? $compra->proveedor_id : ''), ['class' => 'form-control' . ($errors->has('proveedor_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione un proveedor']) }}
                             <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal"
                                 data-bs-target="#nuevoProveedorModal">
                                 Nuevo Proveedor
@@ -91,32 +90,70 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr id="product0">
-                                        <td>
-                                            <select name="producto_id[]" class="form-control" required>
-                                                <option value="">Seleccione un producto</option>
-                                                @foreach ($productos as $producto)
-                                                    <option value="{{ $producto->producto_id }}">
-                                                        {{ $producto->nombre_producto }}</option>
-                                                @endforeach
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <input type="number" name="cantidad[]" class="form-control"
-                                                oninput="calculateSubtotal()" />
-                                        </td>
-                                        <td>
-                                            <input type="number" name="precio_unitario[]" class="form-control"
-                                                oninput="calculateSubtotal()" />
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                                data-bs-target="#nuevoProductoModal">
-                                                Nuevo Producto
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    @if (isset($compra) && $compra->productos->count() > 0)
+                                        @foreach ($compra->productos as $key => $producto)
+                                            <tr id="product{{ $key }}">
+                                                <td>
+                                                    <select name="producto_id[]" class="form-control producto-select"
+                                                        required>
+                                                        <option value="">Seleccione un producto</option>
+                                                        @foreach ($productos as $prod)
+                                                            <option value="{{ $prod->producto_id }}"
+                                                                data-precio="{{ $prod->precio_unitario }}"
+                                                                {{ $prod->producto_id == $producto->producto_id ? 'selected' : '' }}>
+                                                                {{ $prod->nombre_producto }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="number" name="cantidad[]" class="form-control"
+                                                        value="{{ $producto->pivot->cantidad }}"
+                                                        oninput="calculateSubtotal()" />
+                                                </td>
+                                                <td>
+                                                    <input type="number" name="precio_unitario[]"
+                                                        class="form-control precio-unitario"
+                                                        value="{{ $producto->pivot->precio_unitario }}"
+                                                        oninput="calculateSubtotal()" />
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                        data-bs-toggle="modal" data-bs-target="#nuevoProductoModal">
+                                                        Nuevo Producto
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr id="product0">
+                                            <td>
+                                                <select name="producto_id[]" class="form-control producto-select" required>
+                                                    <option value="">Seleccione un producto</option>
+                                                    @foreach ($productos as $producto)
+                                                        <option value="{{ $producto->producto_id }}"
+                                                            data-precio="{{ $producto->precio_unitario }}">
+                                                            {{ $producto->nombre_producto }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="number" name="cantidad[]" class="form-control"
+                                                    oninput="calculateSubtotal()" />
+                                            </td>
+                                            <td>
+                                                <input type="number" name="precio_unitario[]"
+                                                    class="form-control precio-unitario" oninput="calculateSubtotal()" />
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                                    data-bs-target="#nuevoProductoModal">
+                                                    Nuevo Producto
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endif
                                 </tbody>
+
                             </table>
                             <div class="row">
                                 <div class="col-md-12">
@@ -134,6 +171,7 @@
                             </div>
                         </div>
                     </div>
+
                 </form>
             </div>
         </div>
@@ -272,13 +310,44 @@
         $(document).ready(function() {
             let row_number = 1;
 
+            // Function to update the unit price based on selected product
+            function updateUnitPrice(selectElement) {
+                const selectedOption = selectElement.options[selectElement.selectedIndex];
+                const unitPrice = selectedOption.getAttribute('data-precio');
+                const priceInput = selectElement.closest('tr').querySelector('.precio-unitario');
+                priceInput.value = unitPrice;
+                calculateSubtotal();
+            }
+
+            // Attach event listeners to existing select elements
+            function initializeSelectListeners() {
+                document.querySelectorAll('.producto-select').forEach(function(selectElement) {
+                    if (!selectElement.hasAttribute('data-initialized')) {
+                        selectElement.addEventListener('change', function() {
+                            updateUnitPrice(selectElement);
+                        });
+                        // Initialize the unit price if a product is already selected
+                        updateUnitPrice(selectElement);
+                        // Mark the select element as initialized to avoid attaching multiple event listeners
+                        selectElement.setAttribute('data-initialized', 'true');
+                    }
+                });
+            }
+
+            // Initialize select listeners on page load
+            initializeSelectListeners();
+
             $("#add_row").click(function(e) {
                 e.preventDefault();
                 let new_row_number = row_number;
                 let new_row = $('#product0').clone().attr('id', 'product' + new_row_number);
                 new_row.find('input').val('');
+                new_row.find('select').val('');
                 $('#products_table tbody').append(new_row);
                 row_number++;
+
+                // Reinitialize select listeners for new row
+                initializeSelectListeners();
             });
 
             $("#delete_row").click(function(e) {
@@ -315,4 +384,5 @@
 
         $('#impuesto').on('input', calculateTotal);
     </script>
+
 @endsection

@@ -57,12 +57,51 @@
                                 <div class="form-control">{{ $compra->fecha_compra }}</div>
                             </div>
                             <div class="form-group mb-3">
+                                <label class="form-label"><strong>Proveedor:</strong></label>
+                                <div class="form-control">{{ $compra->proveedor->nombre_proveedor }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Subtotal:</strong></label>
+                                <div class="form-control">{{ $compra->subtotal }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Impuesto:</strong></label>
+                                <div class="form-control">{{ $compra->impuesto }}</div>
+                            </div>
+                            <div class="form-group mb-3">
                                 <label class="form-label"><strong>Total Compra:</strong></label>
                                 <div class="form-control">{{ $compra->total_compra }}</div>
                             </div>
                             <div class="form-group mb-3">
                                 <label class="form-label"><strong>Metodo Pago:</strong></label>
                                 <div class="form-control">{{ $compra->metodo_pago }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Estado:</strong></label>
+                                <div class="form-control">{{ $compra->estado }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Productos:</strong></label>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Producto</th>
+                                                <th>Cantidad</th>
+                                                <th>Precio Unitario</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($compra->productos as $producto)
+                                                <tr>
+                                                    <td>{{ $producto->nombre_producto }}</td>
+                                                    <td>{{ $producto->pivot->cantidad }}</td>
+                                                    <td>{{ $producto->pivot->precio_unitario }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
