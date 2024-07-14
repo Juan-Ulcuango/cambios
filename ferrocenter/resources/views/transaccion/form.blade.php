@@ -6,21 +6,16 @@
         <div class="col-md-12">
             <form method="POST" action="{{ route('transaccions.store') }}" id="transaccionForm" role="form">
                 @csrf
-                <!-- Formulario de Transacción -->
-                <div class="form-group mb-3">
-                    <label class="form-label">{{ Form::label('transaccion_id', 'ID de la Transacción') }}</label>
-                    <div>
-                        {{ Form::text('transaccion_id', old('transaccion_id'), ['class' => 'form-control' . ($errors->has('transaccion_id') ? ' is-invalid' : ''), 'placeholder' => 'Transacción Id']) }}
-                        {!! $errors->first('transaccion_id', '<div class="invalid-feedback">:message</div>') !!}
-                    </div>
-                </div>
+                <!-- Formulario de Transacción -->                                
+                
                 <div class="form-group mb-3">
                     <label class="form-label">{{ Form::label('fecha_transaccion', 'Fecha de Transacción') }}</label>
                     <div>
-                        {{ Form::date('fecha_transaccion', old('fecha_transaccion'), ['class' => 'form-control' . ($errors->has('fecha_transaccion') ? ' is-invalid' : ''), 'placeholder' => 'Fecha de Transacción']) }}
+                        {{ Form::date('fecha_transaccion', \Carbon\Carbon::now()->format('Y-m-d'), ['class' => 'form-control' . ($errors->has('fecha_transaccion') ? ' is-invalid' : ''), 'readonly' => true]) }}
                         {!! $errors->first('fecha_transaccion', '<div class="invalid-feedback">:message</div>') !!}
                     </div>
                 </div>
+
                 <div class="form-group mb-3">
                     <label class="form-label">{{ Form::label('total_transaccion', 'Total de la Transacción') }}</label>
                     <div>
@@ -28,33 +23,47 @@
                         {!! $errors->first('total_transaccion', '<div class="invalid-feedback">:message</div>') !!}
                     </div>
                 </div>
+
                 <div class="form-group mb-3">
                     <label class="form-label">{{ Form::label('metodo_pago', 'Método de Pago') }}</label>
                     <div>
-                        {{ Form::text('metodo_pago', old('metodo_pago'), ['class' => 'form-control' . ($errors->has('metodo_pago') ? ' is-invalid' : ''), 'placeholder' => 'Método de Pago']) }}
+                        {{ Form::select('metodo_pago', [
+                            'efectivo' => 'Efectivo',
+                            'tarjeta_credito' => 'Tarjeta de Crédito',
+                            'tarjeta_debito' => 'Tarjeta de Débito',
+                            'transferencia' => 'Transferencia',
+                            'otros' => 'Otros'
+                        ], null, ['class' => 'form-control' . ($errors->has('metodo_pago') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione un método de pago']) }}
                         {!! $errors->first('metodo_pago', '<div class="invalid-feedback">:message</div>') !!}
                     </div>
                 </div>
+
                 <div class="form-group mb-3">
                     <label class="form-label">{{ Form::label('tipo_transaccion', 'Tipo de Transacción') }}</label>
                     <div>
-                        {{ Form::text('tipo_transaccion', old('tipo_transaccion'), ['class' => 'form-control' . ($errors->has('tipo_transaccion') ? ' is-invalid' : ''), 'placeholder' => 'Tipo de Transacción']) }}
+                        {{ Form::select('tipo_transaccion', ['venta' => 'Venta'], null, ['class' => 'form-control' . ($errors->has('tipo_transaccion') ? ' is-invalid' : ''), 'readonly' => true]) }}
                         {!! $errors->first('tipo_transaccion', '<div class="invalid-feedback">:message</div>') !!}
                     </div>
                 </div>
+
                 <div class="form-group mb-3">
                     <label class="form-label">{{ Form::label('cliente_id', 'Cliente') }}</label>
                     <div class="d-flex">
                         <select name="cliente_id" class="form-control{{ $errors->has('cliente_id') ? ' is-invalid' : '' }}">
                             <option value="">Seleccione un cliente</option>
                             @foreach ($clientes as $cliente)
-                                <option value="{{ $cliente->cliente_id }}">{{ $cliente->nombre_cliente }} {{ $cliente->apellido_cliente }}</option>
+                                <option value="{{ $cliente->cliente_id }}" {{ old('cliente_id', isset($transaccion) ? $transaccion->cliente_id : '') == $cliente->cliente_id ? 'selected' : '' }}>
+                                    {{ $cliente->nombre_cliente }} {{ $cliente->apellido_cliente }}
+                                </option>
                             @endforeach
                         </select>
+                        <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#nuevoClienteModal">
+                            Nuevo Cliente
+                        </button>
                     </div>
                     {!! $errors->first('cliente_id', '<div class="invalid-feedback">:message</div>') !!}
                 </div>
-
+                
                 <!-- Tabla de Productos -->
                 <div class="card">
                     <div class="card-header">
@@ -107,6 +116,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="form-footer mt-3">
                     <div class="text-end">
                         <div class="d-flex">
@@ -119,6 +129,7 @@
         </div>
     </div>
 </div>
+@include('tablar::extra.modalcliente')
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -176,4 +187,50 @@
         $('#total_transaccion').val(total.toFixed(2));
     }
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var nuevoClienteModal = document.getElementById('nuevoClienteModal');
+        var guardarClienteBtn = document.getElementById('guardarCliente');
+
+        guardarClienteBtn.addEventListener('click', function() {
+            var formData = new FormData(document.getElementById('nuevoClienteForm'));
+            fetch("{{ route('clientes.store') }}", {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Cliente creado con éxito.');
+
+                        // Añadir el nuevo cliente a la lista
+                        var selectCliente = document.querySelector('select[name="cliente_id"]');
+                        var option = document.createElement('option');
+                        option.value = data.cliente.cliente_id;
+                        option.textContent = data.cliente.nombre_cliente + ' ' + data.cliente.apellido_cliente;
+                        option.selected = true;
+                        selectCliente.appendChild(option);
+
+                        // Cerrar el modal
+                        var modal = bootstrap.Modal.getInstance(nuevoClienteModal);
+                        modal.hide();
+
+                        // Limpiar el formulario
+                        document.getElementById('nuevoClienteForm').reset();
+                    } else {
+                        alert('Hubo un error al crear el cliente.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Hubo un error al procesar la solicitud.');
+                });
+        });
+    });
+</script>
+
 @endsection

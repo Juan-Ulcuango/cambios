@@ -38,7 +38,7 @@ class TransaccionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'transaccion_id' => 'required',
+//            'transaccion_id' => 'required',
             'fecha_transaccion' => 'required|date',
             'total_transaccion' => 'required|numeric',
             'metodo_pago' => 'required',

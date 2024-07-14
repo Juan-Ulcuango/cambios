@@ -13,7 +13,7 @@
                         Vista
                     </div>
                     <h2 class="page-title">
-                        {{ __('User ') }}
+                        {{ __('Usuario ') }}
                     </h2>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                         </div>
                         <div class="card-body">
                             @if($user)
-                                <table class="table table-striped">
+                                <table class="table">
                                     <tbody>
                                         <tr>
                                             <th>Nombre:</th>

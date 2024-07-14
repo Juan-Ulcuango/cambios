@@ -51,19 +51,30 @@ class ClienteController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCliente $request)
+    // ClienteController.php
+    public function store(Request $request)
     {
-        $cliente = new Cliente();
-        $cliente->nombre_cliente = $request->nombre_cliente;
-        $cliente->apellido_cliente  = $request->apellido_cliente;
-        $cliente->direccion_cliente = $request->direccion_cliente;
-        $cliente->telefono_cliente  = $request->telefono_cliente;
-        $cliente->email_cliente  = $request->email_cliente;
-        $cliente->save();
+        $validatedData = $request->validate([
+            'nombre_cliente' => 'required|string|max:255',
+            'apellido_cliente' => 'required|string|max:255',
+            'cedula_cliente' => 'required|string|max:20|unique:clientes,cedula_cliente',
+            'direccion_cliente' => 'required|string|max:255',
+            'telefono_cliente' => 'required|string|max:15',
+            'email_cliente' => 'required|string|email|max:255|unique:clientes,email_cliente',
+        ]);
+    
+        $cliente = Cliente::create($validatedData);
+    
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'cliente' => $cliente
+            ]);
+        } else {
+            return redirect()->route('clientes.index')->with('success', 'Cliente creado exitosamente.');
+        }
+    }    
 
-        return redirect()->route('clientes.index')
-            ->with('success', 'Cliente created successfully.');
-    }
 
     /**
      * Display the specified resource.

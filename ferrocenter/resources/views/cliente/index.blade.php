@@ -93,6 +93,7 @@
                                         <th>Direccion Cliente</th>
                                         <th>Telefono Cliente</th>
                                         <th>Email Cliente</th>
+                                        <th>Cédula Cliente</th>
                                         <th class="w-1"></th>
                                     </tr>
                                 </thead>
@@ -108,6 +109,7 @@
                                             <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $cliente->direccion_cliente }}</td>
                                             <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $cliente->telefono_cliente }}</td>
                                             <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $cliente->email_cliente }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $cliente->cedula_cliente }}</td>
                                             <td>
                                                 <div class="btn-list flex-nowrap">
                                                     <div class="dropdown">
@@ -140,7 +142,7 @@
                                             </td>
                                         </tr>
                                     @empty
-                                        <td colspan="9" class="text-center">Datos no encontrados</td>
+                                        <td colspan="10" class="text-center">Datos no encontrados</td>
                                     @endforelse
                                 </tbody>
                             </table>

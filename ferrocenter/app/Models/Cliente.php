@@ -16,6 +16,15 @@ class Cliente extends Model implements Auditable
         
     ];
 
+    protected $fillable = [
+        'nombre_cliente',
+        'apellido_cliente',
+        'direccion_cliente',
+        'telefono_cliente',
+        'email_cliente',
+        'cedula_cliente',
+    ];
+
     public function transaccions()
     {
         return $this->hasMany(Transaccion::class, 'cliente_id', 'cliente_id');

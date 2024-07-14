@@ -18,8 +18,10 @@ return new class extends Migration
             $table->string('direccion_cliente');
             $table->string('telefono_cliente');
             $table->string('email_cliente')->unique(); // Assuming emails should be unique
+            $table->string('cedula_cliente')->unique(); // New field for cedula
             $table->timestamps();
         });
+        
     }
 //
     /**

@@ -15,7 +15,7 @@
                         Lista Usuario
                     </div>
                     <h2 class="page-title">
-                        {{ __('User ') }}
+                        {{ __('Usuario ') }}
                     </h2>
                 </div>
                 <!-- Page title actions -->
