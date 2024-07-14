@@ -108,10 +108,54 @@ Nosotros
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
+                    </div>                 
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div style="height: 50px;"></div>
+<footer>
+    <div class="footer-upper" style="background-color: #313c52; padding: 20px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h5 class="text-white">Ferrocenter</h5>
+                    <ul class="list-unstyled text-small">
+                        <li><a class="text-white" href="#">Acerca de nosotros</a></li>
+                        <li><a class="text-white" href="#">¿Por qué FerroCenter?</a></li>
+                        <li><a class="text-white" href="#">Conviértete en proveedor</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="text-white">Políticas del sitio</h5>
+                    <ul class="list-unstyled text-small">
+                        <li><a class="text-white" href="#">Términos legales</a></li>
+                        <li><a class="text-white" href="#">Política de privacidad</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="text-white">Servicio al cliente</h5>
+                    <ul class="list-unstyled text-small">
+                        <li><a class="text-white" href="#">Garantía</a></li>
+                        <li><a class="text-white" href="#">Devoluciones</a></li>
+                        <li><a class="text-white" href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="text-white">Recursos</h5>
+                    <ul class="list-unstyled text-small">
+                        <li><a class="text-white" href="#">Contáctanos</a></li>
+                        <li><a class="text-white" href="#">FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-lower" style="background-color: #2a3547; color: white; padding: 10px 0; text-align: center;">
+        <div class="container">
+            <span>©2024 FerroCenter S.A. Todos los derechos reservados.</span>
+        </div>
+    </div>
+</footer>
 @endsection

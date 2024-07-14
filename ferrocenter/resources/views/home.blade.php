@@ -1,445 +1,329 @@
 @extends('tablar::page')
 
 @section('title')
-    FerroCenter
+FerroCenter
 @endsection
 
+@section('styles')
+<style>
+  .carousel-item img {
+    width: calc(20% - 4px);
+    /* 20% para cada imagen, con un pequeño ajuste para el espaciado */
+    height: 100px;
+    /* Altura fija para todas las imágenes para mantener la uniformidad */
+    object-fit: cover;
+    /* Asegura que la imagen cubra completamente su espacio sin distorsionar su aspecto */
+  }
+
+  .carousel-item .d-flex {
+    height: 100px;
+    /* Altura del contenedor de imágenes */
+  }
+</style>
+@endsection
+
+
 @section('content')
-    <!-- Page header -->
-    <div class="page-header d-print-none">
-        <div class="container-xl">
-            <div class="row g-2 align-items-center">
-                <div class="col">
-                    <!-- Page pre-title -->
-                    <div class="page-pretitle">
-                    Descripción general
-                    </div>
-                    <h2 class="page-title">
-                    Panel
-                    </h2>
-                </div>
-                <!-- Page title actions -->
-                <div class="col-12 col-md-auto ms-auto d-print-none">
-                    <div class="btn-list">
-                        <span class="d-none d-sm-inline">
-                            <a href="#" class="btn btn-white">
-                            Nueva vista
-                            </a>
-                        </span>
-                        <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal"
-                            data-bs-target="#modal-report">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <line x1="12" y1="5" x2="12" y2="19" />
-                                <line x1="5" y1="12" x2="19" y2="12" />
-                            </svg>
-                            Crear nuevo informe
-                        </a>
-                        <a href="#" class="btn btn-primary d-sm-none btn-icon" data-bs-toggle="modal"
-                            data-bs-target="#modal-report" aria-label="Create new report">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <line x1="12" y1="5" x2="12" y2="19" />
-                                <line x1="5" y1="12" x2="19" y2="12" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="container mt-3">
+  <div id="carousel-sample" class="carousel slide" data-bs-ride="carousel"
+    style="width: 100%; margin: 0 auto; height: 600px; overflow: hidden;">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carousel-sample" data-bs-slide-to="0" class="active"></button>
+      <button type="button" data-bs-target="#carousel-sample" data-bs-slide-to="1"></button>
+      <button type="button" data-bs-target="#carousel-sample" data-bs-slide-to="2"></button>
+      <button type="button" data-bs-target="#carousel-sample" data-bs-slide-to="3"></button>
+      <button type="button" data-bs-target="#carousel-sample" data-bs-slide-to="4"></button>
+      <button type="button" data-bs-target="#carousel-sample" data-bs-slide-to="5"></button>
+      <button type="button" data-bs-target="#carousel-sample" data-bs-slide-to="6"></button>
     </div>
-    <!-- Page body -->
-    <div class="page-body">
-        <div class="container-xl">
-            <div class="row row-deck row-cards">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Facturas</h3>
-                        </div>
-                        <div class="card-body border-bottom py-3">
-                            <div class="d-flex">
-                                <div class="text-muted">
-                                Espectáculo
-                                    <div class="mx-2 d-inline-block">
-                                        <input type="text" class="form-control form-control-sm" value="8"
-                                            size="3" aria-label="Invoices count">
-                                    </div>
-                                    entradas
-                                </div>
-                                <div class="ms-auto text-muted">
-                                Buscar:
-                                    <div class="ms-2 d-inline-block">
-                                        <input type="text" class="form-control form-control-sm"
-                                            aria-label="Search invoice">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table card-table table-vcenter text-nowrap datatable">
-                                <thead>
-                                    <tr>
-                                        <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox"
-                                                aria-label="Select all invoices"></th>
-                                        <th class="w-1">No.
-                                            <!-- Download SVG icon from http://tabler-icons.io/i/chevron-up -->
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="icon icon-sm text-dark icon-thick" width="24" height="24"
-                                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                <polyline points="6 15 12 9 18 15" />
-                                            </svg>
-                                        </th>
-                                        <th>Asunto de la factura</th>
-                                        <th>Cliente</th>
-                                        <th>N° de IVA</th>
-                                        <th>Creado/th>
-                                        <th>Estado</th>
-                                        <th>Precio</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input class="form-check-input m-0 align-middle" type="checkbox"
-                                                aria-label="Select invoice"></td>
-                                        <td><span class="text-muted">001401</span></td>
-                                        <td><a href="invoice.html" class="text-reset" tabindex="-1">Trabajos de diseño</a>
-                                        </td>
-                                        <td>
-                                            <span class="flag flag-country-us"></span>
-                                            Carlson limitada
-                                        </td>
-                                        <td>
-                                            87956621
-                                        </td>
-                                        <td>
-                                            15 Dec 2017
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-success me-1"></span> Pagado
-                                        </td>
-                                        <td>$887</td>
-                                        <td class="text-end">
-                                            <span class="dropdown">
-                                                <button class="btn dropdown-toggle align-text-top"
-                                                    data-bs-boundary="viewport" data-bs-toggle="dropdown">Comportamiento</button>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">
-                                                    Acción
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">
-                                                    Otra acción
-                                                    </a>
-                                                </div>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><input class="form-check-input m-0 align-middle" type="checkbox"
-                                                aria-label="Select invoice"></td>
-                                        <td><span class="text-muted">001402</span></td>
-                                        <td><a href="invoice.html" class="text-reset" tabindex="-1">Estructuras alámbricas de UX</a>
-                                        </td>
-                                        <td>
-                                            <span class="flag flag-country-gb"></span>
-                                            Adobe
-                                        </td>
-                                        <td>
-                                            87956421
-                                        </td>
-                                        <td>
-                                            12 Apr 2017
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-warning me-1"></span> Pending
-                                        </td>
-                                        <td>$1200</td>
-                                        <td class="text-end">
-                                            <span class="dropdown">
-                                                <button class="btn dropdown-toggle align-text-top"
-                                                    data-bs-boundary="viewport" data-bs-toggle="dropdown">Actions</button>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">
-                                                        Action
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">
-                                                        Another action
-                                                    </a>
-                                                </div>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><input class="form-check-input m-0 align-middle" type="checkbox"
-                                                aria-label="Select invoice"></td>
-                                        <td><span class="text-muted">001403</span></td>
-                                        <td><a href="invoice.html" class="text-reset" tabindex="-1">New Dashboard</a>
-                                        </td>
-                                        <td>
-                                            <span class="flag flag-country-de"></span>
-                                            Bluewolf
-                                        </td>
-                                        <td>
-                                            87952621
-                                        </td>
-                                        <td>
-                                            23 Oct 2017
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-warning me-1"></span> Pending
-                                        </td>
-                                        <td>$534</td>
-                                        <td class="text-end">
-                                            <span class="dropdown">
-                                                <button class="btn dropdown-toggle align-text-top"
-                                                    data-bs-boundary="viewport" data-bs-toggle="dropdown">Actions</button>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">
-                                                        Action
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">
-                                                        Another action
-                                                    </a>
-                                                </div>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><input class="form-check-input m-0 align-middle" type="checkbox"
-                                                aria-label="Select invoice"></td>
-                                        <td><span class="text-muted">001404</span></td>
-                                        <td><a href="invoice.html" class="text-reset" tabindex="-1">Landing Page</a>
-                                        </td>
-                                        <td>
-                                            <span class="flag flag-country-br"></span>
-                                            Salesforce
-                                        </td>
-                                        <td>
-                                            87953421
-                                        </td>
-                                        <td>
-                                            2 Sep 2017
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-secondary me-1"></span> Due in 2 Weeks
-                                        </td>
-                                        <td>$1500</td>
-                                        <td class="text-end">
-                                            <span class="dropdown">
-                                                <button class="btn dropdown-toggle align-text-top"
-                                                    data-bs-boundary="viewport" data-bs-toggle="dropdown">Actions</button>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">
-                                                        Action
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">
-                                                        Another action
-                                                    </a>
-                                                </div>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><input class="form-check-input m-0 align-middle" type="checkbox"
-                                                aria-label="Select invoice"></td>
-                                        <td><span class="text-muted">001405</span></td>
-                                        <td><a href="invoice.html" class="text-reset" tabindex="-1">Marketing
-                                                Templates</a>
-                                        </td>
-                                        <td>
-                                            <span class="flag flag-country-pl"></span>
-                                            Printic
-                                        </td>
-                                        <td>
-                                            87956621
-                                        </td>
-                                        <td>
-                                            29 Jan 2018
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-danger me-1"></span> Paid Today
-                                        </td>
-                                        <td>$648</td>
-                                        <td class="text-end">
-                                            <span class="dropdown">
-                                                <button class="btn dropdown-toggle align-text-top"
-                                                    data-bs-boundary="viewport" data-bs-toggle="dropdown">Actions</button>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">
-                                                        Action
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">
-                                                        Another action
-                                                    </a>
-                                                </div>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><input class="form-check-input m-0 align-middle" type="checkbox"
-                                                aria-label="Select invoice"></td>
-                                        <td><span class="text-muted">001406</span></td>
-                                        <td><a href="invoice.html" class="text-reset" tabindex="-1">Sales
-                                                Presentation</a>
-                                        </td>
-                                        <td>
-                                            <span class="flag flag-country-br"></span>
-                                            Tabdaq
-                                        </td>
-                                        <td>
-                                            87956621
-                                        </td>
-                                        <td>
-                                            4 Feb 2018
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-secondary me-1"></span> Due in 3 Weeks
-                                        </td>
-                                        <td>$300</td>
-                                        <td class="text-end">
-                                            <span class="dropdown">
-                                                <button class="btn dropdown-toggle align-text-top"
-                                                    data-bs-boundary="viewport" data-bs-toggle="dropdown">Actions</button>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">
-                                                        Action
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">
-                                                        Another action
-                                                    </a>
-                                                </div>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><input class="form-check-input m-0 align-middle" type="checkbox"
-                                                aria-label="Select invoice"></td>
-                                        <td><span class="text-muted">001407</span></td>
-                                        <td><a href="invoice.html" class="text-reset" tabindex="-1">Logo & Print</a>
-                                        </td>
-                                        <td>
-                                            <span class="flag flag-country-us"></span>
-                                            Apple
-                                        </td>
-                                        <td>
-                                            87956621
-                                        </td>
-                                        <td>
-                                            22 Mar 2018
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-success me-1"></span> Paid Today
-                                        </td>
-                                        <td>$2500</td>
-                                        <td class="text-end">
-                                            <span class="dropdown">
-                                                <button class="btn dropdown-toggle align-text-top"
-                                                    data-bs-boundary="viewport" data-bs-toggle="dropdown">Actions</button>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">
-                                                        Action
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">
-                                                        Another action
-                                                    </a>
-                                                </div>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><input class="form-check-input m-0 align-middle" type="checkbox"
-                                                aria-label="Select invoice"></td>
-                                        <td><span class="text-muted">001408</span></td>
-                                        <td><a href="invoice.html" class="text-reset" tabindex="-1">Icons</a></td>
-                                        <td>
-                                            <span class="flag flag-country-pl"></span>
-                                            Tookapic
-                                        </td>
-                                        <td>
-                                            87956621
-                                        </td>
-                                        <td>
-                                            13 May 2018
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-success me-1"></span> Paid Today
-                                        </td>
-                                        <td>$940</td>
-                                        <td class="text-end">
-                                            <span class="dropdown">
-                                                <button class="btn dropdown-toggle align-text-top"
-                                                    data-bs-boundary="viewport" data-bs-toggle="dropdown">Actions</button>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">
-                                                        Action
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">
-                                                        Another action
-                                                    </a>
-                                                </div>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="card-footer d-flex align-items-center">
-                            <p class="m-0 text-muted">Demostración <span>1</span> a <span>8</span> de <span>16</span>
-                            entradas</p>
-                            <ul class="pagination m-0 ms-auto">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
-                                        <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
-                                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <polyline points="15 6 9 12 15 18" />
-                                        </svg>
-                                        anterior
-                                    </a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">
-                                    siguiente <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
-                                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <polyline points="9 6 15 12 9 18" />
-                                        </svg>
-                                    </a>
-                                </li>
-                            </ul>
+    <div class="carousel-inner">
+      <div class="carousel-item active" style="position: relative; height: 600px; overflow: hidden;">
+        <img class="d-block" src="assets/Img_1.jpg" alt="" style="width: 100%; height: auto; min-height: 100%;">
+        <div
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.60);">
+        </div>
+        <div
+          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; text-align: center; font-size: 24px; font-weight: bold; width: 100%;">
+          Bienvenido a Ferro Center
+        </div>
+      </div>
 
-                            {{--
-                             Built In Paginator Component
-                             {!! $modelName->links('tablar::pagination') !!}
-                             --}}
+      <div class="carousel-item" style="position: relative; height: 600px; overflow: hidden;">
+        <img class="d-block" src="assets/Img_3.jpg" alt="" style="width: 100%; height: auto; min-height: 100%;">
+        <div
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.60);">
+        </div>
+        <div
+          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; text-align: center; font-size: 24px; font-weight: bold; width: 100%;">
+          Hacemos más rentable tu negocio
+        </div>
+      </div>
 
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div class="carousel-item" style="position: relative; height: 600px; overflow: hidden;">
+        <img class="d-block" src="assets/Img_4.jpg" alt="" style="width: 100%; height: auto; min-height: 100%;">
+        <div
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.60);">
         </div>
-    </div>
-    <div class="card">
-        <div class="card-body">
-            <div id="chart-demo-area" class="chart-lg"></div>
+        <div
+          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; text-align: center; font-size: 24px; font-weight: bold; width: 100%;">
+          Ferro Center más cerca del cliente
         </div>
+      </div>
+
+      <div class="carousel-item" style="position: relative; height: 600px; overflow: hidden;">
+        <img class="d-block" src="assets/Img_5.jpg" alt="" style="width: 100%; height: auto; min-height: 100%;">
+        <div
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.60);">
+        </div>
+        <div
+          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; text-align: center; font-size: 24px; font-weight: bold; width: 100%;">
+          Calidad que construye confianza
+        </div>
+      </div>
+
+      <div class="carousel-item" style="position: relative; height: 600px; overflow: hidden;">
+        <img class="d-block" src="assets/Img_7.jpg" alt="" style="width: 100%; height: auto; min-height: 100%;">
+        <div
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.60);">
+        </div>
+        <div
+          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; text-align: center; font-size: 24px; font-weight: bold; width: 100%;">
+          Soluciones para cada necesidad
+        </div>
+      </div>
+
+      <div class="carousel-item" style="position: relative; height: 600px; overflow: hidden;">
+        <img class="d-block" src="assets/Img_8.jpg" alt="" style="width: 100%; height: auto; min-height: 100%;">
+        <div
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.60);">
+        </div>
+        <div
+          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; text-align: center; font-size: 24px; font-weight: bold; width: 100%;">
+          Expertos en ferretería
+        </div>
+      </div>
+
+      <div class="carousel-item" style="position: relative; height: 600px; overflow: hidden;">
+        <img class="d-block" src="assets/Img_9.jpg" alt="" style="width: 100%; height: auto; min-height: 100%;">
+        <div
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.60);">
+        </div>
+        <div
+          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; text-align: center; font-size: 24px; font-weight: bold; width: 100%;">
+          Transformamos espacios, mejoramos vidas
+        </div>
+      </div>
     </div>
+    <a class="carousel-control-prev" data-bs-target="#carousel-sample" role="button" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </a>
+    <a class="carousel-control-next" data-bs-target="#carousel-sample" role="button" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </a>
+  </div>
+
+  <div style="height: 50px;"></div>
+  <div>
+    <h1>Nuestras categorías</h1>
+  </div>
+  <div style="height: 50px;"></div>
+
+  <div class="row g-4">
+    <!-- Herramientas y Equipos de Construcción -->
+    <div class="col-md-4">
+      <div class="card h-100">
+        <a href="#">
+          <img class="card-img-top" src="/assets/Herramientas.jpg" alt="Herramientas y Equipos de Construcción"
+            style="height: 300px; object-fit: cover;">
+        </a>
+        <div class="card-body d-flex flex-column justify-content-between">
+          <h3 class="card-title"><a href="#">Herramientas y Equipos de Construcción</a></h3>
+          <p class="text-secondary">Encuentra las mejores herramientas para tu proyecto de construcción.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Accesorios para Baño -->
+    <div class="col-md-4">
+      <div class="card h-100">
+        <a href="#">
+          <img class="card-img-top " src="/assets/AccesoriosBaño.jpeg" alt="Accesorios para Baño"
+            style="height: 300px; object-fit: cover;">
+        </a>
+        <div class="card-body d-flex flex-column justify-content-between">
+          <h3 class="card-title "><a href="#">Accesorios para Baño</a></h3>
+          <p class="text-secondary">Transforma tu baño con nuestros accesorios de diseño moderno que combinan estilo y
+            practicidad.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Pinturas y Solventes -->
+    <div class="col-md-4">
+      <div class="card h-100">
+        <a href="#">
+          <img class="card-img-top" src="/assets/Pinturas.png" alt="Pinturas y Solventes"
+            style="height: 300px; object-fit: cover;">
+        </a>
+        <div class="card-body d-flex flex-column justify-content-between">
+          <h3 class="card-title"><a href="#">Pinturas y Solventes</a></h3>
+          <p class="text-secondary">Asegura el acabado perfecto con nuestras pinturas y solventes de alta calidad,
+            resistentes y duraderos.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Electricidad y Electrónica -->
+    <div class="col-md-4">
+      <div class="card h-100">
+        <a href="#">
+          <img class="card-img-top" src="/assets/Electricidad.jpg" alt="Electricidad y Electrónica"
+            style="height: 300px; object-fit: cover;">
+        </a>
+        <div class="card-body d-flex flex-column justify-content-between">
+          <h3 class="card-title"><a href="#">Electricidad y Electrónica</a></h3>
+          <p class="text-secondary">Descubre soluciones innovadoras para tus necesidades eléctricas y electrónicas con
+            nuestra amplia gama de productos.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Plomería y Tuberías -->
+    <div class="col-md-4">
+      <div class="card h-100">
+        <a href="#">
+          <img class="card-img-top" src="/assets/Plomerias.jpg" alt="Plomería y Tuberías"
+            style="height: 300px; object-fit: cover;">
+        </a>
+        <div class="card-body d-flex flex-column justify-content-between">
+          <h3 class="card-title"><a href="#">Plomería y Tuberías</a></h3>
+          <p class="text-secondary">Obtén la máxima eficiencia y durabilidad con nuestra selección de productos para
+            plomería y tuberías.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Artículos de Seguridad -->
+    <div class="col-md-4">
+      <div class="card h-100">
+        <a href="#">
+          <img class="card-img-top" src="/assets/articulos.jpg" alt="Artículos de Seguridad"
+            style="height: 300px; object-fit: cover;">
+        </a>
+        <div class="card-body d-flex flex-column justify-content-between">
+          <h3 class="card-title"><a href="#">Artículos de Seguridad</a></h3>
+          <p class="text-secondary">Protege a tu equipo de trabajo con nuestros productos de seguridad industrial de
+            primera calidad.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height: 50px;"></div>
+  <div>
+    <h1>Distribución de Ventas por Categoría</h1>
+  </div>
+  <div style="height: 50px;"></div>
+
+  <div class="card">
+    <div class="card-body">
+      <div id="chart-demo-pie" class="chart-lg"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/libs/apexcharts/dist/apexcharts.min.js"
+    defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      window.ApexCharts && (new ApexCharts(document.getElementById('chart-demo-pie'), {
+        chart: {
+          type: "donut",
+          fontFamily: 'inherit',
+          height: 240,
+          sparkline: {
+            enabled: true
+          },
+          animations: {
+            enabled: false
+          },
+        },
+        fill: {
+          opacity: 1,
+        },
+        series: [300, 200, 160, 120],  // Nuevos datos de popularidad
+        labels: ["Herramientas", "Pinturas", "Accesorios para Baño", "Electricidad"],  // Nuevas etiquetas
+        tooltip: {
+          theme: 'dark'
+        },
+        grid: {
+          strokeDashArray: 4,
+        },
+        colors: [tabler.getColor("blue"), tabler.getColor("green"), tabler.getColor("red"), tabler.getColor("yellow")],  // Colores actualizados
+        legend: {
+          show: true,
+          position: 'bottom',
+          offsetY: 12,
+          markers: {
+            width: 10,
+            height: 10,
+            radius: 100,
+          },
+          itemMargin: {
+            horizontal: 8,
+            vertical: 8
+          },
+        },
+        tooltip: {
+          fillSeriesColor: false
+        },
+      })).render();
+    });
+  </script>
+
+  <div style="height: 50px;"></div>
+
+</div>
+
+
+
+<footer>
+  <div class="footer-upper" style="background-color: #313c52; padding: 20px 0;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <h5 class="text-white">Ferrocenter</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-white" href="#">Acerca de nosotros</a></li>
+            <li><a class="text-white" href="#">¿Por qué FerroCenter?</a></li>
+            <li><a class="text-white" href="#">Conviértete en proveedor</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h5 class="text-white">Políticas del sitio</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-white" href="#">Términos legales</a></li>
+            <li><a class="text-white" href="#">Política de privacidad</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h5 class="text-white">Servicio al cliente</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-white" href="#">Garantía</a></li>
+            <li><a class="text-white" href="#">Devoluciones</a></li>
+            <li><a class="text-white" href="#">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h5 class="text-white">Recursos</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-white" href="#">Contáctanos</a></li>
+            <li><a class="text-white" href="#">FAQs</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-lower" style="background-color: #2a3547; color: white; padding: 10px 0; text-align: center;">
+    <div class="container">
+      <span>©2024 FerroCenter S.A. Todos los derechos reservados.</span>
+    </div>
+  </div>
+</footer>
 @endsection
