@@ -2,7 +2,7 @@
     <div class="nav-item dropdown">
         <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
            aria-label="Open user menu">
-            <span class="avatar">SE</span>
+           <span class="avatar" style="background-image: url(https://img.a.transfermarkt.technology/portrait/big/28003-1710080339.jpg?lm=1)"></span>
             <div class="d-none d-xl-block ps-2">
                 <div>{{Auth()->user()->name}}</div>
                 <div class="mt-1 small text-muted">Software Engineer</div>
@@ -25,7 +25,7 @@
             @endif
 
             <!-- <a href="{{$profile_url}}" class="dropdown-item">Profile</a> -->
-            <a href="{{ route('profile') }}" class="dropdown-item">Profile</a>
+            <a href="{{ route('profile') }}" class="dropdown-item">Perfil</a>
 
             <div class="dropdown-divider"></div>
             <a class="dropdown-item"
