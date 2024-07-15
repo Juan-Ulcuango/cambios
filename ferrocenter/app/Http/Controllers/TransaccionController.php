@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTransaccion;
 use App\Models\Cliente;
 use App\Models\Producto;
+use App\Models\Inventario;
 use App\Models\Transaccion;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,9 @@ class TransaccionController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('can:view.transactions')->only('index','show');
-        $this->middleware('can:create.transactions')->only('create','store');
-        $this->middleware('can:edit.transactions')->only('edit','update');
+        $this->middleware('can:view.transactions')->only('index', 'show');
+        $this->middleware('can:create.transactions')->only('create', 'store');
+        $this->middleware('can:edit.transactions')->only('edit', 'update');
         $this->middleware('can:delete.transactions')->only('destroy');
     }
 
@@ -38,7 +39,6 @@ class TransaccionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-//            'transaccion_id' => 'required',
             'fecha_transaccion' => 'required|date',
             'total_transaccion' => 'required|numeric',
             'metodo_pago' => 'required',
@@ -49,6 +49,7 @@ class TransaccionController extends Controller
             'precio_unitario.*' => 'required|numeric|min:0',
         ]);
 
+        // Crear la transacción
         $transaccion = Transaccion::create($request->only([
             'transaccion_id',
             'fecha_transaccion',
@@ -60,10 +61,14 @@ class TransaccionController extends Controller
 
         $productos = [];
         foreach ($request->producto_id as $key => $producto_id) {
+            $cantidad = $request->cantidad[$key];
             $productos[$producto_id] = [
-                'cantidad' => $request->cantidad[$key],
+                'cantidad' => $cantidad,
                 'precio_unitario' => $request->precio_unitario[$key],
             ];
+
+            // Actualizar inventario
+            $this->updateInventory($producto_id, -$cantidad);
         }
 
         $transaccion->productos()->attach($productos);
@@ -100,6 +105,10 @@ class TransaccionController extends Controller
             'precio_unitario.*' => 'required|numeric|min:0',
         ]);
 
+        // Obtener los productos y cantidades actuales
+        $productos_actuales = $transaccion->productos()->pluck('cantidad', 'producto_id')->toArray();
+
+        // Actualizar la transacción
         $transaccion->update($request->only([
             'fecha_transaccion',
             'total_transaccion',
@@ -110,10 +119,15 @@ class TransaccionController extends Controller
 
         $productos = [];
         foreach ($request->producto_id as $key => $producto_id) {
+            $cantidad = $request->cantidad[$key];
             $productos[$producto_id] = [
-                'cantidad' => $request->cantidad[$key],
+                'cantidad' => $cantidad,
                 'precio_unitario' => $request->precio_unitario[$key],
             ];
+
+            // Calcular la diferencia en cantidad y actualizar el inventario
+            $diferencia_cantidad = $cantidad - ($productos_actuales[$producto_id] ?? 0);
+            $this->updateInventory($producto_id, -$diferencia_cantidad);
         }
 
         $transaccion->productos()->sync($productos);
@@ -128,5 +142,24 @@ class TransaccionController extends Controller
         $transaccion->delete();
 
         return redirect()->route('transaccions.index')->with('success', 'Transacción eliminada exitosamente.');
+    }
+    // Método para actualizar el inventario
+    private function updateInventory($producto_id, $cantidad)
+    {
+        $inventario = Inventario::where('producto_id', $producto_id)->first();
+
+        if ($inventario) {
+            $inventario->stock += $cantidad;
+            $inventario->fecha_movimiento = now();
+            $inventario->save();
+        } else {
+            Inventario::create([
+                'producto_id' => $producto_id,
+                'stock' => $cantidad,
+                'fecha_ingreso' => now(),
+                'fecha_movimiento' => now(),
+                'tipo_movimiento' => 'venta',
+            ]);
+        }
     }
 }

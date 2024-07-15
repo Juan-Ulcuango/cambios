@@ -39,7 +39,7 @@
 <div class="form-footer">
     <div class="text-end">
         <div class="d-flex">
-            <a href="#" class="btn btn-danger">Cancelar</a>
+            <a href="{{ route('roles.index') }}" class="btn btn-danger">Cancelar</a>
             <button type="submit" class="btn btn-primary ms-auto ajax-submit">Entregar</button>
         </div>
     </div>

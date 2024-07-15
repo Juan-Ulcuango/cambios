@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProducto;
 use App\Models\Producto;
+use App\Models\Inventario;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -70,6 +71,9 @@ class ProductoController extends Controller
                 'categoria_id' => $request->categoria_id,
             ]);
 
+            // Actualizar inventario
+            $this->updateInventory($producto->producto_id, 0);  // Stock inicial en 0
+
             if ($request->ajax()) {
                 return response()->json([
                     'success' => true,
@@ -131,7 +135,7 @@ class ProductoController extends Controller
     public function update(Request $request, Producto $producto)
     {
         $request->validate([
-            'nombre_producto' => 'required|string|max:30',
+            'nombre_producto' => 'required|string|max:100',
             'descripcion_producto' => 'nullable|string',
             'precio_unitario' => 'required|numeric',
             'categoria_id' => 'required|exists:categorias,categoria_id',
@@ -140,8 +144,9 @@ class ProductoController extends Controller
         $producto->update($request->all());
 
         return redirect()->route('productos.index')
-            ->with('success', 'Producto updated successfully');
+            ->with('success', 'Producto actualizado exitosamente.');
     }
+
 
     /**
      * @param int $id
@@ -162,5 +167,23 @@ class ProductoController extends Controller
         $currentDate = Carbon::now()->format('d-m-Y'); // Formato de fecha: dd-mm-yyyy
         $filename = 'Productos-' . $currentDate . '.pdf';
         return $pdf->download($filename);
+    }
+    private function updateInventory($producto_id, $cantidad)
+    {
+        $inventario = Inventario::where('producto_id', $producto_id)->first();
+
+        if ($inventario) {
+            $inventario->stock += $cantidad;
+            $inventario->fecha_movimiento = now();
+            $inventario->save();
+        } else {
+            Inventario::create([
+                'producto_id' => $producto_id,
+                'stock' => $cantidad,
+                'fecha_ingreso' => now(),
+                'fecha_movimiento' => now(),
+                'tipo_movimiento' => 'compra',
+            ]);
+        }
     }
 }

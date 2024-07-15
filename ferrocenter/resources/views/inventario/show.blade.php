@@ -4,46 +4,44 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
+        <div class="row mb-4">
             <div class="col-lg-12 margin-tb">
                 <div class="pull-left">
                     <h2>Ver Inventario</h2>
                 </div>
                 <div class="pull-right">
-                    <a class="btn btn-primary" href="{{ route('inventarios.index') }}"> Back</a>
+                    <a class="btn btn-primary" href="{{ route('inventarios.index') }}">Volver</a>
                 </div>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Stock:</strong>
-                    {{ $inventario->stock }}
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Fecha Movimiento:</strong>
-                    {{ $inventario->fecha_movimiento }}
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Tipo Movimiento:</strong>
-                    {{ $inventario->tipo_movimiento }}
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Producto:</strong>
-                    {{ $inventario->producto->nombre_producto }}
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Producto ID:</strong>
-                    {{ $inventario->producto->producto_id }}
+            <div class="col-lg-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th>Stock</th>
+                                <td>{{ $inventario->stock }}</td>
+                            </tr>
+                            <tr>
+                                <th>Fecha Movimiento</th>
+                                <td>{{ $inventario->fecha_movimiento }}</td>
+                            </tr>
+                            <tr>
+                                <th>Tipo Movimiento</th>
+                                <td>{{ $inventario->tipo_movimiento }}</td>
+                            </tr>
+                            <tr>
+                                <th>Producto</th>
+                                <td>{{ $inventario->producto->nombre_producto }}</td>
+                            </tr>
+                            <tr>
+                                <th>Producto ID</th>
+                                <td>{{ $inventario->producto->producto_id }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
