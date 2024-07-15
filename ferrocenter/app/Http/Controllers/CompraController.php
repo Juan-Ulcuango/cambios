@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCompra;
 use App\Models\Categoria;
+use App\Models\Inventario;
 use App\Models\Compra;
 use App\Models\Proveedore;
 use App\Models\Producto;
@@ -32,15 +33,28 @@ class CompraController extends Controller
         $proveedores = Proveedore::all();
         $productos = Producto::all();
         $categorias = Categoria::all();
-        return view('compra.create', compact('compra', 'proveedores', 'productos', 'categorias'));
-    }
 
+        // Generar un número de factura único con el formato COM-2024-001
+        $ultimoNumeroFactura = Compra::max('numero_factura');
+
+        if ($ultimoNumeroFactura) {
+            // Extraer el número secuencial de la última factura
+            $ultimoSecuencial = (int)substr($ultimoNumeroFactura, -3);
+            $nuevoSecuencial = $ultimoSecuencial + 1;
+        } else {
+            $nuevoSecuencial = 1;
+        }
+
+        // Formatear el número secuencial con ceros a la izquierda
+        $nuevoNumeroFactura = 'COM-' . date('Y') . '-' . str_pad($nuevoSecuencial, 3, '0', STR_PAD_LEFT);
+
+        return view('compra.create', compact('compra', 'proveedores', 'productos', 'categorias', 'nuevoNumeroFactura'));
+    }
     public function store(Request $request)
     {
         $request->validate([
-            'compra_id' => '',
             'fecha_compra' => 'required|date',
-            'numero_factura' => 'required',
+            'numero_factura' => 'required|unique:compras,numero_factura',
             'subtotal' => 'required|numeric',
             'impuesto' => 'required|numeric',
             'total_compra' => 'required|numeric',
@@ -53,7 +67,6 @@ class CompraController extends Controller
         ]);
 
         $compra = Compra::create($request->only([
-            'compra_id',
             'fecha_compra',
             'numero_factura',
             'subtotal',
@@ -70,6 +83,9 @@ class CompraController extends Controller
                 'cantidad' => $request->cantidad[$key],
                 'precio_unitario' => $request->precio_unitario[$key],
             ];
+
+            // Actualizar inventario
+            $this->updateInventory($producto_id, $request->cantidad[$key]);
         }
 
         $compra->productos()->attach($productos);
@@ -87,7 +103,8 @@ class CompraController extends Controller
         $compra = Compra::with('productos')->findOrFail($id);
         $proveedores = Proveedore::all();
         $productos = Producto::all();
-        $categorias = Categoria::all();  // Asegúrate de obtener las categorías
+        $categorias = Categoria::all();
+
         return view('compra.edit', compact('compra', 'proveedores', 'productos', 'categorias'));
     }
 
@@ -110,11 +127,15 @@ class CompraController extends Controller
         $compra = Compra::findOrFail($id);
         $compra->update($validated);
         $compra->productos()->detach();
+
         foreach ($request->producto_id as $key => $producto_id) {
             $compra->productos()->attach($producto_id, [
                 'cantidad' => $request->cantidad[$key],
                 'precio_unitario' => $request->precio_unitario[$key],
             ]);
+
+            // Actualizar inventario
+            $this->updateInventory($producto_id, $request->cantidad[$key]);
         }
 
         return redirect()->route('compras.index')->with('success', 'Compra actualizada exitosamente.');
@@ -125,5 +146,24 @@ class CompraController extends Controller
         $compra->delete();
         return redirect()->route('compras.index')
             ->with('success', 'Compra eliminada exitosamente.');
+    }
+
+    private function updateInventory($producto_id, $cantidad)
+    {
+        $inventario = Inventario::where('producto_id', $producto_id)->first();
+
+        if ($inventario) {
+            $inventario->stock += $cantidad;
+            $inventario->fecha_movimiento = now();
+            $inventario->save();
+        } else {
+            Inventario::create([
+                'producto_id' => $producto_id,
+                'stock' => $cantidad,
+                'fecha_ingreso' => now(),
+                'fecha_movimiento' => now(),
+                'tipo_movimiento' => 'compra',
+            ]);
+        }
     }
 }

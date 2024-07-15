@@ -48,10 +48,10 @@
                             <h3 class="card-title">Compra Details</h3>
                         </div>
                         <div class="card-body">
-                            <div class="form-group mb-3">
+                            {{-- <div class="form-group mb-3">
                                 <label class="form-label"><strong>Compra Id:</strong></label>
                                 <div class="form-control">{{ $compra->compra_id }}</div>
-                            </div>
+                            </div> --}}
                             <div class="form-group mb-3">
                                 <label class="form-label"><strong>Fecha Compra:</strong></label>
                                 <div class="form-control">{{ $compra->fecha_compra }}</div>

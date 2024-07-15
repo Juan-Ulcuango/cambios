@@ -40,6 +40,12 @@
                     {{ $inventario->producto->nombre_producto }}
                 </div>
             </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Producto ID:</strong>
+                    {{ $inventario->producto->producto_id }}
+                </div>
+            </div>
         </div>
     </div>
 @endsection

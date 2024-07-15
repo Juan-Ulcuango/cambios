@@ -21,9 +21,9 @@ class Producto extends Model implements Auditable
         return $this->belongsTo(Categoria::class, 'categoria_id', 'categoria_id');
     }
 
-    public function inventario()
+    public function inventarios()
     {
-        return $this->belongsTo(Inventario::class, 'inventario_id', 'inventario_id');
+        return $this->hasMany(Inventario::class, 'producto_id', 'producto_id');
     }
 
     public function transaccions()

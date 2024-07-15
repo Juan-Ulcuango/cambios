@@ -7,27 +7,32 @@
                 <form method="POST" action="{{ route('compras.store') }}" id="compraForm" role="form">
                     @csrf
                     <!-- Formulario de Compra -->
-                    <div class="form-group mb-3">
+                    {{-- <div class="form-group mb-3">
                         <label class="form-label">{{ Form::label('compra_id', 'ID de la Compra') }}</label>
                         <div>
                             {{ Form::text('compra_id', old('compra_id', isset($compra) ? $compra->compra_id : ''), ['class' => 'form-control' . ($errors->has('compra_id') ? ' is-invalid' : ''), 'placeholder' => 'Compra Id']) }}
                             {!! $errors->first('compra_id', '<div class="invalid-feedback">:message</div>') !!}
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="form-group mb-3">
                         <label class="form-label">{{ Form::label('numero_factura', 'Número de Factura') }}</label>
                         <div>
-                            {{ Form::text('numero_factura', old('numero_factura', isset($compra) ? $compra->numero_factura : ''), ['class' => 'form-control' . ($errors->has('numero_factura') ? ' is-invalid' : ''), 'placeholder' => 'Número de Factura']) }}
+                            {{ Form::text('numero_factura', old('numero_factura', isset($compra->numero_factura) ? $compra->numero_factura : (isset($nuevoNumeroFactura) ? $nuevoNumeroFactura : '')), ['class' => 'form-control' . ($errors->has('numero_factura') ? ' is-invalid' : ''), 'placeholder' => 'Número de Factura', 'readonly' => true]) }}
                             {!! $errors->first('numero_factura', '<div class="invalid-feedback">:message</div>') !!}
                         </div>
                     </div>
                     <div class="form-group mb-3">
                         <label class="form-label">{{ Form::label('fecha_compra', 'Fecha de Compra') }}</label>
                         <div>
-                            {{ Form::date('fecha_compra', old('fecha_compra', isset($compra) ? $compra->fecha_compra : ''), ['class' => 'form-control' . ($errors->has('fecha_compra') ? ' is-invalid' : ''), 'placeholder' => 'Fecha de Compra']) }}
+                            {{ Form::date('fecha_compra', \Carbon\Carbon::now()->format('Y-m-d'), [
+                                'class' => 'form-control' . ($errors->has('fecha_compra') ? ' is-invalid' : ''),
+                                'placeholder' => 'Fecha de Compra',
+                                'readonly' => 'readonly', // Esto hace que el campo sea no editable
+                            ]) }}
                             {!! $errors->first('fecha_compra', '<div class="invalid-feedback">:message</div>') !!}
                         </div>
                     </div>
+
                     <div class="form-group mb-3">
                         <label class="form-label">{{ Form::label('subtotal', 'Subtotal') }}</label>
                         <div>
@@ -38,10 +43,11 @@
                     <div class="form-group mb-3">
                         <label class="form-label">{{ Form::label('impuesto', 'Impuesto (%)') }}</label>
                         <div>
-                            {{ Form::text('impuesto', old('impuesto', isset($compra) ? $compra->impuesto : ''), ['class' => 'form-control' . ($errors->has('impuesto') ? ' is-invalid' : ''), 'placeholder' => 'Impuesto']) }}
+                            {{ Form::number('impuesto', old('impuesto', isset($compra) ? $compra->impuesto : ''), ['class' => 'form-control' . ($errors->has('impuesto') ? ' is-invalid' : ''), 'placeholder' => 'Impuesto']) }}
                             {!! $errors->first('impuesto', '<div class="invalid-feedback">:message</div>') !!}
                         </div>
                     </div>
+
                     <div class="form-group mb-3">
                         <label class="form-label">{{ Form::label('total_compra', 'Total de la Compra') }}</label>
                         <div>
@@ -85,7 +91,7 @@
                                     <tr>
                                         <th>Producto</th>
                                         <th>Cantidad</th>
-                                        <th>Precio Unitario</th>
+                                        <th>Precio Unidad</th>
                                         <th>Acción</th>
                                     </tr>
                                 </thead>

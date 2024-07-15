@@ -6,24 +6,13 @@ use App\Models\Inventario;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 
-/**
- * Class InventarioController
- * @package App\Http\Controllers
- */
 class InventarioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
     public function __construct(){
-        $this->middleware('can:view.inventory')->only('index','show');
-        $this->middleware('can:manage.inventory')->only('create','store');
-        $this->middleware('can:manage.inventory')->only('edit','update');
-        $this->middleware('can:manage.inventory')->only('destroy');
+        $this->middleware('can:view.inventory')->only('index', 'show');
+        $this->middleware('can:manage.inventory')->only('create', 'store', 'edit', 'update', 'destroy');
     }
+
     public function index()
     {
         $inventarios = Inventario::with('producto')->paginate(10);
@@ -32,11 +21,6 @@ class InventarioController extends Controller
             ->with('i', (request()->input('page', 1) - 1) * $inventarios->perPage());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $inventario = new Inventario();
@@ -44,12 +28,6 @@ class InventarioController extends Controller
         return view('inventario.create', compact('inventario', 'productos'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -65,41 +43,22 @@ class InventarioController extends Controller
             ->with('success', 'Inventario creado exitosamente.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        $inventario = Inventario::with('producto')->find($id);
+        $inventario = Inventario::with('producto')->findOrFail($id);
 
         return view('inventario.show', compact('inventario'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        $inventario = Inventario::find($id);
+        $inventario = Inventario::findOrFail($id);
         $productos = Producto::all();
 
         return view('inventario.edit', compact('inventario', 'productos'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  Inventario $inventario
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Inventario $inventario)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'stock' => 'required|integer',
@@ -108,20 +67,17 @@ class InventarioController extends Controller
             'producto_id' => 'required|exists:productos,producto_id',
         ]);
 
+        $inventario = Inventario::findOrFail($id);
         $inventario->update($request->all());
 
         return redirect()->route('inventarios.index')
             ->with('success', 'Inventario actualizado exitosamente.');
     }
 
-    /**
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
     public function destroy($id)
     {
-        Inventario::find($id)->delete();
+        $inventario = Inventario::findOrFail($id);
+        $inventario->delete();
 
         return redirect()->route('inventarios.index')
             ->with('success', 'Inventario eliminado exitosamente.');

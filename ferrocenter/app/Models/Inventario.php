@@ -13,16 +13,18 @@ class Inventario extends Model implements Auditable
     use HasFactory;
     protected $table = 'inventarios';
     protected $primaryKey = 'inventario_id';
-    protected $fillable = ['stock', 'fecha_movimiento', 'tipo_movimiento', 'producto_id'];
-
-    public static $rules = [
-        
+    protected $fillable = [
+        'producto_id',
+        'stock',
+        'fecha_ingreso',
+        'fecha_movimiento',
+        'tipo_movimiento',
     ];
+
+    public static $rules = [];
 
     public function producto()
     {
         return $this->belongsTo(Producto::class, 'producto_id', 'producto_id');
     }
-
-
 }

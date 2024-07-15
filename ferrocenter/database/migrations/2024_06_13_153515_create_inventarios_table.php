@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('inventarios', function (Blueprint $table) {
             $table->id('inventario_id'); // Primary key
             $table->integer('stock');
+            $table->dateTime('fecha_ingreso');
             $table->dateTime('fecha_movimiento');
             $table->string('tipo_movimiento', 30);
             $table->unsignedBigInteger('producto_id'); // Foreign key

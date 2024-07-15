@@ -187,27 +187,6 @@ return [
         ],
 
         [
-            'text' => 'Detalle Compra',
-            'icon' => 'ti ti-file-description',
-            'url' => 'detallecompras',
-            'roles' => ['admin','gerente','compras']
-        ],
-
-        [
-            'text' => 'Detalle Venta',
-            'icon' => 'ti ti-file-description',
-            'url' => 'detalleventas',
-            'roles' => ['admin','gerente','vendedor']
-        ],
-
-        // [
-        //     'text' => 'Empleado',
-        //     'icon' => 'ti ti-users',
-        //     'url' => 'empleados',
-        //     'roles' => ['admin']
-        // ],
-
-        [
             'text' => 'Inventario',
             'icon' => 'ti ti-brand-databricks',
             'url' => 'inventarios',
