@@ -72,8 +72,8 @@
                             <table class="table card-table table-vcenter text-nowrap datatable">
                                 <thead>
                                     <tr>
-                                        <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox"
-                                                aria-label="Select all invoices"></th>
+                                        {{-- <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox"
+                                                aria-label="Select all invoices"></th> --}}
                                         <th class="w-1">No.
                                             <!-- Download SVG icon from http://tabler-icons.io/i/chevron-up -->
                                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -97,8 +97,8 @@
                                 <tbody>
                                     @forelse ($compras as $compra)
                                         <tr>
-                                            <td><input class="form-check-input m-0 align-middle" type="checkbox"
-                                                    aria-label="Select compra"></td>
+                                            {{-- <td><input class="form-check-input m-0 align-middle" type="checkbox"
+                                                    aria-label="Select compra"></td> --}}
                                             <td>{{ ++$i }}</td>
 
                                             <td>{{ $compra->compra_id }}</td>
