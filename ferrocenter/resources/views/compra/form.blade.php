@@ -33,6 +33,7 @@
                         </div>
                     </div>
 
+
                     <div class="form-group mb-3">
                         <label class="form-label">{{ Form::label('subtotal', 'Subtotal') }}</label>
                         <div>
@@ -89,6 +90,12 @@
                             <table class="table" id="products_table">
                                 <thead>
                                     <tr>
+                                        <th colspan="4">
+                                            <input type="text" id="productSearch" class="form-control"
+                                                placeholder="Buscar por nombre de producto">
+                                        </th>
+                                    </tr>
+                                    <tr>
                                         <th>Producto</th>
                                         <th>Cantidad</th>
                                         <th>Precio Unidad</th>
@@ -107,7 +114,8 @@
                                                             <option value="{{ $prod->producto_id }}"
                                                                 data-precio="{{ $prod->precio_unitario }}"
                                                                 {{ $prod->producto_id == $producto->producto_id ? 'selected' : '' }}>
-                                                                {{ $prod->nombre_producto }}</option>
+                                                                {{ $prod->nombre_producto }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </td>
@@ -117,10 +125,10 @@
                                                         oninput="calculateSubtotal()" />
                                                 </td>
                                                 <td>
-                                                    <input type="number" name="precio_unitario[]"
+                                                    <input type="number" step="0.01" name="precio_unitario[]"
                                                         class="form-control precio-unitario"
                                                         value="{{ $producto->pivot->precio_unitario }}"
-                                                        oninput="calculateSubtotal()" />
+                                                        oninput="calculateSubtotal()" required />
                                                 </td>
                                                 <td>
                                                     <button type="button" class="btn btn-primary btn-sm"
@@ -138,7 +146,8 @@
                                                     @foreach ($productos as $producto)
                                                         <option value="{{ $producto->producto_id }}"
                                                             data-precio="{{ $producto->precio_unitario }}">
-                                                            {{ $producto->nombre_producto }}</option>
+                                                            {{ $producto->nombre_producto }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                             </td>
@@ -147,8 +156,9 @@
                                                     oninput="calculateSubtotal()" />
                                             </td>
                                             <td>
-                                                <input type="number" name="precio_unitario[]"
-                                                    class="form-control precio-unitario" oninput="calculateSubtotal()" />
+                                                <input type="number" step="0.01" name="precio_unitario[]"
+                                                    class="form-control precio-unitario" oninput="calculateSubtotal()"
+                                                    required />
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
@@ -159,16 +169,12 @@
                                         </tr>
                                     @endif
                                 </tbody>
-
                             </table>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button id="add_row" class="btn btn-default pull-left">+ Añadir Fila</button>
-                                    <button id='delete_row' class="pull-right btn btn-danger">- Eliminar Fila</button>
-                                </div>
-                            </div>
                         </div>
                     </div>
+
+
+
                     <div class="form-footer mt-3">
                         <div class="text-end">
                             <div class="d-flex">
@@ -188,6 +194,7 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Almacenar todos los proveedores existentes
@@ -390,5 +397,7 @@
 
         $('#impuesto').on('input', calculateTotal);
     </script>
+
+
 
 @endsection

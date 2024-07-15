@@ -26,11 +26,11 @@ class DatabaseSeeder extends Seeder
 
         //Crear datos 
         //Crear Productos con factory
-        Producto::factory(50)->create();
+        // Producto::factory(50)->create();
         //Crear clientes con factory
         // Cliente::factory(50)->create();
         //Crear proveedore con factory
-        Proveedore::factory(50)->create();
+        // Proveedore::factory(50)->create();
 
         User::factory()->create([
             'name' => 'Test User',
