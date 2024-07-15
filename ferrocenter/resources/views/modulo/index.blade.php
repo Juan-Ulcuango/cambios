@@ -24,11 +24,11 @@
                         <a href="{{ route('modulos.create') }}" class="btn btn-primary d-none d-sm-inline-block">
                             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                 stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                <line x1="12" y1="5" x2="12" y2="19"/>
-                                <line x1="5" y1="12" x2="19" y2="12"/>
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <line x1="12" y1="5" x2="12" y2="19" />
+                                <line x1="5" y1="12" x2="19" y2="12" />
                             </svg>
                             Crear Modulo
                         </a>
@@ -40,115 +40,46 @@
     <!-- Page body -->
     <div class="page-body">
         <div class="container-xl">
-            @if(config('tablar','display_alert'))
+            @if (config('tablar', 'display_alert'))
                 @include('tablar::common.alert')
             @endif
-            <div class="row row-deck row-cards">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Modulo</h3>
-                        </div>
-                        <div class="card-body border-bottom py-3">
-                            <div class="d-flex">
-                                <div class="text-muted">
-                                Espectáculo
-                                    <div class="mx-2 d-inline-block">
-                                        <input type="text" class="form-control form-control-sm" value="10" size="3"
-                                               aria-label="Invoices count">
-                                    </div>
-                                    entradas
+            <div class="row row-deck">
+                @forelse ($modulos as $modulo)
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100">
+                            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Thumbnail">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $modulo->nombre_modulo }}</h5>
+                                <p class="card-text">{{ $modulo->descripcion_modulo }}</p>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between align-items-center">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <a href="{{ route('modulos.show', $modulo->modulo_id) }}"
+                                        class="btn btn-primary btn-sm">Ver</a>
+                                    <a href="{{ route('modulos.edit', $modulo->modulo_id) }}"
+                                        class="btn btn-secondary btn-sm ms-1">Editar</a>
+                                    <form action="{{ route('modulos.destroy', $modulo->modulo_id) }}" method="POST"
+                                        class="ms-1">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm"
+                                            onclick="if(!confirm('Do you Want to Proceed?')){return false;}">
+                                            Eliminar
+                                        </button>
+                                    </form>
                                 </div>
-                                <div class="ms-auto text-muted">
-                                Buscar:
-                                    <div class="ms-2 d-inline-block">
-                                        <input type="text" class="form-control form-control-sm"
-                                               aria-label="Search invoice">
-                                    </div>
-                                </div>
+                                <small class="text-muted">9 mins</small>
                             </div>
                         </div>
-                        <div class="table-responsive min-vh-100">
-                            <table class="table card-table table-vcenter text-nowrap datatable">
-                                <thead>
-                                <tr>
-                                    <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox"
-                                                           aria-label="Select all invoices"></th>
-                                    <th class="w-1">No.
-                                        <!-- Download SVG icon from http://tabler-icons.io/i/chevron-up -->
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                             class="icon icon-sm text-dark icon-thick" width="24" height="24"
-                                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                             stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                            <polyline points="6 15 12 9 18 15"/>
-                                        </svg>
-                                    </th>
-                                    
-										<th>Modulo Id</th>
-										<th>Nombre Modulo</th>
-										<th>Descripcion Modulo</th>
-
-                                    <th class="w-1"></th>
-                                </tr>
-                                </thead>
-
-                                <tbody>
-                                @forelse ($modulos as $modulo)
-                                    <tr>
-                                        <td><input class="form-check-input m-0 align-middle" type="checkbox"
-                                                   aria-label="Select modulo"></td>
-                                        <td>{{ ++$i }}</td>
-                                        
-											<td>{{ $modulo->modulo_id }}</td>
-											<td>{{ $modulo->nombre_modulo }}</td>
-											<td>{{ $modulo->descripcion_modulo }}</td>
-
-                                        <td>
-                                            <div class="btn-list flex-nowrap">
-                                                <div class="dropdown">
-                                                    <button class="btn dropdown-toggle align-text-top"
-                                                            data-bs-toggle="dropdown">
-                                                            Comportamiento
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                        <a class="dropdown-item"
-                                                           href="{{ route('modulos.show',$modulo->modulo_id) }}">
-                                                           Vista
-                                                        </a>
-                                                        <a class="dropdown-item"
-                                                           href="{{ route('modulos.edit',$modulo->modulo_id) }}">
-                                                           Editar
-                                                        </a>
-                                                        <form
-                                                            action="{{ route('modulos.destroy',$modulo->modulo_id) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                    onclick="if(!confirm('Do you Want to Proceed?')){return false;}"
-                                                                    class="dropdown-item text-red"><i
-                                                                    class="fa fa-fw fa-trash"></i>
-                                                                    Borrar
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <td>Datos no encontrados</td>
-                                @endforelse
-                                </tbody>
-
-                            </table>
-                        </div>
-                       <div class="card-footer d-flex align-items-center">
-                            {!! $modulos->links('tablar::pagination') !!}
-                        </div>
                     </div>
-                </div>
+                @empty
+                    <div class="col-12">
+                        <p>Datos no encontrados</p>
+                    </div>
+                @endforelse
+            </div>
+            <div class="d-flex justify-content-center mt-4">
+                {!! $modulos->links('tablar::pagination') !!}
             </div>
         </div>
     </div>
