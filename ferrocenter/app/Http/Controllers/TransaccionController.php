@@ -49,6 +49,16 @@ class TransaccionController extends Controller
             'precio_unitario.*' => 'required|numeric|min:0',
         ]);
 
+        // Verificar stock antes de crear la transacción
+        foreach ($request->producto_id as $key => $producto_id) {
+            $cantidad = $request->cantidad[$key];
+            $inventario = Inventario::where('producto_id', $producto_id)->first();
+
+            if (!$inventario || $inventario->stock < $cantidad) {
+                return redirect()->back()->withErrors(['error' => 'No hay suficiente stock para el producto ' . $producto_id]);
+            }
+        }
+
         // Crear la transacción
         $transaccion = Transaccion::create($request->only([
             'transaccion_id',
@@ -75,6 +85,7 @@ class TransaccionController extends Controller
 
         return redirect()->route('transaccions.index')->with('success', 'Transacción y productos almacenados con éxito.');
     }
+
 
     public function show($id)
     {
@@ -108,6 +119,19 @@ class TransaccionController extends Controller
         // Obtener los productos y cantidades actuales
         $productos_actuales = $transaccion->productos()->pluck('cantidad', 'producto_id')->toArray();
 
+        // Verificar stock antes de actualizar la transacción
+        foreach ($request->producto_id as $key => $producto_id) {
+            $nueva_cantidad = $request->cantidad[$key];
+            $cantidad_actual = $productos_actuales[$producto_id] ?? 0;
+            $diferencia_cantidad = $nueva_cantidad - $cantidad_actual;
+
+            $inventario = Inventario::where('producto_id', $producto_id)->first();
+
+            if (!$inventario || $inventario->stock < $diferencia_cantidad) {
+                return redirect()->back()->withErrors(['error' => 'No hay suficiente stock para el producto ' . $producto_id]);
+            }
+        }
+
         // Actualizar la transacción
         $transaccion->update($request->only([
             'fecha_transaccion',
@@ -126,7 +150,9 @@ class TransaccionController extends Controller
             ];
 
             // Calcular la diferencia en cantidad y actualizar el inventario
-            $diferencia_cantidad = $cantidad - ($productos_actuales[$producto_id] ?? 0);
+            $cantidad_actual = $productos_actuales[$producto_id] ?? 0;
+            $diferencia_cantidad = $cantidad - $cantidad_actual;
+
             $this->updateInventory($producto_id, -$diferencia_cantidad);
         }
 
@@ -134,6 +160,7 @@ class TransaccionController extends Controller
 
         return redirect()->route('transaccions.index')->with('success', 'Transacción actualizada con éxito.');
     }
+
 
     public function destroy($id)
     {
@@ -158,7 +185,7 @@ class TransaccionController extends Controller
                 'stock' => $cantidad,
                 'fecha_ingreso' => now(),
                 'fecha_movimiento' => now(),
-                'tipo_movimiento' => 'venta',
+                // 'tipo_movimiento' => 'venta',
             ]);
         }
     }

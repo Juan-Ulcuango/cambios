@@ -88,9 +88,9 @@
                                         <th>Stock</th>
                                         <th>Fecha Ingreso</th>
                                         <th>Fecha Movimiento</th>
-                                        <th>Tipo Movimiento</th>
+                                        {{-- <th>Tipo Movimiento</th> --}}
                                         <th>Producto</th>
-                                        {{-- <th class="w-1"></th> --}}
+                                        <th class="w-1"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -103,7 +103,7 @@
                                             <td>{{ $inventario->stock }}</td>
                                             <td>{{ $inventario->fecha_ingreso }}</td>
                                             <td>{{ $inventario->fecha_movimiento }}</td>
-                                            <td>{{ $inventario->tipo_movimiento }}</td>
+                                            {{-- <td>{{ $inventario->tipo_movimiento }}</td> --}}
                                             <td>{{ $inventario->producto->nombre_producto }}</td>
                                             <td>
                                                 <div class="btn-list flex-nowrap">

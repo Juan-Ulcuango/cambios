@@ -18,7 +18,7 @@ class Inventario extends Model implements Auditable
         'stock',
         'fecha_ingreso',
         'fecha_movimiento',
-        'tipo_movimiento',
+        // 'tipo_movimiento',
     ];
 
     public static $rules = [];

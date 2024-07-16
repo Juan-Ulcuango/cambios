@@ -182,7 +182,7 @@ class ProductoController extends Controller
                 'stock' => $cantidad,
                 'fecha_ingreso' => now(),
                 'fecha_movimiento' => now(),
-                'tipo_movimiento' => 'compra',
+                // 'tipo_movimiento' => 'compra',
             ]);
         }
     }

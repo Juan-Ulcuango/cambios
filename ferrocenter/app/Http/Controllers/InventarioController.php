@@ -33,7 +33,6 @@ class InventarioController extends Controller
         $request->validate([
             'stock' => 'required|integer',
             'fecha_movimiento' => 'required|date',
-            'tipo_movimiento' => 'required|string|max:30',
             'producto_id' => 'required|exists:productos,producto_id',
         ]);
 
@@ -63,7 +62,6 @@ class InventarioController extends Controller
         $request->validate([
             'stock' => 'required|integer',
             'fecha_movimiento' => 'required|date',
-            'tipo_movimiento' => 'required|string|max:30',
             'producto_id' => 'required|exists:productos,producto_id',
         ]);
 

@@ -22,14 +22,14 @@
         <small class="form-hint">inventario <b>fecha_movimiento</b> instruction.</small>
     </div>
 </div>
-<div class="form-group mb-3">
+{{-- <div class="form-group mb-3">
     <label class="form-label">{{ Form::label('tipo_movimiento', 'Tipo Movimiento') }}</label>
     <div>
         {{ Form::text('tipo_movimiento', $inventario->tipo_movimiento, ['class' => 'form-control' . ($errors->has('tipo_movimiento') ? ' is-invalid' : ''), 'placeholder' => 'Tipo Movimiento']) }}
         {!! $errors->first('tipo_movimiento', '<div class="invalid-feedback">:message</div>') !!}
         <small class="form-hint">inventario <b>tipo_movimiento</b> instruction.</small>
     </div>
-</div>
+</div> --}}
 
 <!-- Campo Producto ID -->
 <div class="form-group mb-3">

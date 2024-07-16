@@ -28,10 +28,10 @@
                                 <th>Fecha Movimiento</th>
                                 <td>{{ $inventario->fecha_movimiento }}</td>
                             </tr>
-                            <tr>
+                            {{-- <tr>
                                 <th>Tipo Movimiento</th>
                                 <td>{{ $inventario->tipo_movimiento }}</td>
-                            </tr>
+                            </tr> --}}
                             <tr>
                                 <th>Producto</th>
                                 <td>{{ $inventario->producto->nombre_producto }}</td>

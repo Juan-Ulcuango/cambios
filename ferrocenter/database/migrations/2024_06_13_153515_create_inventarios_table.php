@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('stock');
             $table->dateTime('fecha_ingreso');
             $table->dateTime('fecha_movimiento');
-            $table->string('tipo_movimiento', 30);
+            // $table->string('tipo_movimiento', 30);
             $table->unsignedBigInteger('producto_id'); // Foreign key
             $table->timestamps();
 
