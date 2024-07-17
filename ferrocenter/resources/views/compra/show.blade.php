@@ -89,6 +89,7 @@
                                                 <th>Producto</th>
                                                 <th>Cantidad</th>
                                                 <th>Precio Unitario</th>
+                                                <th>Subtotal</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -96,7 +97,9 @@
                                                 <tr>
                                                     <td>{{ $producto->nombre_producto }}</td>
                                                     <td>{{ $producto->pivot->cantidad }}</td>
-                                                    <td>{{ $producto->pivot->precio_compra }}</td>
+                                                    <td>{{ number_format($producto->pivot->precio_compra, 2) }}</td>
+                                                    <td>{{ number_format($producto->pivot->cantidad * $producto->pivot->precio_compra, 2) }}
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
