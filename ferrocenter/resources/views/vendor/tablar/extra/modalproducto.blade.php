@@ -17,15 +17,22 @@
                         <textarea class="form-control" id="descripcion_producto" name="descripcion_producto"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="precio_compra" class="form-label">Precio Unitario</label>
-                        <input type="number" step="0.01" class="form-control" id="precio_compra" name="precio_compra" required>
+                        <label for="precio_unitario" class="form-label">Precio Unitario</label>
+                        <input type="number" step="0.01" class="form-control" id="precio_unitario"
+                            name="precio_unitario" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="precio_compra" class="form-label">Precio Compra</label>
+                        <input type="number" step="0.01" class="form-control" id="precio_compra"
+                            name="precio_compra" required>
                     </div>
                     <div class="mb-3">
                         <label for="categoria_id" class="form-label">Categoría</label>
                         <select class="form-control" id="categoria_id" name="categoria_id" required>
                             <option value="">Seleccione una categoría</option>
-                            @foreach($categorias as $categoria)
-                                <option value="{{ $categoria->categoria_id }}">{{ $categoria->nombre_categoria }}</option>
+                            @foreach ($categorias as $categoria)
+                                <option value="{{ $categoria->categoria_id }}">{{ $categoria->nombre_categoria }}
+                                </option>
                             @endforeach
                         </select>
                     </div>

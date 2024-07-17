@@ -13,7 +13,7 @@ class Producto extends Model implements Auditable
     use HasFactory;
     protected $table = 'productos';
     protected $primaryKey = 'producto_id';
-    protected $fillable = ['nombre_producto', 'descripcion_producto', 'precio_unitario', 'categoria_id'];
+    protected $fillable = ['nombre_producto', 'descripcion_producto', 'precio_unitario','precio_compra', 'categoria_id'];
     public static $rules = [];
 
     public function categoria()
