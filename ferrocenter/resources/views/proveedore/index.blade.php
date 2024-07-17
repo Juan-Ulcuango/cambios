@@ -1,7 +1,7 @@
 @extends('tablar::page')
 
 @section('title')
-    Proveedore
+    Proveedores
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@
                         Lista
                     </div>
                     <h2 class="page-title">
-                        {{ __('Proveedore ') }}
+                        {{ __('Proveedores ') }}
                     </h2>
                 </div>
                 <!-- Page title actions -->
@@ -30,7 +30,7 @@
                                 <line x1="12" y1="5" x2="12" y2="19" />
                                 <line x1="5" y1="12" x2="19" y2="12" />
                             </svg>
-                            Crear Proveedore
+                            Crear Proveedores
                         </a>
                         <a href="{{ route('proveedores.pdf') }}" class="btn btn-secondary d-none d-sm-inline-block">
                             Exportar a PDF
@@ -50,18 +50,11 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Proveedore</h3>
+                            <h3 class="card-title">Proveedores</h3>
                         </div>
                         <div class="card-body border-bottom py-3">
                             <div class="d-flex">
-                                <div class="text-muted">
-                                    Espectáculo
-                                    <div class="mx-2 d-inline-block">
-                                        <input type="text" class="form-control form-control-sm" value="10"
-                                            size="3" aria-label="Invoices count">
-                                    </div>
-                                    entradas
-                                </div>
+                                
                                 <div class="ms-auto text-muted">
                                     Buscar:
                                     <div class="ms-2 d-inline-block">
@@ -76,47 +69,40 @@
                         <div class="table-responsive min-vh-100">
                             <table class="table card-table table-vcenter text-nowrap datatable">
                                 <thead>
-                                    <tr>
-                                        <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox"
-                                                aria-label="Select all invoices"></th>
-                                        <th class="w-1">No.
-                                            <!-- Download SVG icon from http://tabler-icons.io/i/chevron-up -->
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="icon icon-sm text-dark icon-thick" width="24" height="24"
-                                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                <polyline points="6 15 12 9 18 15" />
-                                            </svg>
-                                        </th>
-
-                                        <th>Proveedor Id</th>
-                                        <th>Nombre Proveedor</th>
-                                        <th>Direccion Proveedor</th>
-                                        <th>Telefono Proveedor</th>
-                                        <th>Email Proveedor</th>
+                                <tr>
+                                    
+                                    <th class="w-1">No.
+                                        <!-- Download SVG icon from http://tabler-icons.io/i/chevron-up -->
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                             class="icon icon-sm text-dark icon-thick" width="24" height="24"
+                                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                             stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <polyline points="6 15 12 9 18 15"/>
+                                        </svg>
+                                    </th>
+                                    
+										<th>Proveedor Id</th>
+										<th>Nombre Proveedor</th>
+										<th>Direccion Proveedor</th>
+										<th>Telefono Proveedor</th>
+										<th>Email Proveedor</th>
 
                                         <th class="w-1"></th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    @forelse ($proveedores as $proveedore)
-                                        <tr>
-                                            <td><input class="form-check-input m-0 align-middle" type="checkbox"
-                                                    aria-label="Select proveedore"></td>
-                                            <td>{{ ++$i }}</td>
-
-                                            <td style="word-wrap: break-word; white-space: pre-wrap;">
-                                                {{ $proveedore->proveedor_id }}</td>
-                                            <td style="word-wrap: break-word; white-space: pre-wrap;">
-                                                {{ $proveedore->nombre_proveedor }}</td>
-                                            <td style="word-wrap: break-word; white-space: pre-wrap;">
-                                                {{ $proveedore->direccion_proveedor }}</td>
-                                            <td style="word-wrap: break-word; white-space: pre-wrap;">
-                                                {{ $proveedore->telefono_proveedor }}</td>
-                                            <td style="word-wrap: break-word; white-space: pre-wrap;">
-                                                {{ $proveedore->email_proveedor }}</td>
+                                @forelse ($proveedores as $proveedore)
+                                    <tr>
+                                       
+                                        <td>{{ ++$i }}</td>
+                                        
+											<td style="word-wrap: break-word; white-space: pre-wrap;">{{ $proveedore->proveedor_id }}</td>
+											<td style="word-wrap: break-word; white-space: pre-wrap;">{{ $proveedore->nombre_proveedor }}</td>
+											<td style="word-wrap: break-word; white-space: pre-wrap;">{{ $proveedore->direccion_proveedor }}</td>
+											<td style="word-wrap: break-word; white-space: pre-wrap;">{{ $proveedore->telefono_proveedor }}</td>
+											<td style="word-wrap: break-word; white-space: pre-wrap;">{{ $proveedore->email_proveedor }}</td>
 
                                             <td>
                                                 <div class="btn-list flex-nowrap">

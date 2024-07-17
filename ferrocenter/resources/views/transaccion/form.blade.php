@@ -28,11 +28,8 @@
                     <label class="form-label">{{ Form::label('metodo_pago', 'Método de Pago') }}</label>
                     <div>
                         {{ Form::select('metodo_pago', [
-                            'efectivo' => 'Efectivo',
-                            'tarjeta_credito' => 'Tarjeta de Crédito',
-                            'tarjeta_debito' => 'Tarjeta de Débito',
-                            'transferencia' => 'Transferencia',
-                            'otros' => 'Otros'
+                            'efectivo' => 'Efectivo',                            
+                            'transferencia' => 'Transferencia'
                         ], null, ['class' => 'form-control' . ($errors->has('metodo_pago') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione un método de pago']) }}
                         {!! $errors->first('metodo_pago', '<div class="invalid-feedback">:message</div>') !!}
                     </div>
@@ -77,7 +74,6 @@
                                     <th>Cantidad</th>
                                     <th>Precio Unitario</th>
                                     <th>Subtotal</th>
-                                    <th>Acción</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -99,11 +95,6 @@
                                     </td>
                                     <td>
                                         <input type="number" name="subtotal[]" class="form-control" readonly />
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#nuevoProductoModal" disabled>
-                                            Nuevo Producto
-                                        </button>
                                     </td>
                                 </tr>
                             </tbody>

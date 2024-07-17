@@ -54,14 +54,7 @@
                         </div>
                         <div class="card-body border-bottom py-3">
                             <div class="d-flex">
-                                <div class="text-muted">
-                                    Mostrar
-                                    <div class="mx-2 d-inline-block">
-                                        <input type="text" class="form-control form-control-sm" value="10"
-                                            size="3" aria-label="Invoices count">
-                                    </div>
-                                    entradas
-                                </div>
+                                
                                 <div class="ms-auto text-muted">
                                     Buscar:
                                     <div class="ms-2 d-inline-block">
@@ -77,8 +70,7 @@
                             <table class="table card-table table-vcenter text-nowrap datatable">
                                 <thead>
                                     <tr>
-                                        <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox"
-                                                aria-label="Select all invoices"></th>
+                                        
                                         <th class="w-1">No.
                                             <!-- Download SVG icon from http://tabler-icons.io/i/chevron-up -->
                                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -102,8 +94,7 @@
                                 <tbody>
                                     @forelse ($clientes as $cliente)
                                         <tr>
-                                            <td><input class="form-check-input m-0 align-middle" type="checkbox"
-                                                    aria-label="Select cliente"></td>
+                                            
                                             <td>{{ ++$i }}</td>
                                             <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $cliente->cliente_id }}</td>
                                             <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $cliente->nombre_cliente }}</td>

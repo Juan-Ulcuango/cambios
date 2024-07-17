@@ -43,14 +43,7 @@
                         </div>
                         <div class="card-body border-bottom py-3">
                             <div class="d-flex">
-                                <div class="text-muted">
-                                    Show
-                                    <div class="mx-2 d-inline-block">
-                                        <input type="text" class="form-control form-control-sm" value="10"
-                                            size="3" aria-label="Audits count">
-                                    </div>
-                                    entries
-                                </div>
+                                
                                 <div class="ms-auto text-muted">
                                     Buscar:
                                     <div class="ms-2 d-inline-block">
@@ -66,8 +59,7 @@
                             <table class="table card-table table-vcenter text-nowrap datatable">
                                 <thead>
                                     <tr>
-                                        <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox"
-                                                aria-label="Select all audits"></th>
+                                 
                                         <th class="w-1">No.
                                             <!-- Download SVG icon from http://tabler-icons.io/i/chevron-up -->
                                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -92,8 +84,7 @@
                                 <tbody>
                                     @foreach ($audits as $audit)
                                         <tr>
-                                            <td><input class="form-check-input m-0 align-middle" type="checkbox"
-                                                    aria-label="Select audit"></td>
+                                       
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $audit->id }}</td>
                                             <td>{{ optional($audit->user)->name }}</td>
