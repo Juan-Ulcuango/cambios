@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nombre_producto', 100);
             $table->text('descripcion_producto')->nullable();
             $table->decimal('precio_unitario', 8, 2);
+            $table->decimal('precio_compra', 8, 2);
             $table->unsignedBigInteger('categoria_id'); // Foreign key
             $table->timestamps();
 

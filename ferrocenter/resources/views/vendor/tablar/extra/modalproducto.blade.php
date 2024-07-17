@@ -17,8 +17,8 @@
                         <textarea class="form-control" id="descripcion_producto" name="descripcion_producto"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="precio_unitario" class="form-label">Precio Unitario</label>
-                        <input type="number" step="0.01" class="form-control" id="precio_unitario" name="precio_unitario" required>
+                        <label for="precio_compra" class="form-label">Precio Unitario</label>
+                        <input type="number" step="0.01" class="form-control" id="precio_compra" name="precio_compra" required>
                     </div>
                     <div class="mb-3">
                         <label for="categoria_id" class="form-label">Categoría</label>

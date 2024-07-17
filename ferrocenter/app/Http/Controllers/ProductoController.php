@@ -61,6 +61,7 @@ class ProductoController extends Controller
                 'nombre_producto' => 'required|string|max:100',
                 'descripcion_producto' => 'nullable|string',
                 'precio_unitario' => 'required|numeric',
+                'precio_compra' => 'required|numeric',
                 'categoria_id' => 'required|exists:categorias,categoria_id',
             ]);
 
@@ -138,6 +139,7 @@ class ProductoController extends Controller
             'nombre_producto' => 'required|string|max:100',
             'descripcion_producto' => 'nullable|string',
             'precio_unitario' => 'required|numeric',
+            'precio_compra' => 'required|numeric',
             'categoria_id' => 'required|exists:categorias,categoria_id',
         ]);
 

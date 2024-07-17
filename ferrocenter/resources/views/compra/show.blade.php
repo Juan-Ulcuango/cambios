@@ -96,7 +96,7 @@
                                                 <tr>
                                                     <td>{{ $producto->nombre_producto }}</td>
                                                     <td>{{ $producto->pivot->cantidad }}</td>
-                                                    <td>{{ $producto->pivot->precio_unitario }}</td>
+                                                    <td>{{ $producto->pivot->precio_compra }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

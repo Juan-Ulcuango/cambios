@@ -27,6 +27,13 @@
     </div>
 </div>
 <div class="form-group mb-3">
+    <label class="form-label">{{ Form::label('precio_compra') }}</label>
+    <div>
+        {{ Form::text('precio_compra', $producto->precio_compra, ['class' => 'form-control' . ($errors->has('precio_compra') ? ' is-invalid' : ''), 'placeholder' => 'Precio Unitario']) }}
+        {!! $errors->first('precio_compra', '<div class="invalid-feedback">:message</div>') !!}
+    </div>
+</div>
+<div class="form-group mb-3">
     <label class="form-label">{{ Form::label('categoria_id', 'Categoría') }}</label>
     <div>
         {{ Form::select('categoria_id', $categorias->pluck('nombre_categoria', 'categoria_id'), null, ['class' => 'form-control' . ($errors->has('categoria_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione una categoría']) }}

@@ -63,7 +63,7 @@ class CompraController extends Controller
             'proveedor_id' => 'required|exists:proveedores,proveedor_id',
             'producto_id.*' => 'required|exists:productos,producto_id',
             'cantidad.*' => 'required|numeric|min:1',
-            'precio_unitario.*' => 'required|numeric|min:0',
+            'precio_compra.*' => 'required|numeric|min:0',
         ]);
 
         $compra = Compra::create($request->only([
@@ -81,7 +81,7 @@ class CompraController extends Controller
         foreach ($request->producto_id as $key => $producto_id) {
             $productos[$producto_id] = [
                 'cantidad' => $request->cantidad[$key],
-                'precio_unitario' => $request->precio_unitario[$key],
+                'precio_compra' => $request->precio_compra[$key],
             ];
 
             // Actualizar inventario
@@ -121,7 +121,7 @@ class CompraController extends Controller
             'proveedor_id' => 'required|integer',
             'producto_id.*' => 'required|integer',
             'cantidad.*' => 'required|integer',
-            'precio_unitario.*' => 'required|numeric',
+            'precio_compra.*' => 'required|numeric',
         ]);
 
         $compra = Compra::findOrFail($id);
@@ -131,7 +131,7 @@ class CompraController extends Controller
         foreach ($request->producto_id as $key => $producto_id) {
             $compra->productos()->attach($producto_id, [
                 'cantidad' => $request->cantidad[$key],
-                'precio_unitario' => $request->precio_unitario[$key],
+                'precio_compra' => $request->precio_compra[$key],
             ]);
 
             // Actualizar inventario

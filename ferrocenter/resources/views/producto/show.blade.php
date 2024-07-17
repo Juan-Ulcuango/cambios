@@ -64,6 +64,10 @@
                                 <label class="form-label"><strong>Precio Unitario:</strong></label>
                                 <div class="form-control">{{ $producto->precio_unitario }}</div>
                             </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Precio Compra:</strong></label>
+                                <div class="form-control">{{ $producto->precio_compra }}</div>
+                            </div>
                            
                         </div>
                     </div>

@@ -92,6 +92,7 @@
                                         <th>Nombre Producto</th>
                                         <th>Descripcion Producto</th>
                                         <th>Precio Unitario</th>
+                                        <th>Precio Compra</th>
                                         <th>Categoría</th>
                                         <th class="w-1"></th>
                                     </tr>
@@ -106,6 +107,7 @@
                                             <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $producto->nombre_producto }}</td>
                                             <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $producto->descripcion_producto }}</td>
                                             <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $producto->precio_unitario }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $producto->precio_compra }}</td>
                                             <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $producto->categoria->nombre_categoria }}</td>
                                             <td>
                                                 <div class="btn-list flex-nowrap">

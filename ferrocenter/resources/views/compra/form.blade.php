@@ -112,7 +112,7 @@
                                                         <option value="">Seleccione un producto</option>
                                                         @foreach ($productos as $prod)
                                                             <option value="{{ $prod->producto_id }}"
-                                                                data-precio="{{ $prod->precio_unitario }}"
+                                                                data-precio="{{ $prod->precio_compra }}"
                                                                 {{ $prod->producto_id == $producto->producto_id ? 'selected' : '' }}>
                                                                 {{ $prod->nombre_producto }}
                                                             </option>
@@ -125,9 +125,9 @@
                                                         oninput="calculateSubtotal()" />
                                                 </td>
                                                 <td>
-                                                    <input type="number" step="0.01" name="precio_unitario[]"
+                                                    <input type="number" step="0.01" name="precio_compra[]"
                                                         class="form-control precio-unitario"
-                                                        value="{{ $producto->pivot->precio_unitario }}"
+                                                        value="{{ $producto->pivot->precio_compra }}"
                                                         oninput="calculateSubtotal()" required />
                                                 </td>
                                                 <td>
@@ -145,7 +145,7 @@
                                                     <option value="">Seleccione un producto</option>
                                                     @foreach ($productos as $producto)
                                                         <option value="{{ $producto->producto_id }}"
-                                                            data-precio="{{ $producto->precio_unitario }}">
+                                                            data-precio="{{ $producto->precio_compra }}">
                                                             {{ $producto->nombre_producto }}
                                                         </option>
                                                     @endforeach
@@ -156,7 +156,7 @@
                                                     oninput="calculateSubtotal()" />
                                             </td>
                                             <td>
-                                                <input type="number" step="0.01" name="precio_unitario[]"
+                                                <input type="number" step="0.01" name="precio_compra[]"
                                                     class="form-control precio-unitario" oninput="calculateSubtotal()"
                                                     required />
                                             </td>
@@ -377,9 +377,9 @@
             let subtotal = 0;
             $('input[name="cantidad[]"]').each(function(index, element) {
                 let cantidad = parseFloat($(element).val());
-                let precio_unitario = parseFloat($('input[name="precio_unitario[]"]').eq(index).val());
-                if (!isNaN(cantidad) && !isNaN(precio_unitario)) {
-                    subtotal += cantidad * precio_unitario;
+                let precio_compra = parseFloat($('input[name="precio_compra[]"]').eq(index).val());
+                if (!isNaN(cantidad) && !isNaN(precio_compra)) {
+                    subtotal += cantidad * precio_compra;
                 }
             });
             $('#subtotal').val(subtotal.toFixed(2));
