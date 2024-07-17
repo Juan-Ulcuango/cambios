@@ -98,7 +98,7 @@
                                     <tr>
                                         <th>Producto</th>
                                         <th>Cantidad</th>
-                                        <th>Precio Unidad</th>
+                                        <th>Precio Compra Unidad</th>
                                         <th>Acción</th>
                                     </tr>
                                 </thead>
