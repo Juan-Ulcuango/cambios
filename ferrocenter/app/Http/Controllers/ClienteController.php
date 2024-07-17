@@ -21,33 +21,33 @@ class ClienteController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __contruct()
+    public function __construct()
     {
-        $this->middleware('can:view.products')->only('index');
+        $this->middleware('can:view.clients')->only('index', 'show');
+        $this->middleware('can:create.clients')->only('create', 'store');
+        $this->middleware('can:edit.clients')->only('edit', 'update');
+        $this->middleware('can:delete.clients')->only('destroy');
     }
 
     public function index(Request $request)
     {
 
-            $search = $request->input('search');
+        $search = $request->input('search');
 
-            if ($search) {
-                $clientes = Cliente::where('nombre_cliente', 'like', "%{$search}%")
-                    ->orWhere('apellido_cliente', 'like', "%{$search}%")
-                    ->orWhere('cliente_id', 'like', "%{$search}%")
-                    ->orWhere('email_cliente', 'like', "%{$search}%")
-                    ->orWhere('telefono_cliente', 'like', "%{$search}%")
-                    ->orWhere('direccion_cliente', 'like', "%{$search}%")
-                    ->paginate(10);
-            } else {
-                $clientes = Cliente::paginate(10);
-            }
-    
-            return view('cliente.index', compact('clientes'))
+        if ($search) {
+            $clientes = Cliente::where('nombre_cliente', 'like', "%{$search}%")
+                ->orWhere('apellido_cliente', 'like', "%{$search}%")
+                ->orWhere('cliente_id', 'like', "%{$search}%")
+                ->orWhere('email_cliente', 'like', "%{$search}%")
+                ->orWhere('telefono_cliente', 'like', "%{$search}%")
+                ->orWhere('direccion_cliente', 'like', "%{$search}%")
+                ->paginate(10);
+        } else {
+            $clientes = Cliente::paginate(10);
+        }
+
+        return view('cliente.index', compact('clientes'))
             ->with('i', (request()->input('page', 1) - 1) * $clientes->perPage());
-
-
-
     }
 
     /**
@@ -78,9 +78,9 @@ class ClienteController extends Controller
             'telefono_cliente' => 'required|string|max:15',
             'email_cliente' => 'required|string|email|max:255|unique:clientes,email_cliente',
         ]);
-    
+
         $cliente = Cliente::create($validatedData);
-    
+
         if ($request->ajax()) {
             return response()->json([
                 'success' => true,
@@ -89,7 +89,7 @@ class ClienteController extends Controller
         } else {
             return redirect()->route('clientes.index')->with('success', 'Cliente creado exitosamente.');
         }
-    }    
+    }
 
 
     /**

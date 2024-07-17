@@ -9,6 +9,11 @@ use Carbon\Carbon;
 
 class AuditController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:view.audits')->only('index');
+    }
+
     public function index(Request $request)
     {
         $search = $request->input('search');

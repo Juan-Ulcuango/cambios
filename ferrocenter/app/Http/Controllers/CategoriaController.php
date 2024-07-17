@@ -10,6 +10,14 @@ use Carbon\Carbon;
 
 class CategoriaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:view.categories')->only('index', 'show');
+        $this->middleware('can:create.categories')->only('create', 'store');
+        $this->middleware('can:edit.categories')->only('edit', 'update');
+        $this->middleware('can:delete.categories')->only('destroy');
+    }
+
     public function index(Request $request)
     {
         $search = $request->input('search');
