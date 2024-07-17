@@ -126,8 +126,8 @@ class LoginController extends Controller
     public function rules()
     {
         return [
-            'email' =>['required', 'string', 'email'],
-            'password' =>['required','string'],
+            'email' => ['required', 'string', 'email'],
+            'password' => ['required', 'string'],
             'g-recaptcha-response' => 'required|captcha',
         ];
     }
@@ -157,4 +157,26 @@ class LoginController extends Controller
             ->withInput($request->only($this->username(), 'remember'))
             ->withErrors($errors);
     }
+
+    public function login(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+            'g-recaptcha-response' => 'required|captcha'
+        ], [
+            'g-recaptcha-response.required' => 'La verificación del captcha es necesaria.',
+            'g-recaptcha-response.captcha' => 'La verificación del captcha falló. Intente nuevamente.'
+        ]);
+
+        // Lógica de autenticación estándar de Laravel
+        if (Auth::attempt($request->only('email', 'password'), $request->filled('remember'))) {
+            return redirect()->intended($this->redirectPath());
+        }
+
+        // Incrementa los intentos de inicio de sesión en caso de falla
+        $this->incrementLoginAttempts($request);
+        return $this->sendFailedLoginResponse($request);
+    }
+
 }

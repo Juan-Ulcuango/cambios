@@ -94,8 +94,6 @@
                         <input type="password" name="password_confirmation" class="form-control" placeholder="Confirme su contraseña" required>
                     </div>
                     <div class="form-group mt-3">
-                            {!! NoCaptcha::renderJs() !!}
-                            {!! NoCaptcha::display() !!}
                     </div>
                     <div class="form-footer">
                         <button type="submit" class="btn btn-primary w-100">Crear cuenta</button>
@@ -112,10 +110,11 @@
 
 
 <script>
-    var onloadCallback = funtion() {
+    var onloadCallback = function() {
         alert("grecaptcha is ready");
     };
 </script>
+
 @endsection
 
 
