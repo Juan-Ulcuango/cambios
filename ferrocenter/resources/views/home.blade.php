@@ -277,11 +277,7 @@ FerroCenter
     });
   </script>
 
-  <div style="height: 50px;"></div>
-
 </div>
-
-
 
 <footer>
   <div class="footer-upper" style="background-color: #313c52; padding: 20px 0;">
