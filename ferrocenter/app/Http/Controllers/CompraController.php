@@ -20,13 +20,25 @@ class CompraController extends Controller
         $this->middleware('can:delete.purchases')->only('destroy');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $compras = Compra::with('proveedor')->paginate(10);
+        $search = $request->input('search');
+    
+        if ($search) {
+            $compras = Compra::with('proveedor')
+                ->where('numero_factura', 'like', "%{$search}%")
+                ->orWhereHas('proveedor', function($query) use ($search) {
+                    $query->where('nombre_proveedor', 'like', "%{$search}%");
+                })
+                ->paginate(10);
+        } else {
+            $compras = Compra::with('proveedor')->paginate(10);
+        }
+    
         return view('compra.index', compact('compras'))
             ->with('i', (request()->input('page', 1) - 1) * $compras->perPage());
     }
-
+    
     public function create()
     {
         $compra = new Compra();

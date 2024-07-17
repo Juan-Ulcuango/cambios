@@ -89,12 +89,14 @@
                         <div class="card-body">
                             <table class="table" id="products_table">
                                 <thead>
+                                    <!--
                                     <tr>
                                         <th colspan="4">
                                             <input type="text" id="productSearch" class="form-control"
                                                 placeholder="Buscar por nombre de producto">
                                         </th>
                                     </tr>
+                                    -->
                                     <tr>
                                         <th>Producto</th>
                                         <th>Cantidad</th>

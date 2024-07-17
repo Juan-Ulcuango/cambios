@@ -26,12 +26,28 @@ class ClienteController extends Controller
         $this->middleware('can:view.products')->only('index');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $clientes = Cliente::paginate(10);
 
-        return view('cliente.index', compact('clientes'))
+            $search = $request->input('search');
+
+            if ($search) {
+                $clientes = Cliente::where('nombre_cliente', 'like', "%{$search}%")
+                    ->orWhere('apellido_cliente', 'like', "%{$search}%")
+                    ->orWhere('cliente_id', 'like', "%{$search}%")
+                    ->orWhere('email_cliente', 'like', "%{$search}%")
+                    ->orWhere('telefono_cliente', 'like', "%{$search}%")
+                    ->orWhere('direccion_cliente', 'like', "%{$search}%")
+                    ->paginate(10);
+            } else {
+                $clientes = Cliente::paginate(10);
+            }
+    
+            return view('cliente.index', compact('clientes'))
             ->with('i', (request()->input('page', 1) - 1) * $clientes->perPage());
+
+
+
     }
 
     /**

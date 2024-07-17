@@ -60,10 +60,12 @@
                                     entries
                                 </div>
                                 <div class="ms-auto text-muted">
-                                    Search:
+                                    Buscar:
                                     <div class="ms-2 d-inline-block">
-                                        <input type="text" class="form-control form-control-sm"
-                                            aria-label="Search invoice">
+                                        <form action="{{ route('compras.index') }}" method="GET">
+                                            <input type="text" name="search" class="form-control form-control-sm"
+                                                aria-label="Search compras" value="{{ request()->input('search') }}">
+                                        </form>
                                     </div>
                                 </div>
                             </div>

@@ -26,9 +26,22 @@ class ProveedoreController extends Controller
         $this->middleware('can:edit.suppliers')->only('edit', 'update');
         $this->middleware('can:delete.suppliers')->only('destroy');
     }
-    public function index()
+    public function index(Request $request)
     {
-        $proveedores = Proveedore::paginate(10);
+
+
+        $search = $request->input('search');
+
+        if ($search) {
+            $proveedores = Proveedore::where('nombre_proveedor', 'like', "%{$search}%")
+                ->orWhere('direccion_proveedor', 'like', "%{$search}%")
+                ->orWhere('email_proveedor', 'like', "%{$search}%")
+                ->orWhere('telefono_proveedor', 'like', "%{$search}%")
+                ->orWhere('proveedor_id', 'like', "%{$search}%")
+                ->paginate(10);
+        } else {
+            $proveedores = Proveedore::paginate(10);
+        }
 
         return view('proveedore.index', compact('proveedores'))
             ->with('i', (request()->input('page', 1) - 1) * $proveedores->perPage());

@@ -56,7 +56,7 @@
                         <div class="card-body border-bottom py-3">
                             <div class="d-flex">
                                 <div class="text-muted">
-                                Espectáculo
+                                    Espectáculo
                                     <div class="mx-2 d-inline-block">
                                         <input type="text" class="form-control form-control-sm" value="10"
                                             size="3" aria-label="Invoices count">
@@ -64,10 +64,12 @@
                                     entradas
                                 </div>
                                 <div class="ms-auto text-muted">
-                                Buscar:
+                                    Buscar:
                                     <div class="ms-2 d-inline-block">
-                                        <input type="text" class="form-control form-control-sm"
-                                            aria-label="Search invoice">
+                                        <form action="{{ route('productos.index') }}" method="GET">
+                                            <input type="text" name="search" class="form-control form-control-sm"
+                                                aria-label="Search category" value="{{ request()->input('search') }}">
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -103,12 +105,18 @@
                                             <td><input class="form-check-input m-0 align-middle" type="checkbox"
                                                     aria-label="Select producto"></td>
                                             <td>{{ ++$i }}</td>
-                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $producto->producto_id }}</td>
-                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $producto->nombre_producto }}</td>
-                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $producto->descripcion_producto }}</td>
-                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $producto->precio_unitario }}</td>
-                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $producto->precio_compra }}</td>
-                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $producto->categoria->nombre_categoria }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">
+                                                {{ $producto->producto_id }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">
+                                                {{ $producto->nombre_producto }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">
+                                                {{ $producto->descripcion_producto }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">
+                                                {{ $producto->precio_unitario }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">
+                                                {{ $producto->precio_compra }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">
+                                                {{ $producto->categoria->nombre_categoria }}</td>
                                             <td>
                                                 <div class="btn-list flex-nowrap">
                                                     <div class="dropdown">
@@ -125,7 +133,8 @@
                                                                 href="{{ route('productos.edit', $producto->producto_id) }}">
                                                                 Editar
                                                             </a>
-                                                            <form action="{{ route('productos.destroy', $producto->producto_id) }}"
+                                                            <form
+                                                                action="{{ route('productos.destroy', $producto->producto_id) }}"
                                                                 method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
@@ -133,7 +142,7 @@
                                                                     onclick="if(!confirm('Do you Want to Proceed?')){return false;}"
                                                                     class="dropdown-item text-red"><i
                                                                         class="fa fa-fw fa-trash"></i>
-                                                                        Borrar
+                                                                    Borrar
                                                                 </button>
                                                             </form>
                                                         </div>

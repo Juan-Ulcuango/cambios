@@ -9,12 +9,18 @@ use Carbon\Carbon;
 
 class AuditController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Recuperar todas las auditorías
-        $audits = Audit::paginate(10);
+        $search = $request->input('search');
 
-        // Pasar las auditorías a la vista
+        if ($search) {
+            $audits = Audit::where('id', 'like', "%{$search}%")
+                ->orWhere('event', 'like', "%{$search}%")
+                ->paginate(10);
+        } else {
+            $audits = Audit::paginate(10);
+        }
+
         return view('audits.index', compact('audits'));
     }
     public function exportPdf()
@@ -25,5 +31,4 @@ class AuditController extends Controller
         $filename = 'Auditorías-' . $currentDate . '.pdf';
         return $pdf->download($filename);
     }
-
 }

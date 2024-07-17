@@ -10,14 +10,22 @@ use Carbon\Carbon;
 
 class InventarioController extends Controller
 {
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('can:view.inventory')->only('index', 'show');
         $this->middleware('can:manage.inventory')->only('create', 'store', 'edit', 'update', 'destroy');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $inventarios = Inventario::with('producto')->paginate(10);
+        $search = $request->input('search');
+
+        if ($search) {
+            $inventarios = Inventario::where('inventario_id', 'like', "%{$search}%")
+                ->paginate(10);
+        } else {
+            $inventarios = Inventario::with('producto')->paginate(10);
+        }
 
         return view('inventario.index', compact('inventarios'))
             ->with('i', (request()->input('page', 1) - 1) * $inventarios->perPage());
@@ -91,5 +99,4 @@ class InventarioController extends Controller
         $filename = 'Inventario-' . $currentDate . '.pdf';
         return $pdf->download($filename);
     }
-
 }
