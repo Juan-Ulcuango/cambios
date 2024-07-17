@@ -32,6 +32,9 @@
                             </svg>
                             Crear categoría
                         </a>
+                        <a href="{{ route('categorias.pdf') }}" class="btn btn-secondary d-none d-sm-inline-block">
+                            Exportar a PDF
+                        </a>
                     </div>
                 </div>
             </div>
@@ -67,6 +70,7 @@
                                                 aria-label="Search category" value="{{ request()->input('search') }}">
                                         </form>
                                     </div>
+                                   
                                 </div>
                             </div>
                         </div>

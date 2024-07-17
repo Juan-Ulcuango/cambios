@@ -8,6 +8,8 @@ use App\Models\Producto;
 use App\Models\Inventario;
 use App\Models\Transaccion;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class TransaccionController extends Controller
 {
@@ -189,4 +191,15 @@ class TransaccionController extends Controller
             ]);
         }
     }
+
+    public function exportPdf()
+    {
+        $transaccions = Transaccion::all();
+        $pdf = PDF::loadView('transaccion.pdf', compact('transaccions'));
+        $currentDate = Carbon::now()->format('d-m-Y'); // Formato de fecha: dd-mm-yyyy
+        $filename = 'Transacciones-' . $currentDate . '.pdf';
+        return $pdf->download($filename);
+    }
+    
+    
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCategoria;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class CategoriaController extends Controller
 {
@@ -73,5 +75,15 @@ class CategoriaController extends Controller
         return redirect()->route('categorias.index')
             ->with('success', 'Categoria deleted successfully');
     }
+
+    public function exportPdf()
+    {
+        $categoria = Categoria::all();
+        $pdf = PDF::loadView('categoria.pdf', compact('categoria'));
+        $currentDate = Carbon::now()->format('d-m-Y'); // Formato de fecha: dd-mm-yyyy
+        $filename = 'Categorias-' . $currentDate . '.pdf';
+        return $pdf->download($filename);
+    }
+    
 }
 

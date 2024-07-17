@@ -32,6 +32,9 @@
                             </svg>
                             Crear Transaccion
                         </a>
+                        <a href="{{ route('transaccions.pdf') }}" class="btn btn-secondary d-none d-sm-inline-block">
+                            Exportar a PDF
+                        </a>
                     </div>
                 </div>
             </div>
@@ -86,7 +89,7 @@
                                     </th>
                                     
                                     <th>Transaccion Id</th>
-                                    <th>Cliente</th> <!-- Nueva columna para cliente -->
+                                    <th>Cliente</th> 
                                     <th>Fecha Transaccion</th>
                                     <th>Total Transaccion</th>
                                     <th>Metodo Pago</th>

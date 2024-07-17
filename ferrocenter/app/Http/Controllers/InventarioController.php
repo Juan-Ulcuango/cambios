@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Inventario;
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class InventarioController extends Controller
 {
@@ -80,4 +82,14 @@ class InventarioController extends Controller
         return redirect()->route('inventarios.index')
             ->with('success', 'Inventario eliminado exitosamente.');
     }
+
+    public function exportPdf()
+    {
+        $inventario = Inventario::all();
+        $pdf = PDF::loadView('inventario.pdf', compact('inventario'));
+        $currentDate = Carbon::now()->format('d-m-Y'); // Formato de fecha: dd-mm-yyyy
+        $filename = 'Inventario-' . $currentDate . '.pdf';
+        return $pdf->download($filename);
+    }
+
 }

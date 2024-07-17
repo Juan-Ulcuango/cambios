@@ -32,6 +32,9 @@
                             </svg>
                             Crear Inventario
                         </a>
+                        <a href="{{ route('inventarios.pdf') }}" class="btn btn-secondary d-none d-sm-inline-block">
+                            Exportar a PDF
+                        </a>
                     </div>
                 </div>
             </div>
