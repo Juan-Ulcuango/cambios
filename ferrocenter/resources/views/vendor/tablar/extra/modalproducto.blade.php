@@ -1,3 +1,4 @@
+<!-- Modal para Crear Nuevo Producto -->
 <div class="modal fade" id="nuevoProductoModal" tabindex="-1" aria-labelledby="nuevoProductoModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

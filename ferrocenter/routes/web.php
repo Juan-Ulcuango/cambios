@@ -56,10 +56,8 @@ Route::middleware(['auth'])->group(function () {
     //Route::get('/acercadenosotros', [NosotrosController::class, 'index'])->name('nosotros.index');
     // Route::get('/acercadenosotros', 'App\Http\Controllers\NosotrosController@index')->name('acercadenosotros');
     Route::get('/acercanosotros', [NosotrosController::class, 'index'])->name('acercanosotros.nosotros');
-
-
-
-
+    Route::post('/productos', [ProductoController::class, 'store'])->name('productos.store');
+    Route::get('/productos/list', [ProductoController::class, 'list'])->name('productos.list');
 });
 
 Route::get('/password/recover', 'PasswordController@showRecoverForm')->name('password.recover');

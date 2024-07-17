@@ -155,4 +155,9 @@ class ProductoController extends Controller
             ]);
         }
     }
+    public function list()
+    {
+        $productos = Producto::all();
+        return response()->json(['productos' => $productos]);
+    }
 }

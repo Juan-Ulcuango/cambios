@@ -6,14 +6,6 @@
             <div class="col-md-12">
                 <form method="POST" action="{{ route('compras.store') }}" id="compraForm" role="form">
                     @csrf
-                    <!-- Formulario de Compra -->
-                    {{-- <div class="form-group mb-3">
-                        <label class="form-label">{{ Form::label('compra_id', 'ID de la Compra') }}</label>
-                        <div>
-                            {{ Form::text('compra_id', old('compra_id', isset($compra) ? $compra->compra_id : ''), ['class' => 'form-control' . ($errors->has('compra_id') ? ' is-invalid' : ''), 'placeholder' => 'Compra Id']) }}
-                            {!! $errors->first('compra_id', '<div class="invalid-feedback">:message</div>') !!}
-                        </div>
-                    </div> --}}
                     <div class="form-group mb-3">
                         <label class="form-label">{{ Form::label('numero_factura', 'Número de Factura') }}</label>
                         <div>
@@ -89,18 +81,10 @@
                         <div class="card-body">
                             <table class="table" id="products_table">
                                 <thead>
-                                    <!--
-                                    <tr>
-                                        <th colspan="4">
-                                            <input type="text" id="productSearch" class="form-control"
-                                                placeholder="Buscar por nombre de producto">
-                                        </th>
-                                    </tr>
-                                    -->
                                     <tr>
                                         <th>Producto</th>
                                         <th>Cantidad</th>
-                                        <th>Precio Compra Unidad</th>
+                                        <th>Precio de Compra</th>
                                         <th>Acción</th>
                                     </tr>
                                 </thead>
@@ -127,10 +111,10 @@
                                                         oninput="calculateSubtotal()" />
                                                 </td>
                                                 <td>
-                                                    <input type="number" step="0.01" name="precio_compra[]"
+                                                    <input type="number" name="precio_compra[]"
                                                         class="form-control precio-unitario"
                                                         value="{{ $producto->pivot->precio_compra }}"
-                                                        oninput="calculateSubtotal()" required />
+                                                        oninput="calculateSubtotal()" readonly required  />
                                                 </td>
                                                 <td>
                                                     <button type="button" class="btn btn-primary btn-sm"
@@ -172,6 +156,12 @@
                                     @endif
                                 </tbody>
                             </table>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button id="add_row" class="btn btn-default pull-left">+ Añadir Fila</button>
+                                    <button id='delete_row' class="pull-right btn btn-danger">- Eliminar Fila</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
