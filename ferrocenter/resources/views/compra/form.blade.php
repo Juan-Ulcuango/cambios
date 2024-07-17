@@ -113,8 +113,7 @@
                                                 <td>
                                                     <input type="number" name="precio_compra[]"
                                                         class="form-control precio-unitario"
-                                                        value="{{ $producto->pivot->precio_compra }}"
-                                                        oninput="calculateSubtotal()" readonly required  />
+                                                        value="{{ $producto->pivot->precio_compra }}" readonly required />
                                                 </td>
                                                 <td>
                                                     <button type="button" class="btn btn-primary btn-sm"
@@ -143,8 +142,7 @@
                                             </td>
                                             <td>
                                                 <input type="number" step="0.01" name="precio_compra[]"
-                                                    class="form-control precio-unitario" oninput="calculateSubtotal()"
-                                                    required />
+                                                    class="form-control precio-unitario" readonly required />
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
@@ -165,6 +163,13 @@
                         </div>
                     </div>
 
+                    <!-- Botón para obtener precios de compra -->
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <button id="obtenerPrecios" class="btn btn-success" type="button">Obtener Precios de
+                                Compra</button>
+                        </div>
+                    </div>
 
 
                     <div class="form-footer mt-3">
@@ -300,6 +305,7 @@
                             modal.hide();
                             // Limpiar el formulario
                             document.getElementById('nuevoProductoForm').reset();
+                            // window.location.reload(true);
                         } else {
                             alert('Hubo un error al crear el producto: ' + data.message);
                         }
@@ -313,29 +319,21 @@
     </script>
     <script>
         $(document).ready(function() {
-            let row_number = 1;
-
-            // Function to update the unit price based on selected product
-            function updateUnitPrice(selectElement) {
-                const selectedOption = selectElement.options[selectElement.selectedIndex];
-                const unitPrice = selectedOption.getAttribute('data-precio');
-                const priceInput = selectElement.closest('tr').querySelector('.precio-unitario');
-                priceInput.value = unitPrice;
-                calculateSubtotal();
-            }
+            let row_number =
+                {{ isset($compra) && $compra->productos->count() > 0 ? $compra->productos->count() : 1 }};
 
             // Attach event listeners to existing select elements
             function initializeSelectListeners() {
                 document.querySelectorAll('.producto-select').forEach(function(selectElement) {
                     if (!selectElement.hasAttribute('data-initialized')) {
-                        selectElement.addEventListener('change', function() {
-                            updateUnitPrice(selectElement);
-                        });
-                        // Initialize the unit price if a product is already selected
-                        updateUnitPrice(selectElement);
                         // Mark the select element as initialized to avoid attaching multiple event listeners
                         selectElement.setAttribute('data-initialized', 'true');
                     }
+                });
+
+                // Attach input listeners to cantidad inputs
+                document.querySelectorAll('input[name="cantidad[]"]').forEach(function(inputElement) {
+                    inputElement.addEventListener('input', calculateSubtotal);
                 });
             }
 
@@ -344,12 +342,11 @@
 
             $("#add_row").click(function(e) {
                 e.preventDefault();
-                let new_row_number = row_number;
+                let new_row_number = row_number++;
                 let new_row = $('#product0').clone().attr('id', 'product' + new_row_number);
                 new_row.find('input').val('');
                 new_row.find('select').val('');
                 $('#products_table tbody').append(new_row);
-                row_number++;
 
                 // Reinitialize select listeners for new row
                 initializeSelectListeners();
@@ -363,31 +360,48 @@
                     calculateSubtotal();
                 }
             });
-        });
 
-        function calculateSubtotal() {
-            let subtotal = 0;
-            $('input[name="cantidad[]"]').each(function(index, element) {
-                let cantidad = parseFloat($(element).val());
-                let precio_compra = parseFloat($('input[name="precio_compra[]"]').eq(index).val());
-                if (!isNaN(cantidad) && !isNaN(precio_compra)) {
-                    subtotal += cantidad * precio_compra;
-                }
-            });
-            $('#subtotal').val(subtotal.toFixed(2));
-            calculateTotal();
-        }
-
-        function calculateTotal() {
-            let subtotal = parseFloat($('#subtotal').val());
-            let impuesto = parseFloat($('#impuesto').val());
-            if (!isNaN(subtotal) && !isNaN(impuesto)) {
-                let total = subtotal + (subtotal * (impuesto / 100));
-                $('#total_compra').val(total.toFixed(2));
+            function calculateSubtotal() {
+                let subtotal = 0;
+                $('input[name="cantidad[]"]').each(function(index, element) {
+                    let cantidad = parseFloat($(element).val());
+                    let precio_compra = parseFloat($(element).closest('tr').find(
+                        'input[name="precio_compra[]"]').val());
+                    if (!isNaN(cantidad) && !isNaN(precio_compra)) {
+                        subtotal += cantidad * precio_compra;
+                    }
+                });
+                $('#subtotal').val(subtotal.toFixed(2));
+                calculateTotal();
             }
-        }
 
-        $('#impuesto').on('input', calculateTotal);
+            function calculateTotal() {
+                let subtotal = parseFloat($('#subtotal').val());
+                let impuesto = parseFloat($('#impuesto').val());
+                if (!isNaN(subtotal) && !isNaN(impuesto)) {
+                    let total = subtotal + (subtotal * (impuesto / 100));
+                    $('#total_compra').val(total.toFixed(2));
+                }
+            }
+
+            $('#impuesto').on('input', calculateTotal);
+
+            // Handle Obtener Precios de Compra button click
+            $('#obtenerPrecios').click(function(e) {
+                e.preventDefault(); // Prevent default form submission
+                $('select[name="producto_id[]"]').each(function() {
+                    let selectElement = this;
+                    let selectedOption = selectElement.options[selectElement.selectedIndex];
+                    let unitPrice = selectedOption.getAttribute('data-precio');
+                    let priceInput = selectElement.closest('tr').querySelector('.precio-unitario');
+                    priceInput.value = unitPrice;
+                });
+                calculateSubtotal();
+            });
+
+            // Recalculate on page load
+            calculateSubtotal();
+        });
     </script>
 
 
