@@ -54,7 +54,7 @@
                         </div>
                         <div class="card-body border-bottom py-3">
                             <div class="d-flex">
-                                
+
                                 <div class="ms-auto text-muted">
                                     Buscar:
                                     <div class="ms-2 d-inline-block">
@@ -69,40 +69,44 @@
                         <div class="table-responsive min-vh-100">
                             <table class="table card-table table-vcenter text-nowrap datatable">
                                 <thead>
-                                <tr>
-                                    
-                                    <th class="w-1">No.
-                                        <!-- Download SVG icon from http://tabler-icons.io/i/chevron-up -->
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                             class="icon icon-sm text-dark icon-thick" width="24" height="24"
-                                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                             stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                            <polyline points="6 15 12 9 18 15"/>
-                                        </svg>
-                                    </th>
-                                    
-										
-										<th>Nombre Proveedor</th>
-										<th>Direccion Proveedor</th>
-										<th>Telefono Proveedor</th>
-										<th>Email Proveedor</th>
+                                    <tr>
+
+                                        <th class="w-1">No.
+                                            <!-- Download SVG icon from http://tabler-icons.io/i/chevron-up -->
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-sm text-dark icon-thick" width="24" height="24"
+                                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <polyline points="6 15 12 9 18 15" />
+                                            </svg>
+                                        </th>
+
+
+                                        <th>Nombre Proveedor</th>
+                                        <th>Direccion Proveedor</th>
+                                        <th>Telefono Proveedor</th>
+                                        <th>Email Proveedor</th>
 
                                         <th class="w-1"></th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                @forelse ($proveedores as $proveedore)
-                                    <tr>
-                                       
-                                        <td>{{ ++$i }}</td>
-                                        
-											
-											<td style="word-wrap: break-word; white-space: pre-wrap;">{{ $proveedore->nombre_proveedor }}</td>
-											<td style="word-wrap: break-word; white-space: pre-wrap;">{{ $proveedore->direccion_proveedor }}</td>
-											<td style="word-wrap: break-word; white-space: pre-wrap;">{{ $proveedore->telefono_proveedor }}</td>
-											<td style="word-wrap: break-word; white-space: pre-wrap;">{{ $proveedore->email_proveedor }}</td>
+                                    @forelse ($proveedores as $proveedore)
+                                        <tr>
+
+                                            <td>{{ ++$i }}</td>
+
+
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">
+                                                {{ $proveedore->nombre_proveedor }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">
+                                                {{ $proveedore->direccion_proveedor }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">
+                                                {{ $proveedore->telefono_proveedor }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">
+                                                {{ $proveedore->email_proveedor }}</td>
 
                                             <td>
                                                 <div class="btn-list flex-nowrap">
@@ -112,26 +116,34 @@
                                                             Comportamiento
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-end">
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('proveedores.show', $proveedore->proveedor_id) }}">
-                                                                Vista
-                                                            </a>
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('proveedores.edit', $proveedore->proveedor_id) }}">
-                                                                Editar
-                                                            </a>
-                                                            <form
-                                                                action="{{ route('proveedores.destroy', $proveedore->proveedor_id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    onclick="if(!confirm('Do you Want to Proceed?')){return false;}"
-                                                                    class="dropdown-item text-red"><i
-                                                                        class="fa fa-fw fa-trash"></i>
-                                                                    Borrar
-                                                                </button>
-                                                            </form>
+                                                            @can('view.suppliers')
+                                                                <a class="dropdown-item"
+                                                                    href="{{ route('proveedores.show', $proveedore->proveedor_id) }}">
+                                                                    Vista
+                                                                </a>
+                                                            @endcan
+
+                                                            @can('edit.suppliers')
+                                                                <a class="dropdown-item"
+                                                                    href="{{ route('proveedores.edit', $proveedore->proveedor_id) }}">
+                                                                    Editar
+                                                                </a>
+                                                            @endcan
+
+                                                            @can('delete.suppliers')
+                                                                <form
+                                                                    action="{{ route('proveedores.destroy', $proveedore->proveedor_id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        onclick="return confirm('¿Estás seguro de que deseas eliminar este proveedor?')"
+                                                                        class="dropdown-item text-red">
+                                                                        <i class="fa fa-fw fa-trash"></i>
+                                                                        Borrar
+                                                                    </button>
+                                                                </form>
+                                                            @endcan
                                                         </div>
                                                     </div>
                                                 </div>
