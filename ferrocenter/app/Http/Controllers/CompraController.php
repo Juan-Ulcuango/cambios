@@ -23,22 +23,22 @@ class CompraController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-    
+
         if ($search) {
             $compras = Compra::with('proveedor')
                 ->where('numero_factura', 'like', "%{$search}%")
-                ->orWhereHas('proveedor', function($query) use ($search) {
+                ->orWhereHas('proveedor', function ($query) use ($search) {
                     $query->where('nombre_proveedor', 'like', "%{$search}%");
                 })
                 ->paginate(10);
         } else {
             $compras = Compra::with('proveedor')->paginate(10);
         }
-    
+
         return view('compra.index', compact('compras'))
             ->with('i', (request()->input('page', 1) - 1) * $compras->perPage());
     }
-    
+
     public function create()
     {
         $compra = new Compra();
@@ -64,46 +64,44 @@ class CompraController extends Controller
     }
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
+            'numero_factura' => 'required|string|max:255',
             'fecha_compra' => 'required|date',
-            'numero_factura' => 'required|unique:compras,numero_factura',
             'subtotal' => 'required|numeric',
             'impuesto' => 'required|numeric',
             'total_compra' => 'required|numeric',
-            'metodo_pago' => 'required',
-            'estado' => 'required',
-            'proveedor_id' => 'required|exists:proveedores,proveedor_id',
-            'producto_id.*' => 'required|exists:productos,producto_id',
-            'cantidad.*' => 'required|numeric|min:1',
+            'metodo_pago' => 'required|string',
+            'estado' => 'required|string',
+            'proveedor_id' => 'required|integer|exists:proveedores,proveedor_id',
+            'producto_id' => 'required|array',
+            'producto_id.*' => 'required|integer|exists:productos,producto_id',
+            'cantidad' => 'required|array',
+            'cantidad.*' => 'required|integer|min:1',
+            'precio_compra' => 'required|array',
             'precio_compra.*' => 'required|numeric|min:0',
         ]);
 
-        $compra = Compra::create($request->only([
-            'fecha_compra',
-            'numero_factura',
-            'subtotal',
-            'impuesto',
-            'total_compra',
-            'metodo_pago',
-            'estado',
-            'proveedor_id',
-        ]));
+        $compra = new Compra();
+        $compra->numero_factura = $request->numero_factura;
+        $compra->fecha_compra = $request->fecha_compra;
+        $compra->subtotal = $request->subtotal;
+        $compra->impuesto = $request->impuesto;
+        $compra->total_compra = $request->total_compra;
+        $compra->metodo_pago = $request->metodo_pago;
+        $compra->estado = $request->estado;
+        $compra->proveedor_id = $request->proveedor_id;
+        $compra->save();
 
-        $productos = [];
-        foreach ($request->producto_id as $key => $producto_id) {
-            $productos[$producto_id] = [
-                'cantidad' => $request->cantidad[$key],
-                'precio_compra' => $request->precio_compra[$key],
-            ];
-
-            // Actualizar inventario
-            $this->updateInventory($producto_id, $request->cantidad[$key]);
+        foreach ($validatedData['producto_id'] as $key => $producto_id) {
+            $compra->productos()->attach($producto_id, [
+                'cantidad' => $validatedData['cantidad'][$key],
+                'precio_compra' => $validatedData['precio_compra'][$key],
+            ]);
         }
 
-        $compra->productos()->attach($productos);
-
-        return redirect()->route('compras.index')->with('success', 'Compra y productos almacenados con éxito.');
+        return redirect()->route('compras.index')->with('success', 'Compra creada con éxito.');
     }
+
     public function show(Compra $compra)
     {
         $compra->load('proveedor', 'productos');

@@ -191,6 +191,7 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -199,6 +200,7 @@
 
             guardarProveedorBtn.addEventListener('click', function() {
                 var formData = new FormData(document.getElementById('nuevoProveedorForm'));
+
                 fetch("{{ route('proveedores.store') }}", {
                         method: 'POST',
                         body: formData,
@@ -211,15 +213,35 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            alert('Proveedor creado con éxito.');
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Éxito',
+                                text: data.success,
+                            });
 
-                            // Añadir el nuevo proveedor a la lista y seleccionarlo
+                            // Añadir el nuevo proveedor a la lista de selección
                             var selectProveedor = document.querySelector('select[name="proveedor_id"]');
-                            var option = document.createElement('option');
-                            option.value = data.proveedor.proveedor_id;
-                            option.textContent = data.proveedor.nombre_proveedor;
-                            option.selected = true;
-                            selectProveedor.appendChild(option);
+                            if (selectProveedor) {
+                                var option = document.createElement('option');
+                                option.value = data.proveedor.id;
+                                option.textContent = data.proveedor.nombre_proveedor;
+                                option.selected = true;
+                                selectProveedor.appendChild(option);
+                                // Disparar el evento change manualmente
+                                var event = new Event('change');
+                                selectProveedor.dispatchEvent(event);
+                            }
+
+                            // Añadir el nuevo proveedor a la vista principal
+                            var proveedoresList = document.getElementById(
+                                'proveedores-list'
+                                ); // Asumiendo que tienes un elemento con id 'proveedores-list'
+                            if (proveedoresList) {
+                                var proveedorItem = document.createElement(
+                                    'li'); // O el elemento adecuado para tu lista
+                                proveedorItem.textContent = data.proveedor.nombre_proveedor;
+                                proveedoresList.appendChild(proveedorItem);
+                            }
 
                             // Cerrar el modal
                             var modal = bootstrap.Modal.getInstance(nuevoProveedorModal);
@@ -228,12 +250,30 @@
                             // Limpiar el formulario
                             document.getElementById('nuevoProveedorForm').reset();
                         } else {
-                            alert('Hubo un error al crear el proveedor.');
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Hubo un error al crear el proveedor.',
+                            });
                         }
                     })
                     .catch(error => {
-                        console.error('Error:', error);
-                        alert('Hubo un error al procesar la solicitud.');
+                        error.text().then(errorMessage => {
+                            let errors = JSON.parse(errorMessage).errors;
+                            let errorMessages = '';
+
+                            for (let key in errors) {
+                                if (errors.hasOwnProperty(key)) {
+                                    errorMessages += errors[key].join('<br>') + '<br>';
+                                }
+                            }
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Errores de Validación',
+                                html: errorMessages,
+                            });
+                        });
                     });
             });
         });
@@ -292,22 +332,18 @@
             let row_number =
                 {{ isset($compra) && $compra->productos->count() > 0 ? $compra->productos->count() : 1 }};
 
-            // Attach event listeners to existing select elements
             function initializeSelectListeners() {
                 document.querySelectorAll('.producto-select').forEach(function(selectElement) {
                     if (!selectElement.hasAttribute('data-initialized')) {
-                        // Mark the select element as initialized to avoid attaching multiple event listeners
                         selectElement.setAttribute('data-initialized', 'true');
                     }
                 });
 
-                // Attach input listeners to cantidad inputs
                 document.querySelectorAll('input[name="cantidad[]"]').forEach(function(inputElement) {
                     inputElement.addEventListener('input', calculateSubtotal);
                 });
             }
 
-            // Initialize select listeners on page load
             initializeSelectListeners();
 
             $("#add_row").click(function(e) {
@@ -317,8 +353,6 @@
                 new_row.find('input').val('');
                 new_row.find('select').val('');
                 $('#products_table tbody').append(new_row);
-
-                // Reinitialize select listeners for new row
                 initializeSelectListeners();
             });
 
@@ -356,9 +390,8 @@
 
             $('#impuesto').on('input', calculateTotal);
 
-            // Handle Obtener Precios de Compra button click
             $('#obtenerPrecios').click(function(e) {
-                e.preventDefault(); // Prevent default form submission
+                e.preventDefault();
                 $('select[name="producto_id[]"]').each(function() {
                     let selectElement = this;
                     let selectedOption = selectElement.options[selectElement.selectedIndex];
@@ -369,7 +402,6 @@
                 calculateSubtotal();
             });
 
-            // Recalculate on page load
             calculateSubtotal();
         });
     </script>
