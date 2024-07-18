@@ -51,7 +51,7 @@
                         </div>
                         <div class="card-body border-bottom py-3">
                             <div class="d-flex">
-                                
+
                                 <div class="ms-auto text-muted">
                                     Buscar:
                                     <div class="ms-2 d-inline-block">
@@ -80,7 +80,7 @@
                                             </svg>
                                         </th>
 
-                                        
+
                                         <th>Fecha Compra</th>
                                         <th>Total Compra</th>
                                         <th>Metodo Pago</th>
@@ -96,7 +96,7 @@
                                                     aria-label="Select compra"></td> --}}
                                             <td>{{ ++$i }}</td>
 
-                                            
+
                                             <td>{{ $compra->fecha_compra }}</td>
                                             <td>{{ $compra->total_compra }}</td>
                                             <td>{{ $compra->metodo_pago }}</td>
@@ -109,11 +109,12 @@
                                                             Comportamiento
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-end">
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('compras.show', $compra->compra_id) }}">
-                                                                Vista
-                                                            </a>
-                                                            
+                                                            @can('view.purchases')
+                                                                <a class="dropdown-item"
+                                                                    href="{{ route('compras.show', $compra->compra_id) }}">
+                                                                    Vista
+                                                                </a>
+                                                            @endcan
                                                         </div>
                                                     </div>
                                                 </div>

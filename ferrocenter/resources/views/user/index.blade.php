@@ -54,7 +54,7 @@
                         </div>
                         <div class="card-body border-bottom py-3">
                             <div class="d-flex">
-                               
+
                                 <div class="ms-auto text-muted">
                                     Buscar:
                                     <div class="ms-2 d-inline-block">
@@ -70,7 +70,7 @@
                             <table class="table card-table table-vcenter text-nowrap datatable">
                                 <thead>
                                     <tr>
-                                       
+
                                         <th class="w-1">No.
                                             <!-- Download SVG icon from http://tabler-icons.io/i/chevron-up -->
                                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +92,7 @@
                                 <tbody>
                                     @forelse ($users as $user)
                                         <tr>
-                                            
+
                                             <td>{{ ++$i }}</td>
 
                                             <td>{{ $user->name }}</td>
@@ -106,25 +106,31 @@
                                                             Comportamiento
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-end">
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('users.show', $user->id) }}">
-                                                                Vista
-                                                            </a>
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('users.edit', $user->id) }}">
-                                                                Editar
-                                                            </a>
-                                                            <form action="{{ route('users.destroy', $user->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    onclick="if(!confirm('Do you Want to Proceed?')){return false;}"
-                                                                    class="dropdown-item text-red"><i
-                                                                        class="fa fa-fw fa-trash"></i>
-                                                                    Borrar
-                                                                </button>
-                                                            </form>
+                                                            @can('view.users')
+                                                                <a class="dropdown-item"
+                                                                    href="{{ route('users.show', $user->id) }}">
+                                                                    Vista
+                                                                </a>
+                                                            @endcan
+                                                            @can('edit.users')
+                                                                <a class="dropdown-item"
+                                                                    href="{{ route('users.edit', $user->id) }}">
+                                                                    Editar
+                                                                </a>
+                                                            @endcan
+                                                            @can('delete.users')
+                                                                <form action="{{ route('users.destroy', $user->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario?')"
+                                                                        class="dropdown-item text-red">
+                                                                        <i class="fa fa-fw fa-trash"></i>
+                                                                        Borrar
+                                                                    </button>
+                                                                </form>
+                                                            @endcan
                                                         </div>
                                                     </div>
                                                 </div>

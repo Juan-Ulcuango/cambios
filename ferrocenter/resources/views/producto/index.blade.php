@@ -115,14 +115,19 @@
                                                             Comportamiento
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-end">
+                                                            @can('view.products')
                                                             <a class="dropdown-item"
                                                                 href="{{ route('productos.show', $producto->producto_id) }}">
                                                                 Vista
                                                             </a>
+                                                            @endcan
+                                                            @can('edit.products')
                                                             <a class="dropdown-item"
                                                                 href="{{ route('productos.edit', $producto->producto_id) }}">
                                                                 Editar
                                                             </a>
+                                                            @endcan
+                                                            @can('delete.products')
                                                             <form
                                                                 action="{{ route('productos.destroy', $producto->producto_id) }}"
                                                                 method="POST">
@@ -135,6 +140,7 @@
                                                                     Borrar
                                                                 </button>
                                                             </form>
+                                                            @endcan
                                                         </div>
                                                     </div>
                                                 </div>

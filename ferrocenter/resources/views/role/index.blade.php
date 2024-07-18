@@ -51,14 +51,14 @@
                         </div>
                         <div class="card-body border-bottom py-3">
                             <div class="d-flex">
-                                
+
                             </div>
                         </div>
                         <div class="table-responsive min-vh-100">
                             <table class="table card-table table-vcenter text-nowrap datatable">
                                 <thead>
                                     <tr>
-                                      
+
                                         <th class="w-1">No.
                                             <!-- Download SVG icon from http://tabler-icons.io/i/chevron-up -->
                                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +80,7 @@
                                 <tbody>
                                     @forelse ($roles as $role)
                                         <tr>
-                                          
+
                                             <td>{{ ++$i }}</td>
 
                                             <td>{{ $role->name }}</td>
@@ -94,29 +94,36 @@
                                                             Comportamiento
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-end">
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('roles.show', $role->id) }}">
-                                                                Vista
-                                                            </a>
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('roles.edit', $role->id) }}">
-                                                                Editar
-                                                            </a>
-                                                            <form action="{{ route('roles.destroy', $role->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    onclick="if(!confirm('Do you Want to Proceed?')){return false;}"
-                                                                    class="dropdown-item text-red"><i
-                                                                        class="fa fa-fw fa-trash"></i>
+                                                            @can('view.roles')
+                                                                <a class="dropdown-item"
+                                                                    href="{{ route('roles.show', $role->id) }}">
+                                                                    Vista
+                                                                </a>
+                                                            @endcan
+                                                            @can('edit.roles')
+                                                                <a class="dropdown-item"
+                                                                    href="{{ route('roles.edit', $role->id) }}">
+                                                                    Editar
+                                                                </a>
+                                                            @endcan
+                                                            @can('delete.roles')
+                                                                <form action="{{ route('roles.destroy', $role->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        onclick="return confirm('¿Estás seguro de que deseas eliminar este rol?')"
+                                                                        class="dropdown-item text-red">
+                                                                        <i class="fa fa-fw fa-trash"></i>
                                                                         Borrar
-                                                                </button>
-                                                            </form>
+                                                                    </button>
+                                                                </form>
+                                                            @endcan
                                                         </div>
                                                     </div>
                                                 </div>
                                             </td>
+
                                         </tr>
                                     @empty
                                         <td>No Data Found</td>

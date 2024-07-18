@@ -12,7 +12,7 @@
                 <div class="col">
                     <!-- Page pre-title -->
                     <div class="page-pretitle">
-                    Lista
+                        Lista
                     </div>
                     <h2 class="page-title">
                         {{ __('Categoria ') }}
@@ -54,7 +54,7 @@
                         </div>
                         <div class="card-body border-bottom py-3">
                             <div class="d-flex">
-                                
+
                                 <div class="ms-auto text-muted">
                                     Buscar:
                                     <div class="ms-2 d-inline-block">
@@ -63,7 +63,7 @@
                                                 aria-label="Search category" value="{{ request()->input('search') }}">
                                         </form>
                                     </div>
-                                   
+
                                 </div>
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                             <table class="table card-table table-vcenter text-nowrap datatable">
                                 <thead>
                                     <tr>
-                                        
+
                                         <th class="w-1">No.
                                             <!-- Download SVG icon from http://tabler-icons.io/i/chevron-up -->
                                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +82,7 @@
                                                 <polyline points="6 15 12 9 18 15" />
                                             </svg>
                                         </th>
-                                        
+
                                         <th>Nombre Categoria</th>
                                         <th>Descripcion Categoria</th>
                                         <th class="w-1"></th>
@@ -91,11 +91,13 @@
                                 <tbody>
                                     @forelse ($categorias as $categoria)
                                         <tr>
-                                            
+
                                             <td>{{ ++$i }}</td>
-                                            
-                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $categoria->nombre_categoria }}</td>
-                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $categoria->descripcion_categoria }}</td>
+
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">
+                                                {{ $categoria->nombre_categoria }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">
+                                                {{ $categoria->descripcion_categoria }}</td>
                                             <td>
                                                 <div class="btn-list flex-nowrap">
                                                     <div class="dropdown">
@@ -104,25 +106,32 @@
                                                             Comportamiento
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-end">
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('categorias.show', $categoria->categoria_id) }}">
-                                                                Vista
-                                                            </a>
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('categorias.edit', $categoria->categoria_id) }}">
-                                                                Editar
-                                                            </a>
-                                                            <form action="{{ route('categorias.destroy', $categoria->categoria_id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    onclick="if(!confirm('Do you Want to Proceed?')){return false;}"
-                                                                    class="dropdown-item text-red"><i
-                                                                        class="fa fa-fw fa-trash"></i>
+                                                            @can('view.categories')
+                                                                <a class="dropdown-item"
+                                                                    href="{{ route('categorias.show', $categoria->categoria_id) }}">
+                                                                    Vista
+                                                                </a>
+                                                            @endcan
+                                                            @can('edit.categories')
+                                                                <a class="dropdown-item"
+                                                                    href="{{ route('categorias.edit', $categoria->categoria_id) }}">
+                                                                    Editar
+                                                                </a>
+                                                            @endcan
+                                                            @can('delete.categories')
+                                                                <form
+                                                                    action="{{ route('categorias.destroy', $categoria->categoria_id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        onclick="return confirm('¿Estás seguro de que deseas eliminar esta categoría?')"
+                                                                        class="dropdown-item text-red">
+                                                                        <i class="fa fa-fw fa-trash"></i>
                                                                         Borrar
-                                                                </button>
-                                                            </form>
+                                                                    </button>
+                                                                </form>
+                                                            @endcan
                                                         </div>
                                                     </div>
                                                 </div>
@@ -143,4 +152,3 @@
         </div>
     </div>
 @endsection
-

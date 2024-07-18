@@ -54,7 +54,7 @@
                         </div>
                         <div class="card-body border-bottom py-3">
                             <div class="d-flex">
-                                
+
                                 <div class="ms-auto text-muted">
                                     Buscar:
                                     <div class="ms-2 d-inline-block">
@@ -70,7 +70,7 @@
                             <table class="table card-table table-vcenter text-nowrap datatable">
                                 <thead>
                                     <tr>
-                                        
+
                                         <th class="w-1">No.
                                             <!-- Download SVG icon from http://tabler-icons.io/i/chevron-up -->
                                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -81,7 +81,7 @@
                                                 <polyline points="6 15 12 9 18 15" />
                                             </svg>
                                         </th>
-                                        
+
                                         <th>Nombre Cliente</th>
                                         <th>Apellido Cliente</th>
                                         <th>Direccion Cliente</th>
@@ -94,15 +94,21 @@
                                 <tbody>
                                     @forelse ($clientes as $cliente)
                                         <tr>
-                                            
+
                                             <td>{{ ++$i }}</td>
-                                            
-                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $cliente->nombre_cliente }}</td>
-                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $cliente->apellido_cliente }}</td>
-                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $cliente->direccion_cliente }}</td>
-                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $cliente->telefono_cliente }}</td>
-                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $cliente->email_cliente }}</td>
-                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $cliente->cedula_cliente }}</td>
+
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">
+                                                {{ $cliente->nombre_cliente }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">
+                                                {{ $cliente->apellido_cliente }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">
+                                                {{ $cliente->direccion_cliente }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">
+                                                {{ $cliente->telefono_cliente }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">
+                                                {{ $cliente->email_cliente }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">
+                                                {{ $cliente->cedula_cliente }}</td>
                                             <td>
                                                 <div class="btn-list flex-nowrap">
                                                     <div class="dropdown">
@@ -111,24 +117,31 @@
                                                             Acciones
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-end">
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('clientes.show', $cliente->cliente_id) }}">
-                                                                Vista
-                                                            </a>
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('clientes.edit', $cliente->cliente_id) }}">
-                                                                Editar
-                                                            </a>
-                                                            <form action="{{ route('clientes.destroy', $cliente->cliente_id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    onclick="if(!confirm('Do you Want to Proceed?')){return false;}"
-                                                                    class="dropdown-item text-red">
-                                                                    Borrar
-                                                                </button>
-                                                            </form>
+                                                            @can('view.clients')
+                                                                <a class="dropdown-item"
+                                                                    href="{{ route('clientes.show', $cliente->cliente_id) }}">
+                                                                    Vista
+                                                                </a>
+                                                            @endcan
+                                                            @can('edit.clients')
+                                                                <a class="dropdown-item"
+                                                                    href="{{ route('clientes.edit', $cliente->cliente_id) }}">
+                                                                    Editar
+                                                                </a>
+                                                            @endcan
+                                                            @can('delete.clients')
+                                                                <form
+                                                                    action="{{ route('clientes.destroy', $cliente->cliente_id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        onclick="return confirm('¿Estás seguro de que deseas eliminar este cliente?')"
+                                                                        class="dropdown-item text-red">
+                                                                        Borrar
+                                                                    </button>
+                                                                </form>
+                                                            @endcan
                                                         </div>
                                                     </div>
                                                 </div>
