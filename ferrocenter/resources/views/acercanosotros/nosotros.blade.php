@@ -137,7 +137,7 @@ Nosotros
         <div class="col-md-3">
           <h5 class="text-white">Recursos</h5>
           <ul class="list-unstyled text-small">
-            <li><a class="text-white" href="https://wa.me/1234567890">Contáctanos</a></li>
+            <li><a class="text-white" href="https://wa.me/+593969767395">Contáctanos</a></li>
           </ul>
         </div>
       </div>
