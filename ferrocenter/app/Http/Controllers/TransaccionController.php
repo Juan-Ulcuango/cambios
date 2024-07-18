@@ -21,9 +21,18 @@ class TransaccionController extends Controller
         $this->middleware('can:delete.transactions')->only('destroy');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $transaccions = Transaccion::with('productos', 'cliente')->paginate(10);
+
+        $search = $request->input('search');
+
+        if ($search) {
+            $transaccions = Transaccion::where('transaccion_id', 'like', "%{$search}%")
+               // ->orWhere('id', 'like', "%{$search}%")
+                ->paginate(10);
+        } else {
+            $transaccions = Transaccion::with('productos', 'cliente')->paginate(10);
+        }
 
         return view('transaccion.index', compact('transaccions'))
             ->with('i', (request()->input('page', 1) - 1) * $transaccions->perPage());

@@ -18,6 +18,12 @@ class AuditController extends Controller
     {
         $search = $request->input('search');
 
+        $auditData = [
+            'created' => Audit::where('event', 'created')->count(),
+            'updated' => Audit::where('event', 'updated')->count(),
+            'deleted' => Audit::where('event', 'deleted')->count(),
+        ];
+
         if ($search) {
             $audits = Audit::where('id', 'like', "%{$search}%")
                 ->orWhere('event', 'like', "%{$search}%")
@@ -26,8 +32,9 @@ class AuditController extends Controller
             $audits = Audit::paginate(10);
         }
 
-        return view('audits.index', compact('audits'));
+        return view('audits.index', compact('audits', 'auditData'));
     }
+
     public function exportPdf()
     {
         $audits = Audit::all();

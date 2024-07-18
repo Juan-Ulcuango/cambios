@@ -30,13 +30,22 @@ class UserController extends Controller
         $this->middleware('can:delete.users')->only('destroy');
         $this->middleware('can:view.profile')->only('showProfile');
     }
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(10);
+        $search = $request->input('search');
 
+        if ($search) {
+            $users = User::where('name', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%")
+                ->orWhere('id', 'like', "%{$search}%")
+                ->paginate(10);
+        } else {
+            $users = User::paginate(10);
+        }
         return view('user.index', compact('users'))
             ->with('i', (request()->input('page', 1) - 1) * $users->perPage());
     }
+
 
     /**
      * Show the form for creating a new resource.

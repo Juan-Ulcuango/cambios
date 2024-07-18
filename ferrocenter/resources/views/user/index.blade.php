@@ -58,8 +58,10 @@
                                 <div class="ms-auto text-muted">
                                     Buscar:
                                     <div class="ms-2 d-inline-block">
-                                        <input type="text" class="form-control form-control-sm"
-                                            aria-label="Search invoice">
+                                        <form action="{{ route('users.index') }}" method="GET">
+                                            <input type="text" name="search" class="form-control form-control-sm"
+                                                aria-label="Search category" value="{{ request()->input('search') }}">
+                                        </form>
                                     </div>
                                 </div>
                             </div>

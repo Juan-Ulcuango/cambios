@@ -43,15 +43,15 @@
                         </div>
                         <div class="card-body border-bottom py-3">
                             <div class="d-flex">
-                                
+
                                 <div class="ms-auto text-muted">
-                                Buscar:
-                                <div class="ms-2 d-inline-block">
-                                    <form action="{{ route('inventarios.index') }}" method="GET">
-                                        <input type="text" name="search" class="form-control form-control-sm"
-                                            aria-label="Search inventario" value="{{ request()->input('search') }}">
-                                    </form>
-                                </div>
+                                    Buscar:
+                                    <div class="ms-2 d-inline-block">
+                                        <form action="{{ route('inventarios.index') }}" method="GET">
+                                            <input type="text" name="search" class="form-control form-control-sm"
+                                                aria-label="Search inventario" value="{{ request()->input('search') }}">
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                             <table class="table card-table table-vcenter text-nowrap datatable">
                                 <thead>
                                     <tr>
-                                        
+
                                         <th class="w-1">No.
                                             <!-- Download SVG icon from http://tabler-icons.io/i/chevron-up -->
                                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -70,10 +70,6 @@
                                                 <polyline points="6 15 12 9 18 15" />
                                             </svg>
                                         </th>
-<<<<<<< HEAD
-=======
-                                        
->>>>>>> d439fc40eb0efad2f5168a05e2604cab5fd46526
                                         <th>Stock</th>
                                         <th>Fecha Ingreso</th>
                                         <th>Fecha Movimiento</th>
@@ -85,12 +81,8 @@
                                 <tbody>
                                     @forelse ($inventarios as $inventario)
                                         <tr>
-                                            
+
                                             <td>{{ ++$i }}</td>
-<<<<<<< HEAD
-=======
-                                            
->>>>>>> d439fc40eb0efad2f5168a05e2604cab5fd46526
                                             <td>{{ $inventario->stock }}</td>
                                             <td>{{ $inventario->fecha_ingreso }}</td>
                                             <td>{{ $inventario->fecha_movimiento }}</td>
@@ -112,7 +104,8 @@
                                                                 href="{{ route('inventarios.edit', $inventario->inventario_id) }}">
                                                                 Editar
                                                             </a>
-                                                            <form action="{{ route('inventarios.destroy', $inventario->inventario_id) }}"
+                                                            <form
+                                                                action="{{ route('inventarios.destroy', $inventario->inventario_id) }}"
                                                                 method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
