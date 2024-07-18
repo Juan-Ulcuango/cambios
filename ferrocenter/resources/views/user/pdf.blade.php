@@ -69,7 +69,7 @@
                     <tr>
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $user->name }}</td>
-                        <td>{{ $user->mail }}</td>
+                        <td>{{ $user->email }}</td>
                     </tr>
                 @endforeach
             </tbody>
