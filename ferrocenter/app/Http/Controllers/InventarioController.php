@@ -22,6 +22,9 @@ class InventarioController extends Controller
 
         if ($search) {
             $inventarios = Inventario::where('inventario_id', 'like', "%{$search}%")
+                ->orWhereHas('producto', function ($query) use ($search) {
+                    $query->where('nombre_producto', 'like', "%{$search}%");
+                })
                 ->paginate(10);
         } else {
             $inventarios = Inventario::with('producto')->paginate(10);
@@ -30,6 +33,7 @@ class InventarioController extends Controller
         return view('inventario.index', compact('inventarios'))
             ->with('i', (request()->input('page', 1) - 1) * $inventarios->perPage());
     }
+
 
     public function create()
     {
@@ -67,7 +71,7 @@ class InventarioController extends Controller
         $productos = Producto::all();
         return view('inventario.edit', compact('inventario', 'productos'));
     }
-    
+
 
     public function update(Request $request, $id)
     {
