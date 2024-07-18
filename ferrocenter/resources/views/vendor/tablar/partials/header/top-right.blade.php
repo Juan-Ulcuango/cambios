@@ -31,7 +31,7 @@
             <a class="dropdown-item"
                href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="fa fa-fw fa-power-off text-red"></i>
-                {{ __('tablar::tablar.log_out') }}
+                Salir
             </a>
 
             <form id="logout-form" action="{{ $logout_url }}" method="POST" style="display: none;">

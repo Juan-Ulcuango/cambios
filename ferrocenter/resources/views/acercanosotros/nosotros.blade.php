@@ -27,7 +27,6 @@ Nosotros
                             <button type="button" data-bs-target="#carousel-sample" data-bs-slide-to="5"></button>
                             <button type="button" data-bs-target="#carousel-sample" data-bs-slide-to="6"></button>
                             <button type="button" data-bs-target="#carousel-sample" data-bs-slide-to="7"></button>
-                            <button type="button" data-bs-target="#carousel-sample" data-bs-slide-to="8"></button>
                         </div>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
@@ -36,10 +35,6 @@ Nosotros
                             <div class="carousel-item">
                                 <img class="d-block w-100" alt=""
                                     src="assets/Img_1.jpg" />
-                            </div>
-                            <div class="carousel-item">
-                                <img class="d-block w-100" alt=""
-                                    src="assets/Img_2.jpg" />
                             </div>
                             <div class="carousel-item">
                                 <img class="d-block w-100" alt=""
