@@ -106,28 +106,14 @@
                                                     <div class="dropdown">
                                                         <button class="btn dropdown-toggle align-text-top"
                                                             data-bs-toggle="dropdown">
-                                                            Actions
+                                                            Comportamiento
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-end">
                                                             <a class="dropdown-item"
                                                                 href="{{ route('compras.show', $compra->compra_id) }}">
-                                                                View
+                                                                Vista
                                                             </a>
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('compras.edit', $compra->compra_id) }}">
-                                                                Edit
-                                                            </a>
-                                                            <form action="{{ route('compras.destroy', $compra->compra_id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    onclick="if(!confirm('Do you Want to Proceed?')){return false;}"
-                                                                    class="dropdown-item text-red"><i
-                                                                        class="fa fa-fw fa-trash"></i>
-                                                                    Delete
-                                                                </button>
-                                                            </form>
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
