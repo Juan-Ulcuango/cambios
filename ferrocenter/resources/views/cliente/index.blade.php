@@ -81,7 +81,7 @@
                                                 <polyline points="6 15 12 9 18 15" />
                                             </svg>
                                         </th>
-                                        <th>Cliente Id</th>
+                                        
                                         <th>Nombre Cliente</th>
                                         <th>Apellido Cliente</th>
                                         <th>Direccion Cliente</th>
@@ -96,7 +96,7 @@
                                         <tr>
                                             
                                             <td>{{ ++$i }}</td>
-                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $cliente->cliente_id }}</td>
+                                            
                                             <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $cliente->nombre_cliente }}</td>
                                             <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $cliente->apellido_cliente }}</td>
                                             <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $cliente->direccion_cliente }}</td>

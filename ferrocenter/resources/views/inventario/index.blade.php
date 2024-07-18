@@ -70,6 +70,10 @@
                                                 <polyline points="6 15 12 9 18 15" />
                                             </svg>
                                         </th>
+<<<<<<< HEAD
+=======
+                                        
+>>>>>>> d439fc40eb0efad2f5168a05e2604cab5fd46526
                                         <th>Stock</th>
                                         <th>Fecha Ingreso</th>
                                         <th>Fecha Movimiento</th>
@@ -83,6 +87,10 @@
                                         <tr>
                                             
                                             <td>{{ ++$i }}</td>
+<<<<<<< HEAD
+=======
+                                            
+>>>>>>> d439fc40eb0efad2f5168a05e2604cab5fd46526
                                             <td>{{ $inventario->stock }}</td>
                                             <td>{{ $inventario->fecha_ingreso }}</td>
                                             <td>{{ $inventario->fecha_movimiento }}</td>

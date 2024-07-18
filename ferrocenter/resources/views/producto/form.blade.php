@@ -1,9 +1,5 @@
 <div class="form-group mb-3">
-    <label class="form-label">{{ Form::label('producto_id') }}</label>
-    <div>
-        {{ Form::text('producto_id', $producto->producto_id, ['class' => 'form-control' . ($errors->has('producto_id') ? ' is-invalid' : ''), 'placeholder' => 'Producto Id']) }}
-        {!! $errors->first('producto_id', '<div class="invalid-feedback">:message</div>') !!}
-    </div>
+    
 </div>
 <div class="form-group mb-3">
     <label class="form-label">{{ Form::label('nombre_producto') }}</label>

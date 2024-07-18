@@ -50,10 +50,6 @@
                         <div class="card-body">
 
                             <div class="form-group mb-3">
-                                <label class="form-label"><strong>Cliente Id:</strong></label>
-                                <div class="form-control">{{ $cliente->cliente_id }}</div>
-                            </div>
-                            <div class="form-group mb-3">
                                 <label class="form-label"><strong>Nombre Cliente:</strong></label>
                                 <div class="form-control">{{ $cliente->nombre_cliente }}</div>
                             </div>

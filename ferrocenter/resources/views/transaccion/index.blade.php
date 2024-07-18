@@ -80,7 +80,7 @@
                                         </svg>
                                     </th>
                                     
-                                    <th>Transaccion Id</th>
+                                    
                                     <th>Cliente</th> 
                                     <th>Fecha Transaccion</th>
                                     <th>Total Transaccion</th>
@@ -98,7 +98,7 @@
                                        
                                         <td>{{ ++$i }}</td>
                                         
-                                        <td>{{ $transaccion->transaccion_id }}</td>
+                                        
                                         <td>{{ $transaccion->cliente->nombre_cliente }} {{ $transaccion->cliente->apellido_cliente }}</td> <!-- Mostrar cliente -->
                                         <td>{{ $transaccion->fecha_transaccion }}</td>
                                         <td>{{ $transaccion->total_transaccion }}</td>
@@ -124,22 +124,7 @@
                                                            href="{{ route('transaccions.show',$transaccion->transaccion_id) }}">
                                                            Vista
                                                         </a>
-                                                        <a class="dropdown-item"
-                                                           href="{{ route('transaccions.edit',$transaccion->transaccion_id) }}">
-                                                           Editar
-                                                        </a>
-                                                        <form
-                                                            action="{{ route('transaccions.destroy',$transaccion->transaccion_id) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                    onclick="if(!confirm('Do you Want to Proceed?')){return false;}"
-                                                                    class="dropdown-item text-red"><i
-                                                                    class="fa fa-fw fa-trash"></i>
-                                                                    Borrar
-                                                            </button>
-                                                        </form>
+                                                        
                                                     </div>
                                                 </div>
                                             </div>

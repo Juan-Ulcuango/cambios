@@ -80,7 +80,7 @@
                                             </svg>
                                         </th>
 
-                                        <th>Compra Id</th>
+                                        
                                         <th>Fecha Compra</th>
                                         <th>Total Compra</th>
                                         <th>Metodo Pago</th>
@@ -96,7 +96,7 @@
                                                     aria-label="Select compra"></td> --}}
                                             <td>{{ ++$i }}</td>
 
-                                            <td>{{ $compra->compra_id }}</td>
+                                            
                                             <td>{{ $compra->fecha_compra }}</td>
                                             <td>{{ $compra->total_compra }}</td>
                                             <td>{{ $compra->metodo_pago }}</td>

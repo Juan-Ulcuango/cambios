@@ -48,10 +48,7 @@
                             <h3 class="card-title">Detalles del Proveedore</h3>
                         </div>
                         <div class="card-body">
-                            <div class="form-group mb-3">
-                                <label class="form-label"><strong>Proveedor Id:</strong></label>
-                                <div class="form-control">{{ $proveedore->proveedor_id }}</div>
-                            </div>
+                            
                             <div class="form-group mb-3">
                                 <label class="form-label"><strong>Nombre Proveedor:</strong></label>
                                 <div class="form-control">{{ $proveedore->nombre_proveedor }}</div>

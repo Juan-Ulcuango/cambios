@@ -49,8 +49,8 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group mb-3">
-                                <label class="form-label"><strong>Transaccion Id:</strong></label>
-                                <div class="form-control">{{ $transaccion->transaccion_id }}</div>
+                                <label class="form-label"><strong>Cliente:</strong></label>
+                                <div class="form-control">{{ $transaccion->cliente->nombre_cliente }} {{ $transaccion->cliente->apellido_cliente }}</div>
                             </div>
                             <div class="form-group mb-3">
                                 <label class="form-label"><strong>Fecha Transaccion:</strong></label>
@@ -67,6 +67,16 @@
                             <div class="form-group mb-3">
                                 <label class="form-label"><strong>Tipo Transaccion:</strong></label>
                                 <div class="form-control">{{ $transaccion->tipo_transaccion }}</div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label"><strong>Productos:</strong></label>
+                                <div class="form-control">
+                                    <ul>
+                                        @foreach($transaccion->productos as $producto)
+                                            <li>{{ $producto->nombre_producto }} ({{ $producto->pivot->cantidad }} x ${{ $producto->precio_unitario }})</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
