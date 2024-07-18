@@ -1,11 +1,4 @@
-<div class="form-group mb-3">
-    <label class="form-label">   {{ Form::label('categoria_id') }}</label>
-    <div>
-        {{ Form::text('categoria_id', $categoria->categoria_id, ['class' => 'form-control' .
-        ($errors->has('categoria_id') ? ' is-invalid' : ''), 'placeholder' => 'Categoria Id']) }}
-        {!! $errors->first('categoria_id', '<div class="invalid-feedback">:message</div>') !!}
-    </div>
-</div>
+
 <div class="form-group mb-3">
     <label class="form-label">   {{ Form::label('nombre_categoria') }}</label>
     <div>

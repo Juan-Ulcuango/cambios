@@ -48,10 +48,7 @@
                             <h3 class="card-title">Detalles de categoría</h3>
                         </div>
                         <div class="card-body">
-                            <div class="form-group mb-3">
-                                <label class="form-label"><strong>Categoria Id:</strong></label>
-                                <div class="form-control">{{ $categoria->categoria_id }}</div>
-                            </div>
+                            
                             <div class="form-group mb-3">
                                 <label class="form-label"><strong>Nombre Categoria:</strong></label>
                                 <div class="form-control">{{ $categoria->nombre_categoria }}</div>

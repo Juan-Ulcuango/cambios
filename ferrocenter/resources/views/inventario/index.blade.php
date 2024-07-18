@@ -81,7 +81,7 @@
                                                 <polyline points="6 15 12 9 18 15" />
                                             </svg>
                                         </th>
-                                        <th>Inventario Id</th>
+                                        
                                         <th>Stock</th>
                                         <th>Fecha Ingreso</th>
                                         <th>Fecha Movimiento</th>
@@ -95,7 +95,7 @@
                                         <tr>
                                             
                                             <td>{{ ++$i }}</td>
-                                            <td>{{ $inventario->inventario_id }}</td>
+                                            
                                             <td>{{ $inventario->stock }}</td>
                                             <td>{{ $inventario->fecha_ingreso }}</td>
                                             <td>{{ $inventario->fecha_movimiento }}</td>

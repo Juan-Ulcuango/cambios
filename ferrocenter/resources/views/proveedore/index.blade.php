@@ -82,7 +82,7 @@
                                         </svg>
                                     </th>
                                     
-										<th>Proveedor Id</th>
+										
 										<th>Nombre Proveedor</th>
 										<th>Direccion Proveedor</th>
 										<th>Telefono Proveedor</th>
@@ -98,7 +98,7 @@
                                        
                                         <td>{{ ++$i }}</td>
                                         
-											<td style="word-wrap: break-word; white-space: pre-wrap;">{{ $proveedore->proveedor_id }}</td>
+											
 											<td style="word-wrap: break-word; white-space: pre-wrap;">{{ $proveedore->nombre_proveedor }}</td>
 											<td style="word-wrap: break-word; white-space: pre-wrap;">{{ $proveedore->direccion_proveedor }}</td>
 											<td style="word-wrap: break-word; white-space: pre-wrap;">{{ $proveedore->telefono_proveedor }}</td>

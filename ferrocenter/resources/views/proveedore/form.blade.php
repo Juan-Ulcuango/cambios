@@ -1,10 +1,5 @@
 <div class="form-group mb-3">
-    <label class="form-label">   {{ Form::label('proveedor_id') }}</label>
-    <div>
-        {{ Form::text('proveedor_id', $proveedore->proveedor_id, ['class' => 'form-control' .
-        ($errors->has('proveedor_id') ? ' is-invalid' : ''), 'placeholder' => 'Proveedor Id']) }}
-        {!! $errors->first('proveedor_id', '<div class="invalid-feedback">:message</div>') !!}
-    </div>
+    
 </div>
 <div class="form-group mb-3">
     <label class="form-label">   {{ Form::label('nombre_proveedor') }}</label>

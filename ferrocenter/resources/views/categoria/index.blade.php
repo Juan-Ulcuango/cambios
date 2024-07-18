@@ -82,7 +82,7 @@
                                                 <polyline points="6 15 12 9 18 15" />
                                             </svg>
                                         </th>
-                                        <th>Categoria Id</th>
+                                        
                                         <th>Nombre Categoria</th>
                                         <th>Descripcion Categoria</th>
                                         <th class="w-1"></th>
@@ -93,7 +93,7 @@
                                         <tr>
                                             
                                             <td>{{ ++$i }}</td>
-                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $categoria->categoria_id }}</td>
+                                            
                                             <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $categoria->nombre_categoria }}</td>
                                             <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $categoria->descripcion_categoria }}</td>
                                             <td>
