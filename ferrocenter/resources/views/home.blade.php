@@ -301,7 +301,6 @@ FerroCenter
           <h5 class="text-white">Recursos</h5>
           <ul class="list-unstyled text-small">
             <li><a class="text-white" href="https://wa.me/+593969767395">Contáctanos</a></li>
-            <li><span class="text-white">FAQs</span></li>
           </ul>
         </div>
       </div>
