@@ -194,13 +194,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Almacenar todos los proveedores existentes
-            var proveedores = Array.from(document.querySelector('select[name="proveedor_id"]').options).map(
-                option => ({
-                    id: option.value,
-                    nombre: option.textContent
-                }));
-
             var nuevoProveedorModal = document.getElementById('nuevoProveedorModal');
             var guardarProveedorBtn = document.getElementById('guardarProveedor');
 
@@ -220,14 +213,13 @@
                         if (data.success) {
                             alert('Proveedor creado con éxito.');
 
-                            // Añadir el nuevo proveedor a la lista
-                            proveedores.push({
-                                id: data.proveedor.proveedor_id,
-                                nombre: data.proveedor.nombre_proveedor
-                            });
-
-                            // Actualizar el select con todos los proveedores
-                            actualizarSelectProveedores();
+                            // Añadir el nuevo proveedor a la lista y seleccionarlo
+                            var selectProveedor = document.querySelector('select[name="proveedor_id"]');
+                            var option = document.createElement('option');
+                            option.value = data.proveedor.proveedor_id;
+                            option.textContent = data.proveedor.nombre_proveedor;
+                            option.selected = true;
+                            selectProveedor.appendChild(option);
 
                             // Cerrar el modal
                             var modal = bootstrap.Modal.getInstance(nuevoProveedorModal);
@@ -244,28 +236,6 @@
                         alert('Hubo un error al procesar la solicitud.');
                     });
             });
-
-            function actualizarSelectProveedores() {
-                var selectProveedor = document.querySelector('select[name="proveedor_id"]');
-                selectProveedor.innerHTML = ''; // Limpiar opciones existentes
-
-                proveedores.forEach(proveedor => {
-                    var option = document.createElement('option');
-                    option.value = proveedor.id;
-                    option.textContent = proveedor.nombre;
-                    selectProveedor.appendChild(option);
-                });
-
-                // Seleccionar el último proveedor añadido
-                selectProveedor.value = proveedores[proveedores.length - 1].id;
-
-                // Disparar evento de cambio
-                var event = new Event('change');
-                selectProveedor.dispatchEvent(event);
-
-                // Si estás usando Select2, actualízalo aquí
-                // $(selectProveedor).trigger('change.select2');
-            }
         });
     </script>
     <script>
