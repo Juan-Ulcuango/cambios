@@ -17,23 +17,31 @@ class AuditController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-
-        $auditData = [
-            'created' => Audit::where('event', 'created')->count(),
-            'updated' => Audit::where('event', 'updated')->count(),
-            'deleted' => Audit::where('event', 'deleted')->count(),
-        ];
-
+    
         if ($search) {
-            $audits = Audit::where('id', 'like', "%{$search}%")
-                ->orWhere('event', 'like', "%{$search}%")
+            $audits = Audit::with('user')
+                ->where('id', 'like', "%{$search}%")
                 ->paginate(10);
         } else {
-            $audits = Audit::paginate(10);
+            $audits = Audit::with('user')->paginate(10);
         }
-
-        return view('audits.index', compact('audits', 'auditData'));
+    
+        $userEvents = Audit::with('user')
+            ->get()
+            ->groupBy('user.name')
+            ->map(function ($audits) {
+                return [
+                    'created' => $audits->where('event', 'created')->count(),
+                    'updated' => $audits->where('event', 'updated')->count(),
+                    'deleted' => $audits->where('event', 'deleted')->count(),
+                ];
+            });
+    
+        return view('audits.index', compact('audits', 'userEvents'));
     }
+    
+
+
 
     public function exportPdf()
     {

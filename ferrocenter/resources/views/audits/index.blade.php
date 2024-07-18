@@ -1,6 +1,3 @@
-index audits
-
-
 @extends('tablar::page')
 
 @section('title')
@@ -50,14 +47,6 @@ index audits
                         </div>
                         <div class="card-body border-bottom py-3">
                             <div class="d-flex">
-                                <div class="text-muted">
-                                    Mostrar
-                                    <div class="mx-2 d-inline-block">
-                                        <input type="text" class="form-control form-control-sm" value="10"
-                                            size="3" aria-label="Audits count">
-                                    </div>
-                                    entradas
-                                </div>
                                 <div class="ms-auto text-muted">
                                     Buscar:
                                     <div class="ms-2 d-inline-block">
@@ -102,23 +91,23 @@ index audits
                                         <tr>
                                             <td><input class="form-check-input m-0 align-middle" type="checkbox"
                                                     aria-label="Select audit"></td>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $audit->id }}</td>
-                                            <td>{{ optional($audit->user)->name }}</td>
-                                            <td>{{ $audit->event }}</td>
-                                            <td>{{ class_basename($audit->auditable_type) }}</td>
-                                            <td>{{ $audit->auditable_id }}</td>
-                                            <td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $loop->iteration }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $audit->id }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ optional($audit->user)->name }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $audit->event }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ class_basename($audit->auditable_type) }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $audit->auditable_id }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">
                                                 @foreach ($audit->old_values as $key => $value)
                                                     <strong>{{ $key }}:</strong> {{ $value }}<br>
                                                 @endforeach
                                             </td>
-                                            <td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">
                                                 @foreach ($audit->new_values as $key => $value)
                                                     <strong>{{ $key }}:</strong> {{ $value }}<br>
                                                 @endforeach
                                             </td>
-                                            <td>{{ $audit->created_at }}</td>
+                                            <td style="word-wrap: break-word; white-space: pre-wrap;">{{ $audit->created_at }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -143,6 +132,7 @@ index audits
                                 <option value="bar">Barras</option>
                                 <option value="pie">Circular</option>
                                 <option value="line">Líneas</option>
+                                <option value="area">Área</option>
                             </select>
                         </div>
                     </div>
@@ -159,29 +149,40 @@ index audits
         document.addEventListener("DOMContentLoaded", function() {
             const ctx = document.getElementById('auditChart').getContext('2d');
             
-            const auditData = @json($auditData);
+            const userEvents = @json($userEvents);
+
+            // Generar colores aleatorios para cada usuario
+            const colors = Object.keys(userEvents).map(() => {
+                const color = `#${Math.floor(Math.random()*16777215).toString(16)}`;
+                return {
+                    backgroundColor: color + '33', // Transparente para área y barras
+                    borderColor: color
+                };
+            });
 
             let chartType = document.getElementById('chartType').value;
 
             let auditChart = new Chart(ctx, {
                 type: chartType,
                 data: {
-                    labels: ['Creado', 'Actualizado', 'Eliminado'],
-                    datasets: [{
-                        label: 'Eventos de Auditoría',
-                        data: [auditData.created, auditData.updated, auditData.deleted],
-                        backgroundColor: [
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 99, 132, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 99, 132, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
+                    labels: Object.keys(userEvents),
+                    datasets: [
+                        {
+                            label: 'Creado',
+                            data: Object.values(userEvents).map(user => user.created),
+                            ...colors[0]
+                        },
+                        {
+                            label: 'Actualizado',
+                            data: Object.values(userEvents).map(user => user.updated),
+                            ...colors[1]
+                        },
+                        {
+                            label: 'Eliminado',
+                            data: Object.values(userEvents).map(user => user.deleted),
+                            ...colors[2]
+                        }
+                    ]
                 },
                 options: {
                     responsive: true,
@@ -198,24 +199,29 @@ index audits
                 const selectedType = this.value;
                 auditChart.destroy();
                 auditChart = new Chart(ctx, {
-                    type: selectedType,
+                    type: selectedType === 'area' ? 'line' : selectedType,
                     data: {
-                        labels: ['Creado', 'Actualizado', 'Eliminado'],
-                        datasets: [{
-                            label: 'Eventos de Auditoría',
-                            data: [auditData.created, auditData.updated, auditData.deleted],
-                            backgroundColor: [
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 99, 132, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 99, 132, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
+                        labels: Object.keys(userEvents),
+                        datasets: [
+                            {
+                                label: 'Creado',
+                                data: Object.values(userEvents).map(user => user.created),
+                                fill: selectedType === 'area',
+                                ...colors[0]
+                            },
+                            {
+                                label: 'Actualizado',
+                                data: Object.values(userEvents).map(user => user.updated),
+                                fill: selectedType === 'area',
+                                ...colors[1]
+                            },
+                            {
+                                label: 'Eliminado',
+                                data: Object.values(userEvents).map(user => user.deleted),
+                                fill: selectedType === 'area',
+                                ...colors[2]
+                            }
+                        ]
                     },
                     options: {
                         responsive: true,
