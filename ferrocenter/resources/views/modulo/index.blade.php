@@ -59,9 +59,6 @@ Modulo
                     </div>
                 </div>
             @empty
-                <div class="col-12">
-                    <p>Datos no encontrados</p>
-                </div>
             @endforelse
         </div>
 

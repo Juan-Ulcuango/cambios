@@ -80,7 +80,6 @@
                                             </svg>
                                         </th>
 
-
                                         <th>Fecha Compra</th>
                                         <th>Total Compra</th>
                                         <th>Metodo Pago</th>
@@ -92,12 +91,8 @@
                                 <tbody>
                                     @forelse ($compras as $compra)
                                         <tr>
-                                            {{-- <td><input class="form-check-input m-0 align-middle" type="checkbox"
-                                                    aria-label="Select compra"></td> --}}
                                             <td>{{ ++$i }}</td>
-
-
-                                            <td>{{ $compra->fecha_compra }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($compra->fecha_compra)->format('d-m-Y') }}</td>
                                             <td>{{ $compra->total_compra }}</td>
                                             <td>{{ $compra->metodo_pago }}</td>
 

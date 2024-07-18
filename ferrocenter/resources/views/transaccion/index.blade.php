@@ -70,7 +70,6 @@
                             <table class="table card-table table-vcenter text-nowrap datatable">
                                 <thead>
                                     <tr>
-
                                         <th class="w-1">No.
                                             <!-- Download SVG icon from http://tabler-icons.io/i/chevron-up -->
                                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -81,15 +80,12 @@
                                                 <polyline points="6 15 12 9 18 15" />
                                             </svg>
                                         </th>
-
-
                                         <th>Cliente</th>
                                         <th>Fecha Transaccion</th>
                                         <th>Total Transaccion</th>
                                         <th>Metodo Pago</th>
                                         <th>Tipo Transaccion</th>
                                         <th>Productos</th>
-
                                         <th class="w-1"></th>
                                     </tr>
                                 </thead>
@@ -97,13 +93,11 @@
                                 <tbody>
                                     @forelse ($transaccions as $transaccion)
                                         <tr>
-
                                             <td>{{ ++$i }}</td>
-
-
                                             <td>{{ $transaccion->cliente->nombre_cliente }}
-                                                {{ $transaccion->cliente->apellido_cliente }}</td> <!-- Mostrar cliente -->
-                                            <td>{{ $transaccion->fecha_transaccion }}</td>
+                                                {{ $transaccion->cliente->apellido_cliente }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($transaccion->fecha_transaccion)->format('d-m-Y') }}
+                                            </td>
                                             <td>{{ $transaccion->total_transaccion }}</td>
                                             <td>{{ $transaccion->metodo_pago }}</td>
                                             <td>{{ $transaccion->tipo_transaccion }}</td>
@@ -116,7 +110,6 @@
                                                     @endforeach
                                                 </ul>
                                             </td>
-
                                             <td>
                                                 <div class="btn-list flex-nowrap">
                                                     <div class="dropdown">
@@ -126,10 +119,10 @@
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-end">
                                                             @can('view.transactions')
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('transaccions.show', $transaccion->transaccion_id) }}">
-                                                                Vista
-                                                            </a>
+                                                                <a class="dropdown-item"
+                                                                    href="{{ route('transaccions.show', $transaccion->transaccion_id) }}">
+                                                                    Vista
+                                                                </a>
                                                             @endcan
                                                         </div>
                                                     </div>
@@ -140,7 +133,6 @@
                                         <td>Datos no encontrados</td>
                                     @endforelse
                                 </tbody>
-
                             </table>
                         </div>
                         <div class="card-footer d-flex align-items-center">
