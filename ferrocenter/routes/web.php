@@ -58,6 +58,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/acercanosotros', [NosotrosController::class, 'index'])->name('acercanosotros.nosotros');
     Route::post('/productos', [ProductoController::class, 'store'])->name('productos.store');
     Route::get('/productos/list', [ProductoController::class, 'list'])->name('productos.list');
+    Route::post('/proveedores', [ProveedoreController::class, 'store'])->name('proveedores.store');
+    Route::get('/proveedores/list', [ProveedoreController::class, 'getProveedores'])->name('proveedores.list');
 });
 
 Route::get('/password/recover', 'PasswordController@showRecoverForm')->name('password.recover');

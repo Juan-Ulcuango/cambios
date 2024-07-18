@@ -210,7 +210,12 @@
                             'X-Requested-With': 'XMLHttpRequest'
                         }
                     })
-                    .then(response => response.json())
+                    .then(response => {
+                        if (!response.ok) {
+                            throw response;
+                        }
+                        return response.json();
+                    })
                     .then(data => {
                         if (data.success) {
                             Swal.fire({
@@ -219,28 +224,15 @@
                                 text: data.success,
                             });
 
-                            // Añadir el nuevo proveedor a la lista de selección
+                            // Actualizar el select de proveedores
                             var selectProveedor = document.querySelector('select[name="proveedor_id"]');
                             if (selectProveedor) {
                                 var option = document.createElement('option');
-                                option.value = data.proveedor.id;
+                                option.value = data.proveedor.proveedor_id;
                                 option.textContent = data.proveedor.nombre_proveedor;
                                 option.selected = true;
                                 selectProveedor.appendChild(option);
-                                // Disparar el evento change manualmente
-                                var event = new Event('change');
-                                selectProveedor.dispatchEvent(event);
-                            }
-
-                            // Añadir el nuevo proveedor a la vista principal
-                            var proveedoresList = document.getElementById(
-                                'proveedores-list'
-                                ); // Asumiendo que tienes un elemento con id 'proveedores-list'
-                            if (proveedoresList) {
-                                var proveedorItem = document.createElement(
-                                    'li'); // O el elemento adecuado para tu lista
-                                proveedorItem.textContent = data.proveedor.nombre_proveedor;
-                                proveedoresList.appendChild(proveedorItem);
+                                selectProveedor.dispatchEvent(new Event('change'));
                             }
 
                             // Cerrar el modal
@@ -249,6 +241,22 @@
 
                             // Limpiar el formulario
                             document.getElementById('nuevoProveedorForm').reset();
+                        }
+                    })
+                    .catch(error => {
+                        if (error.status === 422) {
+                            error.json().then(errorData => {
+                                let errorMessages = '';
+                                for (let key in errorData.errors) {
+                                    errorMessages += errorData.errors[key].join('<br>') +
+                                        '<br>';
+                                }
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Errores de Validación',
+                                    html: errorMessages,
+                                });
+                            });
                         } else {
                             Swal.fire({
                                 icon: 'error',
@@ -256,24 +264,6 @@
                                 text: 'Hubo un error al crear el proveedor.',
                             });
                         }
-                    })
-                    .catch(error => {
-                        error.text().then(errorMessage => {
-                            let errors = JSON.parse(errorMessage).errors;
-                            let errorMessages = '';
-
-                            for (let key in errors) {
-                                if (errors.hasOwnProperty(key)) {
-                                    errorMessages += errors[key].join('<br>') + '<br>';
-                                }
-                            }
-
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Errores de Validación',
-                                html: errorMessages,
-                            });
-                        });
                     });
             });
         });
@@ -326,6 +316,40 @@
                     });
             });
         });
+
+        function updateProveedoresList() {
+            fetch("{{ route('proveedores.list') }}")
+                .then(response => response.json())
+                .then(proveedores => {
+                    var selectProveedor = document.querySelector('select[name="proveedor_id"]');
+                    if (selectProveedor) {
+                        // Guardar el valor seleccionado actualmente
+                        var selectedValue = selectProveedor.value;
+
+                        // Limpiar las opciones existentes
+                        selectProveedor.innerHTML = '<option value="">Seleccione un proveedor</option>';
+
+                        // Añadir las nuevas opciones
+                        proveedores.forEach(proveedor => {
+                            var option = document.createElement('option');
+                            option.value = proveedor.proveedor_id;
+                            option.textContent = proveedor.nombre_proveedor;
+                            selectProveedor.appendChild(option);
+                        });
+
+                        // Restaurar el valor seleccionado si aún existe
+                        if (proveedores.some(p => p.proveedor_id == selectedValue)) {
+                            selectProveedor.value = selectedValue;
+                        }
+
+                        // Disparar el evento change
+                        selectProveedor.dispatchEvent(new Event('change'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al actualizar la lista de proveedores:', error);
+                });
+        }
     </script>
     <script>
         $(document).ready(function() {

@@ -167,4 +167,9 @@ class ProveedoreController extends Controller
         $filename = 'Proveedores-' . $currentDate . '.pdf';
         return $pdf->download($filename);
     }
+    public function getProveedores()
+    {
+        $proveedores = Proveedore::all();
+        return response()->json($proveedores);
+    }
 }
