@@ -62,10 +62,12 @@ class InventarioController extends Controller
     public function edit($id)
     {
         $inventario = Inventario::findOrFail($id);
+        // Formatear la fecha a YYYY-MM-DD si no está en ese formato
+        $inventario->fecha_movimiento = Carbon::parse($inventario->fecha_movimiento)->format('Y-m-d');
         $productos = Producto::all();
-
         return view('inventario.edit', compact('inventario', 'productos'));
     }
+    
 
     public function update(Request $request, $id)
     {

@@ -68,7 +68,6 @@
         <table>
             <thead>
                 <tr>
-                    <th>Inventario Id</th>
                     <th>Stock</th>
                     <th>Fecha Ingreso</th>
                     <th>Fecha Movimiento</th>
@@ -79,7 +78,6 @@
             <tbody>
                 @foreach ($inventario as $inventario)
                     <tr>
-                        <td>{{ $inventario->inventario_id }}</td>
                         <td>{{ $inventario->stock }}</td>
                         <td>{{ $inventario->fecha_ingreso }}</td>
                         <td>{{ $inventario->fecha_movimiento }}</td>

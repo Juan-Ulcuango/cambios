@@ -21,17 +21,6 @@
                 <!-- Page title actions -->
                 <div class="col-12 col-md-auto ms-auto d-print-none">
                     <div class="btn-list">
-                        <a href="{{ route('inventarios.create') }}" class="btn btn-primary d-none d-sm-inline-block">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <line x1="12" y1="5" x2="12" y2="19" />
-                                <line x1="5" y1="12" x2="19" y2="12" />
-                            </svg>
-                            Crear Inventario
-                        </a>
                         <a href="{{ route('inventarios.pdf') }}" class="btn btn-secondary d-none d-sm-inline-block">
                             Exportar a PDF
                         </a>
@@ -81,7 +70,6 @@
                                                 <polyline points="6 15 12 9 18 15" />
                                             </svg>
                                         </th>
-                                        <th>Inventario Id</th>
                                         <th>Stock</th>
                                         <th>Fecha Ingreso</th>
                                         <th>Fecha Movimiento</th>
@@ -95,7 +83,6 @@
                                         <tr>
                                             
                                             <td>{{ ++$i }}</td>
-                                            <td>{{ $inventario->inventario_id }}</td>
                                             <td>{{ $inventario->stock }}</td>
                                             <td>{{ $inventario->fecha_ingreso }}</td>
                                             <td>{{ $inventario->fecha_movimiento }}</td>
@@ -121,12 +108,6 @@
                                                                 method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button type="submit"
-                                                                    onclick="if(!confirm('Do you Want to Proceed?')){return false;}"
-                                                                    class="dropdown-item text-red"><i
-                                                                        class="fa fa-fw fa-trash"></i>
-                                                                        Borrar
-                                                                </button>
                                                             </form>
                                                         </div>
                                                     </div>

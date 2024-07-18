@@ -36,10 +36,6 @@
                                 <th>Producto</th>
                                 <td>{{ $inventario->producto->nombre_producto }}</td>
                             </tr>
-                            <tr>
-                                <th>Producto ID</th>
-                                <td>{{ $inventario->producto->producto_id }}</td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>

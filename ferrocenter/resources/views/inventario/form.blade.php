@@ -1,10 +1,5 @@
 <div class="form-group mb-3">
-    <label class="form-label">{{ Form::label('inventario_id', 'Inventario ID') }}</label>
-    <div>
-        {{ Form::text('inventario_id', $inventario->inventario_id, ['class' => 'form-control' . ($errors->has('inventario_id') ? ' is-invalid' : ''), 'readonly' => true, 'placeholder' => 'Inventario Id']) }}
-        {!! $errors->first('inventario_id', '<div class="invalid-feedback">:message</div>') !!}
-        <small class="form-hint">inventario <b>inventario_id</b> instruction.</small>
-    </div>
+{{ Form::hidden('inventario_id', $inventario->inventario_id) }}
 </div>
 <div class="form-group mb-3">
     <label class="form-label">{{ Form::label('stock', 'Stock') }}</label>
