@@ -2,10 +2,10 @@
     <div class="nav-item dropdown">
         <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
            aria-label="Open user menu">
-           <span class="avatar" style="background-image: url(https://img.a.transfermarkt.technology/portrait/big/28003-1710080339.jpg?lm=1)"></span>
+           <span class="avatar" style="background-image: url(https://us.123rf.com/450wm/caiquame/caiquame2101/caiquame210100429/163283955-marcador-de-posici%C3%B3n-de-icono-de-cabeza-de-perfil-de-hombre-en-blanco.jpg?ver=6)"></span>
             <div class="d-none d-xl-block ps-2">
                 <div>{{Auth()->user()->name}}</div>
-                <div class="mt-1 small text-muted">Software Engineer</div>
+                <div class="mt-1 small text-muted">Administrador FerroCenter</div>
             </div>
         </a>
         <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">

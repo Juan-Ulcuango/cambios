@@ -278,7 +278,6 @@ FerroCenter
   </script>
 
 </div>
-
 <footer>
   <div class="footer-upper" style="background-color: #313c52; padding: 20px 0;">
     <div class="container">
@@ -286,31 +285,23 @@ FerroCenter
         <div class="col-md-3">
           <h5 class="text-white">Ferrocenter</h5>
           <ul class="list-unstyled text-small">
-            <li><a class="text-white" href="#">Acerca de nosotros</a></li>
-            <li><a class="text-white" href="#">¿Por qué FerroCenter?</a></li>
-            <li><a class="text-white" href="#">Conviértete en proveedor</a></li>
-          </ul>
-        </div>
-        <div class="col-md-3">
-          <h5 class="text-white">Políticas del sitio</h5>
-          <ul class="list-unstyled text-small">
-            <li><a class="text-white" href="#">Términos legales</a></li>
-            <li><a class="text-white" href="#">Política de privacidad</a></li>
+            <!-- Usar 'route' para generar el enlace correcto -->
+            <li><a class="text-white" href="{{ route('acercanosotros.nosotros') }}">Acerca de nosotros</a></li>
           </ul>
         </div>
         <div class="col-md-3">
           <h5 class="text-white">Servicio al cliente</h5>
           <ul class="list-unstyled text-small">
-            <li><a class="text-white" href="#">Garantía</a></li>
-            <li><a class="text-white" href="#">Devoluciones</a></li>
-            <li><a class="text-white" href="#">Contacto</a></li>
+            <li><span class="text-white">Garantía</span></li>
+            <li><span class="text-white">Devoluciones</span></li>
+            <li><span class="text-white">Contacto</span></li>
           </ul>
         </div>
         <div class="col-md-3">
           <h5 class="text-white">Recursos</h5>
           <ul class="list-unstyled text-small">
-            <li><a class="text-white" href="#">Contáctanos</a></li>
-            <li><a class="text-white" href="#">FAQs</a></li>
+            <li><a class="text-white" href="https://wa.me/0969767395">Contáctanos</a></li>
+            <li><span class="text-white">FAQs</span></li>
           </ul>
         </div>
       </div>
@@ -322,4 +313,7 @@ FerroCenter
     </div>
   </div>
 </footer>
+
+
+
 @endsection
