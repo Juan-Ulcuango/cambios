@@ -32,7 +32,8 @@
 <div class="form-group mb-3">
     <label class="form-label">{{ Form::label('categoria_id', 'Categoría') }}</label>
     <div>
-        {{ Form::select('categoria_id', $categorias->pluck('nombre_categoria', 'categoria_id'), null, ['class' => 'form-control' . ($errors->has('categoria_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione una categoría']) }}
+        {{ Form::select('categoria_id', $categorias->pluck('nombre_categoria', 'categoria_id'), $producto->categoria_id, ['class' => 'form-control' . ($errors->has('categoria_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione una categoría']) }}
+
         {!! $errors->first('categoria_id', '<div class="invalid-feedback">:message</div>') !!}
     </div>
 </div>

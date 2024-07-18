@@ -28,8 +28,7 @@
                     <label class="form-label">{{ Form::label('metodo_pago', 'Método de Pago') }}</label>
                     <div>
                         {{ Form::select('metodo_pago', [
-                            'efectivo' => 'Efectivo',                            
-                            'transferencia' => 'Transferencia'
+                            'efectivo' => 'Efectivo'                            
                         ], null, ['class' => 'form-control' . ($errors->has('metodo_pago') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione un método de pago']) }}
                         {!! $errors->first('metodo_pago', '<div class="invalid-feedback">:message</div>') !!}
                     </div>
@@ -180,48 +179,101 @@
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var nuevoClienteModal = document.getElementById('nuevoClienteModal');
-        var guardarClienteBtn = document.getElementById('guardarCliente');
+    var nuevoClienteModal = document.getElementById('nuevoClienteModal');
+    var guardarClienteBtn = document.getElementById('guardarCliente');
 
-        guardarClienteBtn.addEventListener('click', function() {
-            var formData = new FormData(document.getElementById('nuevoClienteForm'));
-            fetch("{{ route('clientes.store') }}", {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Cliente creado con éxito.');
-
-                        // Añadir el nuevo cliente a la lista
-                        var selectCliente = document.querySelector('select[name="cliente_id"]');
-                        var option = document.createElement('option');
-                        option.value = data.cliente.cliente_id;
-                        option.textContent = data.cliente.nombre_cliente + ' ' + data.cliente.apellido_cliente;
-                        option.selected = true;
-                        selectCliente.appendChild(option);
-
-                        // Cerrar el modal
-                        var modal = bootstrap.Modal.getInstance(nuevoClienteModal);
-                        modal.hide();
-
-                        // Limpiar el formulario
-                        document.getElementById('nuevoClienteForm').reset();
-                    } else {
-                        alert('Hubo un error al crear el cliente.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Hubo un error al procesar la solicitud.');
-                });
-        });
+    // Añadir el evento blur al campo de cédula para validar
+    var cedulaInput = document.getElementById('cedula_cliente');
+    cedulaInput.addEventListener('blur', function() {
+        validarCedula(cedulaInput);
     });
+
+    guardarClienteBtn.addEventListener('click', function() {
+        var cedulaValida = cedulaInput.checkValidity();
+        if (!cedulaValida) {
+            alert('La cédula no es válida. Por favor, revise el campo de cédula.');
+            return;
+        }
+
+        var formData = new FormData(document.getElementById('nuevoClienteForm'));
+        fetch("{{ route('clientes.store') }}", {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Cliente creado con éxito.');
+
+                    // Añadir el nuevo cliente a la lista
+                    var selectCliente = document.querySelector('select[name="cliente_id"]');
+                    var option = document.createElement('option');
+                    option.value = data.cliente.cliente_id;
+                    option.textContent = data.cliente.nombre_cliente + ' ' + data.cliente.apellido_cliente;
+                    option.selected = true;
+                    selectCliente.appendChild(option);
+
+                    // Cerrar el modal
+                    var modal = bootstrap.Modal.getInstance(nuevoClienteModal);
+                    modal.hide();
+
+                    // Limpiar el formulario
+                    document.getElementById('nuevoClienteForm').reset();
+                } else {
+                    alert('Hubo un error al crear el cliente.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Hubo un error al procesar la solicitud.');
+            });
+    });
+});
+
+function validarCedula(input) {
+    const cedula = input.value;
+    let mensaje = '';
+    if (cedula.length !== 10) {
+        mensaje = "La cédula debe tener 10 dígitos.";
+    } else {
+        const coeficientes = [2, 1, 2, 1, 2, 1, 2, 1, 2];
+        const digitos = cedula.split('').map(Number);
+        const verificador = digitos.pop();
+        const provincia = parseInt(cedula.substring(0, 2), 10);
+        if (provincia < 1 || provincia > 24) {
+            mensaje = "La provincia de la cédula no es válida.";
+        } else {
+            let suma = 0;
+            for (let i = 0; i < digitos.length; i++) {
+                let multiplicacion = digitos[i] * coeficientes[i];
+                if (multiplicacion >= 10) {
+                    multiplicacion -= 9;
+                }
+                suma += multiplicacion;
+            }
+            const digitoCalculado = (10 - (suma % 10)) % 10;
+            if (digitoCalculado !== verificador) {
+                mensaje = "La cédula no es válida.";
+            }
+        }
+    }
+
+    input.setCustomValidity(mensaje);
+    var errorElement = document.getElementById('error-' + input.id);
+    if (!errorElement) {
+        errorElement = document.createElement('div');
+        errorElement.id = 'error-' + input.id;
+        errorElement.style.color = 'red';
+        input.parentNode.appendChild(errorElement);
+    }
+    errorElement.innerText = mensaje;
+}
+
 </script>
+
 
 @endsection

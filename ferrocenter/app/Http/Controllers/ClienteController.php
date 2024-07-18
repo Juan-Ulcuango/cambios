@@ -69,27 +69,28 @@ class ClienteController extends Controller
      */
     // ClienteController.php
     public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'nombre_cliente' => 'required|string|max:255',
-            'apellido_cliente' => 'required|string|max:255',
-            'cedula_cliente' => 'required|string|max:20|unique:clientes,cedula_cliente',
-            'direccion_cliente' => 'required|string|max:255',
-            'telefono_cliente' => 'required|string|max:15',
-            'email_cliente' => 'required|string|email|max:255|unique:clientes,email_cliente',
+{
+    $validatedData = $request->validate([
+        'nombre_cliente' => 'required|string|max:255',
+        'apellido_cliente' => 'required|string|max:255',
+        'cedula_cliente' => 'required|string|max:20|unique:clientes,cedula_cliente',
+        'direccion_cliente' => 'required|string|max:255',
+        'telefono_cliente' => 'required|string|max:15',
+        'email_cliente' => 'required|string|email|max:255|unique:clientes,email_cliente',
+    ]);
+
+    $cliente = Cliente::create($validatedData);
+
+    if ($request->ajax()) {
+        return response()->json([
+            'success' => true,
+            'cliente' => $cliente
         ]);
-
-        $cliente = Cliente::create($validatedData);
-
-        if ($request->ajax()) {
-            return response()->json([
-                'success' => true,
-                'cliente' => $cliente
-            ]);
-        } else {
-            return redirect()->route('clientes.index')->with('success', 'Cliente creado exitosamente.');
-        }
+    } else {
+        return redirect()->route('clientes.index')->with('success', 'Cliente creado exitosamente.');
     }
+}
+
 
 
     /**
