@@ -1,14 +1,12 @@
 # Usa una imagen base de PHP con Apache
 FROM php:8.1-apache
 
-# Instala las dependencias necesarias
+# Instala las dependencias necesarias y Composer
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
-    curl
-
-# Instala Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+    curl \
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Establece el directorio de trabajo
 WORKDIR /app
