@@ -1,37 +1,25 @@
-# Usar una imagen base que ya tenga PHP y Composer instalados
-FROM php:8.2-cli
+# Usa una imagen base de PHP con Apache
+FROM php:8.1-apache
 
-# Instalar dependencias del sistema necesarias para Composer y Node.js
+# Instala las dependencias necesarias
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
-    curl \
-    && apt-get clean
+    curl
 
-# Instalar Composer
+# Instala Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Instalar Node.js y npm
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
-    && apt-get install -y nodejs \
-    && apt-get clean
-
-# Establecer el directorio de trabajo
+# Establece el directorio de trabajo
 WORKDIR /app
 
-# Copiar los archivos del proyecto
-COPY . /app
+# Copia los archivos de la aplicación al contenedor
+COPY . /app/
 
-# Instalar dependencias de PHP y Node.js
-RUN composer install && npm install --production
+# Instala las dependencias de Composer
+RUN composer install
 
-# Generar la clave de la aplicación
-RUN php artisan key:generate
-
-# Establecer permisos para el almacenamiento y el caché
-RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache
-
-# Exponer el puerto 8000 para la aplicación
+# Expone el puerto para el servidor de desarrollo
 EXPOSE 8000
 
 # Comando para iniciar la aplicación
