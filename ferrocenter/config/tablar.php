@@ -197,14 +197,14 @@ return [
             'text' => 'Modulos',
             'icon' => 'ti ti-hexagons',
             'url' => 'modulos',
-            'roles' => ['gerente']
+            'roles' => ['gerente','admin']
         ],
 
         [
             'text' => 'Productos',
             'icon' => 'ti ti-packages',
             'url' => 'productos',
-            'roles' => ['gerente','vendedor','inventario','cliente']
+            'roles' => ['gerente','vendedor','inventario','cliente','compras']
         ],
 
         [
@@ -244,34 +244,6 @@ return [
         //         [
         //             'text' => 'Ticket',
         //             'url' => 'support1',
-        //             'icon' => 'ti ti-article',
-        //         ]
-        //     ],
-        // ],
-
-        // [
-        //     'text' => 'Support 2',
-        //     'url' => '#',
-        //     'icon' => 'ti ti-help',
-        //     'active' => ['support2'],
-        //     'submenu' => [
-        //         [
-        //             'text' => 'Ticket',
-        //             'url' => 'support2',
-        //             'icon' => 'ti ti-article',
-        //         ]
-        //     ],
-        // ],
-
-        // [
-        //     'text' => 'Support 3',
-        //     'url' => '#',
-        //     'icon' => 'ti ti-help',
-        //     'active' => ['support3'],
-        //     'submenu' => [
-        //         [
-        //             'text' => 'Ticket',
-        //             'url' => 'support3',
         //             'icon' => 'ti ti-article',
         //         ]
         //     ],
