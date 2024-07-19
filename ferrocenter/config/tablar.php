@@ -190,7 +190,7 @@ return [
             'text' => 'Inventario',
             'icon' => 'ti ti-brand-databricks',
             'url' => 'inventarios',
-            'roles' => ['gerente','compras','inventario']
+            'roles' => ['gerente','compras','inventario','vendedor']
         ],
 
         [
@@ -211,14 +211,14 @@ return [
             'text' => 'Proveedores',
             'icon' => 'ti ti-building-store',
             'url' => 'proveedores',
-            'roles' => ['gerente','vendedor','compras','inventario']
+            'roles' => ['gerente','compras','inventario']
         ],
 
         [
             'text' => 'Transaccion',
             'icon' => 'ti ti-coin',
             'url' => 'transaccions',
-            'roles' => ['gerente','compras','vendedor']
+            'roles' => ['gerente','vendedor']
         ],
 
         [

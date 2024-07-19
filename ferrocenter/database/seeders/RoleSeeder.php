@@ -72,7 +72,7 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'view.about', 'description' => 'Ver Acerca de Nosotros']);
 
         // Crear roles y asignar permisos
-        $admin = Role::create(['name' => 'admin', 'description' => 'Encargado de administrar todo']);
+        $admin = Role::create(['name' => 'admin', 'description' => 'Encargado de Roles y Usuarios']);
         $admin->givePermissionTo([
             'view.roles',
             'create.roles',
