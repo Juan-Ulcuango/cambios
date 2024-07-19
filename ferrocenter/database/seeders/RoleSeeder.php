@@ -82,6 +82,7 @@ class RoleSeeder extends Seeder
             'create.users',
             'edit.users',
             'delete.users',
+            'view.audits'
         ]);
 
         $vendedor = Role::create(['name' => 'vendedor', 'description' => 'Encargado de ventas']);
