@@ -169,70 +169,70 @@ return [
             'text' => 'Categorias',
             'icon' => 'ti ti-category',
             'url' => 'categorias',
-            'roles' => ['admin','gerente','inventario']
+            'roles' => ['gerente','inventario']
         ],
 
         [
             'text' => 'Clientes',
             'icon' => 'ti ti-users',
             'url' => 'clientes',
-            'roles' => ['admin','gerente','vendedor']
+            'roles' => ['gerente','vendedor']
         ],
 
         [
             'text' => 'Compras',
             'icon' => 'ti ti-shopping-cart',
             'url' => 'compras',
-            'roles' => ['admin','gerente','compras']
+            'roles' => ['gerente','compras']
         ],
 
         [
             'text' => 'Inventario',
             'icon' => 'ti ti-brand-databricks',
             'url' => 'inventarios',
-            'roles' => ['admin','gerente','compras','inventario']
+            'roles' => ['gerente','compras','inventario']
         ],
 
         [
             'text' => 'Modulos',
             'icon' => 'ti ti-hexagons',
             'url' => 'modulos',
-            'roles' => ['admin','gerente']
+            'roles' => ['gerente']
         ],
 
         [
             'text' => 'Productos',
             'icon' => 'ti ti-packages',
             'url' => 'productos',
-            'roles' => ['admin','gerente','vendedor','inventario','cliente']
+            'roles' => ['gerente','vendedor','inventario','cliente']
         ],
 
         [
             'text' => 'Proveedores',
             'icon' => 'ti ti-building-store',
             'url' => 'proveedores',
-            'roles' => ['admin','gerente','vendedor','compras','inventario']
+            'roles' => ['gerente','vendedor','compras','inventario']
         ],
 
         [
             'text' => 'Transaccion',
             'icon' => 'ti ti-coin',
             'url' => 'transaccions',
-            'roles' => ['admin','gerente','compras','vendedor']
+            'roles' => ['gerente','compras','vendedor']
         ],
 
         [
             'text' => 'Auditoria',
             'icon' => 'ti ti-book-upload',
             'url' => 'audits',
-            'roles' => ['admin']
+            'roles' => ['admin','gerente']
         ],
 
         [
             'text' => 'Acerca de Nosotros',
             'icon' => 'ti ti-accessible',
             'url' => 'acercanosotros',
-            'roles' => ['admin']
+            'roles' => ['admin','gerente','vendedor','compras','inventario','cliente']
         ],
 
         // [
