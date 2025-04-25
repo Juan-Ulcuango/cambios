@@ -32,7 +32,7 @@ FerroCenter es un sistema web de gestión empresarial desarrollado como proyecto
 ### 1️⃣ Clonar el repositorio
 
 ```bash
-git clone https://github.com/DiegoCuaycal/sistema-gestion-ferreteria.git
+git clone https://github.com/Juan-Ulcuango/cambios
 cd sistema-gestion-ferreteria
 ```
 
